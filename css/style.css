@@ -76,44 +76,40 @@ ul { list-style: none; }
   margin: 0 auto;
 }
 
-/* ===== LOGO COMPONENT ===== */
-.logo-mark {
-  display: inline-flex;
-  align-items: center;
-  background: var(--black);
+/* ===== LOGO SVG COMPONENT ===== */
+.vreach-logo {
+  display: block;
   border-radius: 8px;
-  padding: 4px 6px;
-  line-height: 1;
+  overflow: hidden;
 }
 
-.logo-v {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-size: 1.6rem;
-  color: var(--blue);
-  letter-spacing: -0.05em;
-  font-style: italic;
+/* Navbar: compact horizontal */
+.vreach-logo--nav {
+  width: 160px;
+  height: auto;
 }
 
-.logo-r {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-size: 1.6rem;
-  color: var(--white);
-  letter-spacing: -0.05em;
+/* Hero: large centered */
+.vreach-logo--hero {
+  width: 340px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(33,150,243,0.25), 0 0 120px rgba(33,150,243,0.1);
 }
 
-.logo-text {
-  display: flex;
-  align-items: center;
-  margin-left: 2px;
+/* About section */
+.vreach-logo--about {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
 }
 
-.logo-reach {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.1rem;
-  color: var(--white);
-  font-weight: 600;
+/* Footer: small */
+.vreach-logo--footer {
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 /* ===== BUTTONS ===== */
@@ -203,14 +199,12 @@ ul { list-style: none; }
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 6px;
   flex-shrink: 0;
 }
 
-.nav-logo .logo-mark { padding: 3px 5px; }
-.nav-logo .logo-v { font-size: 1.3rem; }
-.nav-logo .logo-r { font-size: 1.3rem; }
-.nav-logo .logo-reach { font-size: 0.95rem; }
+.nav-logo .vreach-logo--nav {
+  width: 80px;
+}
 
 .nav-links {
   display: flex;
@@ -295,28 +289,9 @@ ul { list-style: none; }
 }
 
 .hero-logo {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  display: inline-block;
   margin-bottom: 32px;
 }
-
-.hero-logo-mark {
-  display: inline-flex;
-  align-items: center;
-  background: var(--black);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 16px;
-  padding: 16px 20px;
-  box-shadow: 0 0 60px rgba(33,150,243,0.2), inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
-.hero-logo-mark .logo-v { font-size: 4rem; }
-.hero-logo-mark .logo-r { font-size: 4rem; }
-
-.hero-logo-text { margin-top: 4px; }
-.hero-logo-text .logo-reach { font-size: 1.8rem; }
 
 .hero-tagline {
   font-size: clamp(1.6rem, 4vw, 2.8rem);
@@ -634,27 +609,16 @@ ul { list-style: none; }
 }
 
 .about-logo-display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
   background: var(--black);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-lg);
-  padding: 48px 40px;
+  padding: 24px;
   box-shadow: 0 0 80px rgba(33,150,243,0.15);
+  display: inline-block;
 }
 
-.about-logo-mark {
-  display: inline-flex;
-  align-items: center;
-  background: var(--black);
-  padding: 8px 10px;
-}
-
-.about-logo-mark .logo-v { font-size: 3.5rem; }
-.about-logo-mark .logo-r { font-size: 3.5rem; }
-.about-logo-text .logo-reach { font-size: 1.6rem; }
+.about-logo-mark { display: none; }
+.about-logo-text { display: none; }
 
 .about-badge {
   background: rgba(33,150,243,0.15);
@@ -898,15 +862,9 @@ ul { list-style: none; }
 }
 
 .footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 16px;
+  display: inline-block;
+  margin-bottom: 4px;
 }
-
-.logo-mark-sm .logo-v { font-size: 1.2rem; }
-.logo-mark-sm .logo-r { font-size: 1.2rem; }
-.footer-logo .logo-reach { font-size: 0.9rem; }
 
 .footer-brand p {
   color: rgba(255,255,255,0.5);

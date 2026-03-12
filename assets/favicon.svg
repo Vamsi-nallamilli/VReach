@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#000000"/>
-  <text x="6" y="46" font-family="Arial Black, sans-serif" font-weight="900" font-size="38" font-style="italic" fill="#2196f3">V</text>
-  <text x="28" y="46" font-family="Arial Black, sans-serif" font-weight="900" font-size="38" fill="#ffffff">R</text>
+  <rect width="64" height="64" rx="10" fill="#000000"/>
+  <!-- V scaled to 64x64 from 320x100 viewBox, cropping "each..." -->
+  <path d="M5 11 L8 11 L17 50 L14 50 Z M14 50 L17 50 L20 38 L16 38 Z" fill="#2196F3"/>
+  <path d="M22 11 L26 11 L26 50 L22 50 L22 34 Q29 34 29 41 Q29 49 22 49 L22 53 Q34 53 34 43 Q34 34 22 34 Z M22 34 L25 34 L29 50 L27 50 Z" fill="white"/>
 </svg>
