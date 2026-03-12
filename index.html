@@ -13,15 +13,20 @@
 </head>
 <body>
 
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-follower" id="cursorFollower"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
 
 <!-- NAVBAR -->
 <header class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="VReach Home">
       <img src="assets/VReach_Logo.jpeg" alt="VReach" class="logo-img"/>
+      <span class="logo-name">VReach</span>
     </a>
     <nav class="nav-links" id="navLinks">
       <a href="#home" class="nav-link">Home</a>
@@ -45,16 +50,21 @@
 <!-- HERO -->
 <section class="hero" id="home">
   <canvas class="hero-canvas" id="heroCanvas"></canvas>
-  <div class="hero-noise"></div>
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow">
       <span class="eyebrow-dot"></span>
       Hyderabad's Digital Growth Partner
     </div>
     <h1 class="hero-headline">
-      <span class="line-wrap"><span class="line">Where Ideas</span></span>
-      <span class="line-wrap"><em class="line gradient-text">Expand Your</em></span>
-      <span class="line-wrap"><span class="line">Reach.</span></span>
+      <span class="line-wrap"><span class="line split-text">Where Ideas</span></span>
+      <span class="line-wrap"><em class="line gradient-text split-text">Expand Your</em></span>
+      <span class="line-wrap"><span class="line split-text">Reach.</span></span>
     </h1>
     <p class="hero-desc">Strategic digital marketing that turns visibility into revenue. Built for brands that want to dominate their market.</p>
     <div class="hero-actions">
@@ -90,6 +100,8 @@
     <span>SEO & Growth</span><span class="marquee-dot">✦</span>
     <span>Content Creation</span><span class="marquee-dot">✦</span>
     <span>Brand Identity</span><span class="marquee-dot">✦</span>
+    <span>WebGL Graphics</span><span class="marquee-dot">✦</span>
+    <span>3D Experiences</span><span class="marquee-dot">✦</span>
     <span>Analytics</span><span class="marquee-dot">✦</span>
     <span>Digital Strategy</span><span class="marquee-dot">✦</span>
     <span>Social Media</span><span class="marquee-dot">✦</span>
@@ -97,6 +109,8 @@
     <span>SEO & Growth</span><span class="marquee-dot">✦</span>
     <span>Content Creation</span><span class="marquee-dot">✦</span>
     <span>Brand Identity</span><span class="marquee-dot">✦</span>
+    <span>WebGL Graphics</span><span class="marquee-dot">✦</span>
+    <span>3D Experiences</span><span class="marquee-dot">✦</span>
     <span>Analytics</span><span class="marquee-dot">✦</span>
   </div>
 </div>
@@ -299,9 +313,10 @@
     <div class="about-layout">
       <div class="about-visual reveal">
         <div class="about-card">
+          <div class="about-card-glow"></div>
+          <div class="about-blob" aria-hidden="true"></div>
           <img src="assets/VReach_Logo.jpeg" alt="VReach" class="about-logo-img"/>
           <div class="about-card-tag">Est. Hyderabad</div>
-          <div class="about-card-glow"></div>
         </div>
       </div>
       <div class="about-text reveal">
@@ -329,7 +344,7 @@
       <h2 class="section-title">From the <em>VReach Blog</em></h2>
     </div>
     <div class="blog-grid">
-      <article class="blog-card reveal">
+      <article class="blog-card reveal" data-delay="1">
         <div class="blog-thumb" style="background:linear-gradient(135deg,#0a0f1e,#0d2137)">
           <span class="blog-cat">Social Media</span>
         </div>
@@ -340,7 +355,7 @@
           <a href="#blog" class="blog-link">Read More <span>→</span></a>
         </div>
       </article>
-      <article class="blog-card reveal">
+      <article class="blog-card reveal" data-delay="2">
         <div class="blog-thumb" style="background:linear-gradient(135deg,#0f1a2e,#1a2e4a)">
           <span class="blog-cat">Performance Ads</span>
         </div>
@@ -351,7 +366,7 @@
           <a href="#blog" class="blog-link">Read More <span>→</span></a>
         </div>
       </article>
-      <article class="blog-card reveal">
+      <article class="blog-card reveal" data-delay="3">
         <div class="blog-thumb" style="background:linear-gradient(135deg,#1a0a2e,#2e1a4a)">
           <span class="blog-cat">SEO</span>
         </div>
