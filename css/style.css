@@ -76,6 +76,86 @@ strong { font-weight: 600; color: var(--text); }
 
 body:hover .cursor-follower { opacity: 1; }
 
+/* ── VReach Logo Component ── */
+/*
+  Uses real font characters for V and R so they look exactly
+  like the original logo — proper letterforms, no hand-drawn paths.
+  V overlaps R via negative margin. "each..." sits bottom-right.
+*/
+.vr-logo {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  background: #000;
+  line-height: 1;
+}
+
+.vr-v, .vr-r {
+  font-family: 'Syne', 'Arial Black', sans-serif;
+  font-weight: 800;
+  line-height: 0.9;
+  display: block;
+}
+
+.vr-v {
+  color: #2196F3;
+  position: relative;
+  z-index: 2;
+}
+
+.vr-r {
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+  /* Pull R left so V overlaps its left edge */
+  margin-left: -0.18em;
+}
+
+.vr-each {
+  font-family: 'Dancing Script', cursive;
+  font-weight: 600;
+  color: #ffffff;
+  position: absolute;
+  bottom: -0.15em;
+  /* Align with right side of R */
+  right: 0;
+  white-space: nowrap;
+}
+
+/* Sizes */
+.vr-logo--sm {
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+.vr-logo--sm .vr-v,
+.vr-logo--sm .vr-r  { font-size: 2rem; }
+.vr-logo--sm .vr-each { font-size: 0.7rem; bottom: -0.6em; }
+
+.vr-logo--md {
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.vr-logo--md .vr-v,
+.vr-logo--md .vr-r  { font-size: 3.2rem; }
+.vr-logo--md .vr-each { font-size: 1rem; bottom: -0.7em; }
+
+.vr-logo--lg {
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 0 60px rgba(33,150,243,0.15);
+}
+.vr-logo--lg .vr-v,
+.vr-logo--lg .vr-r  { font-size: 6rem; }
+.vr-logo--lg .vr-each { font-size: 1.6rem; bottom: -0.8em; }
+
+.vr-logo--watermark {
+  padding: 0;
+  background: transparent;
+  opacity: 0.06;
+}
+.vr-logo--watermark .vr-v,
+.vr-logo--watermark .vr-r { font-size: 14rem; }
+
 /* ── Tags & Shared ── */
 .tag {
   display: inline-flex;
@@ -212,10 +292,6 @@ body:hover .cursor-follower { opacity: 1; }
 }
 
 .nav-logo { flex-shrink: 0; }
-.logo-svg { width: 52px; height: auto; }
-.logo-img { width: 48px; height: auto; display: block; border-radius: 6px; }
-.about-logo-img { width: 160px; height: auto; display: block; border-radius: 8px; }
-.footer-logo-img { width: 72px; height: auto; display: block; border-radius: 6px; margin-bottom: 16px; }
 
 .nav-links {
   display: flex;
@@ -441,15 +517,11 @@ body:hover .cursor-follower { opacity: 1; }
 
 .hero-logo-bg {
   position: absolute;
-  right: -2%;
+  right: 2%;
   top: 50%;
   transform: translateY(-50%);
-  width: 42%;
-  max-width: 500px;
-  opacity: 0.04;
   pointer-events: none;
   z-index: 1;
-  filter: blur(1px);
 }
 
 .hero-logo-watermark {

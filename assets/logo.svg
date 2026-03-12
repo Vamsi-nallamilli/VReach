@@ -1,59 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 640" width="500" height="640">
-  <!-- Pure black, no rounded corners -->
-  <rect width="500" height="640" fill="#000000"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 480" width="380" height="480">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&amp;family=Dancing+Script:wght@600&amp;display=swap');
+    </style>
+  </defs>
 
-  <!--
-    EXACT MATCH TO IMG1:
-    =====================
-    V:  Blue (#2196F3), tall thin angular shape.
-        Left stroke: starts top-left, goes diagonally down to a sharp bottom point.
-        Right stroke: from bottom point, goes up-right at ~45°, shorter than left.
-        V is positioned LEFT, its bottom point is around x=155, y=390.
+  <rect width="380" height="480" fill="#000000"/>
 
-    R:  White, NO leg, NO stem.
-        Just a thick donut/ring arc — the top half of a large circle ring.
-        Open on the LEFT side (where V's right stroke sits).
-        The bowl starts at roughly the same height as V top, curves right and down.
-        Bottom of bowl opening aligns with V's bottom point area.
-        R is positioned to the RIGHT, overlapping V's right stroke.
-
-    "each...":
-        Small white cursive text.
-        Positioned at bottom-RIGHT of the R bowl opening.
-        Baseline aligns with the bottom of the R arc (~y=420).
-        NOT centered — offset to the right side.
-  -->
-
-  <!-- R: thick arc ring, open on left, solid white, NO leg -->
-  <!-- 
-    Center of R circle: cx=295, cy=230
-    Outer radius: 155
-    Inner radius: 105
-    Arc spans from ~200° to ~360° (top, sweeping right and down to bottom)
-    Open gap on left side (160° to 200°)
-  -->
-  <path d="
-    M 155, 195
-    C 155, 80  435, 80  435, 230
-    C 435, 375 155, 375 155, 375
-    L 155, 320
-    C 155, 320  375, 320  375, 230
-    C 375, 135 155, 135 155, 135
-    Z
-  " fill="#ffffff"/>
-
-  <!-- V: blue, tall, thin strokes, drawn ON TOP of R -->
-  <!-- Left stroke: top-left corner down to bottom point -->
-  <polygon points="55,95  90,95  165,390  130,390" fill="#2196F3"/>
-  <!-- Right stroke: bottom point up-right, shorter -->
-  <polygon points="130,390  165,390  195,300  160,300" fill="#2196F3"/>
-
-  <!-- "each..." — small white cursive, bottom-right of R opening -->
+  <!-- R: large white bold letter, font-based, positioned right -->
   <text
-    x="168"
-    y="430"
+    x="105" y="310"
+    font-family="'Montserrat','Arial Black','Impact',sans-serif"
+    font-size="310"
+    font-weight="900"
+    fill="#ffffff"
+    letter-spacing="-10">R</text>
+
+  <!-- V: blue, large bold letter, positioned left, overlapping R -->
+  <text
+    x="-8" y="310"
+    font-family="'Montserrat','Arial Black','Impact',sans-serif"
+    font-size="310"
+    font-weight="900"
+    fill="#2196F3"
+    letter-spacing="-10">V</text>
+
+  <!-- "each..." cursive, bottom-right, small -->
+  <text
+    x="188" y="390"
     font-family="'Dancing Script','Brush Script MT',cursive"
-    font-size="68"
+    font-size="58"
     font-weight="600"
     fill="#ffffff">each...</text>
 
