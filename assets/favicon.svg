@@ -1,13 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="12" fill="#000"/>
-  <defs>
-    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#42a5f5"/>
-      <stop offset="100%" stop-color="#1565c0"/>
-    </linearGradient>
-  </defs>
-  <polygon points="6,12 14,12 30,50 22,50" fill="url(#fg)"/>
-  <polygon points="22,50 30,50 36,36 28,36" fill="url(#fg)"/>
-  <rect x="38" y="12" width="8" height="38" fill="white"/>
-  <path d="M46,12 Q62,12 62,24 Q62,34 50,36 L64,50 L56,50 L42,36 L46,36 L46,28 Q54,28 56,24 Q56,16 46,16 Z" fill="white"/>
+  <rect width="64" height="64" rx="10" fill="#000"/>
+  <!-- R bowl only, no stem -->
+  <path d="M22,6 C22,6 46,6 46,22 C46,34 34,38 24,38 L24,32 C34,32 40,28 40,22 C40,14 30,12 22,12 Z" fill="#fff"/>
+  <!-- R leg -->
+  <path d="M34,36 L38,36 L50,54 L46,54 Z" fill="#fff"/>
+  <!-- V blue on top -->
+  <polygon points="4,6 10,6 24,46 18,46" fill="#2196F3"/>
+  <polygon points="18,46 24,46 30,32 24,32" fill="#2196F3"/>
 </svg>
