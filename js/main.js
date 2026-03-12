@@ -365,19 +365,41 @@ document.querySelectorAll('.ps-list').forEach(list => {
 });
 
 /* ══════════════════════════════════════════════════════
-   CONTACT FORM
+   CONTACT FORM — mailto to Vamsi
 ══════════════════════════════════════════════════════ */
+const OWNER_EMAIL = 'nallamillivamsireddy2001@gmail.com';
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const btn = form.querySelector('button[type="submit"] span');
+    const btn  = form.querySelector('button[type="submit"] span');
     const orig = btn.textContent;
-    btn.textContent = 'Sending...';
+
+    const name     = form.name.value.trim();
+    const email    = form.email.value.trim();
+    const business = form.business.value.trim();
+    const service  = form.service.value;
+    const message  = form.message.value.trim();
+
+    const subject = encodeURIComponent(
+      `Free Audit Request — ${name}${business ? ' (' + business + ')' : ''}`
+    );
+    const body = encodeURIComponent(
+      `New Free Audit Request from VReach Website\n\n` +
+      `Name:     ${name}\n` +
+      `Email:    ${email}\n` +
+      `Business: ${business || '—'}\n` +
+      `Service:  ${service || '—'}\n\n` +
+      `Message:\n${message || '—'}`
+    );
+
+    window.location.href = `mailto:${OWNER_EMAIL}?subject=${subject}&body=${body}`;
+
+    btn.textContent = 'Opening mail app...';
     setTimeout(() => {
-      btn.textContent = '✓ Sent! We\'ll be in touch soon.';
+      btn.textContent = '✓ Request sent!';
       form.reset();
       setTimeout(() => { btn.textContent = orig; }, 4000);
-    }, 1200);
+    }, 1500);
   });
 }
