@@ -273,7 +273,7 @@ strong { font-weight: 600; color: var(--text); }
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 1000;
-  padding: 20px 0;
+  padding: 12px 0;
   transition: background 0.4s, padding 0.4s, border-color 0.4s;
   border-bottom: 1px solid transparent;
 }
@@ -282,7 +282,7 @@ strong { font-weight: 600; color: var(--text); }
   background: rgba(8,8,16,0.92);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  padding: 12px 0;
+  padding: 8px 0;
   border-bottom-color: var(--border);
 }
 
@@ -300,10 +300,15 @@ strong { font-weight: 600; color: var(--text); }
 /* ── Logo image sizes ── */
 .logo-img {
   display: block;
-  height: 44px;
+  height: 72px;
   width: auto;
   object-fit: contain;
   mix-blend-mode: screen;
+  flex-shrink: 0;
+}
+
+.navbar.scrolled .logo-img {
+  height: 60px;
 }
 
 .about-logo-img {
@@ -465,9 +470,9 @@ strong { font-weight: 600; color: var(--text); }
 
 .hero-headline {
   font-family: var(--font-head);
-  font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem);
   font-weight: 800;
-  line-height: 1.0;
+  line-height: 1.05;
   letter-spacing: -0.03em;
   margin-bottom: 28px;
 }
