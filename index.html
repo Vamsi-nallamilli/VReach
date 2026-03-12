@@ -3,88 +3,156 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VReach – Where Ideas Expand Your Reach</title>
-  <meta name="description" content="VReach is Hyderabad's premier digital marketing firm founded by Vamsi Reddy. Strategic digital plans, targeted campaigns, creative content, data-driven ads." />
+  <title>VReach — Where Ideas Expand Your Reach</title>
+  <meta name="description" content="VReach is Hyderabad's premier digital marketing firm. Strategic campaigns, creative content, data-driven growth." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
 <!-- NAVBAR -->
 <header class="navbar" id="navbar">
-  <div class="nav-container">
+  <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="VReach Home">
-      <svg class="vreach-logo vreach-logo--nav" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" aria-hidden="true">
-        <rect width="320" height="100" rx="12" fill="#000000"/>
-        <path d="M25 18 L42 18 L85 82 L68 82 Z M68 82 L85 82 L98 62 L78 62 Z" fill="#2196F3"/>
-        <path d="M110 18 L132 18 L132 82 L110 82 L110 55 Q145 55 145 68 Q145 81 110 81 L110 92 Q170 92 170 70 Q170 55 110 55 Z M110 55 L125 55 L145 82 L135 82 Z" fill="white"/>
-        <text x="175" y="68" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-style="italic" font-weight="200" letter-spacing="0.5" fill="white">each...</text>
+      <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+        <defs>
+          <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#42a5f5"/>
+            <stop offset="100%" stop-color="#1565c0"/>
+          </linearGradient>
+        </defs>
+        <!-- V shape -->
+        <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad)"/>
+        <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad)"/>
+        <!-- R shape -->
+        <rect x="68" y="10" width="14" height="48" fill="white"/>
+        <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
+        <!-- each... -->
+        <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" font-weight="400" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
       </svg>
     </a>
-    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#process">Process</a>
-      <a href="#blog">Blog</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="#process" class="nav-link">Process</a>
+      <a href="#blog" class="nav-link">Blog</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </nav>
-    <a href="#contact" class="btn-audit">Free Audit</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <a href="#contact" class="nav-cta">
+      <span>Free Audit</span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span>
     </button>
   </div>
 </header>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <a href="#home" class="hero-logo" aria-label="VReach">
-      <svg class="vreach-logo vreach-logo--hero" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" aria-hidden="true">
-        <rect width="320" height="100" rx="12" fill="#000000"/>
-        <path d="M25 18 L42 18 L85 82 L68 82 Z M68 82 L85 82 L98 62 L78 62 Z" fill="#2196F3"/>
-        <path d="M110 18 L132 18 L132 82 L110 82 L110 55 Q145 55 145 68 Q145 81 110 81 L110 92 Q170 92 170 70 Q170 55 110 55 Z M110 55 L125 55 L145 82 L135 82 Z" fill="white"/>
-        <text x="175" y="68" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-style="italic" font-weight="200" letter-spacing="0.5" fill="white">each...</text>
-      </svg>
-    </a>
-    <p class="hero-tagline">Where Ideas Expand Your Reach.</p>
-    <p class="hero-sub">Hyderabad's strategic digital marketing firm — boosting visibility, engagement, and growth for brands that mean business.</p>
-    <div class="hero-ctas">
-      <a href="#services" class="btn-primary">Explore Services</a>
-      <a href="#contact" class="btn-secondary">Get Free Audit</a>
+  <canvas class="hero-canvas" id="heroCanvas"></canvas>
+  <div class="hero-noise"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Hyderabad's Digital Growth Partner
+    </div>
+    <h1 class="hero-headline">
+      <span class="line-wrap"><span class="line">Where Ideas</span></span>
+      <span class="line-wrap"><em class="line gradient-text">Expand Your</em></span>
+      <span class="line-wrap"><span class="line">Reach.</span></span>
+    </h1>
+    <p class="hero-desc">Strategic digital marketing that turns visibility into revenue. Built for brands that want to dominate their market.</p>
+    <div class="hero-actions">
+      <a href="#services" class="btn-glow">
+        <span>Explore Services</span>
+        <div class="btn-glow-bg"></div>
+      </a>
+      <a href="#contact" class="btn-ghost">Get Free Audit →</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric"><strong>150+</strong><span>Campaigns</span></div>
+      <div class="metric-divider"></div>
+      <div class="metric"><strong>80+</strong><span>Clients</span></div>
+      <div class="metric-divider"></div>
+      <div class="metric"><strong>5x</strong><span>Avg. ROAS</span></div>
     </div>
   </div>
-  <div class="hero-scroll" aria-hidden="true"><span></span></div>
+  <div class="hero-logo-bg" aria-hidden="true">
+    <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="vgrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#42a5f5" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#1565c0" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+      <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad2)"/>
+      <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad2)"/>
+      <rect x="68" y="10" width="14" height="48" fill="rgba(255,255,255,0.04)"/>
+      <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="rgba(255,255,255,0.04)"/>
+    </svg>
+  </div>
+  <div class="scroll-indicator" aria-hidden="true">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
 </section>
 
-<!-- PROBLEM / SOLUTION STRIP -->
-<section class="problem-strip">
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Digital Strategy</span><span class="marquee-dot">✦</span>
+    <span>Social Media</span><span class="marquee-dot">✦</span>
+    <span>Performance Ads</span><span class="marquee-dot">✦</span>
+    <span>SEO & Growth</span><span class="marquee-dot">✦</span>
+    <span>Content Creation</span><span class="marquee-dot">✦</span>
+    <span>Brand Identity</span><span class="marquee-dot">✦</span>
+    <span>Analytics</span><span class="marquee-dot">✦</span>
+    <span>Digital Strategy</span><span class="marquee-dot">✦</span>
+    <span>Social Media</span><span class="marquee-dot">✦</span>
+    <span>Performance Ads</span><span class="marquee-dot">✦</span>
+    <span>SEO & Growth</span><span class="marquee-dot">✦</span>
+    <span>Content Creation</span><span class="marquee-dot">✦</span>
+    <span>Brand Identity</span><span class="marquee-dot">✦</span>
+    <span>Analytics</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- PROBLEM → SOLUTION -->
+<section class="ps-section" id="about-problem">
   <div class="container">
-    <div class="ps-grid">
-      <div class="ps-card problem">
-        <div class="ps-icon">⚠️</div>
-        <h3>The Problem</h3>
-        <ul>
-          <li>Limited digital strategies</li>
-          <li>Low online visibility</li>
-          <li>Poor social engagement</li>
-          <li>Audience targeting issues</li>
+    <div class="ps-layout">
+      <div class="ps-left reveal">
+        <span class="tag">The Challenge</span>
+        <h2>Most brands are invisible online — and don't know why.</h2>
+        <ul class="ps-list">
+          <li><span class="ps-x">✕</span> Limited digital strategies</li>
+          <li><span class="ps-x">✕</span> Low online visibility</li>
+          <li><span class="ps-x">✕</span> Poor social engagement</li>
+          <li><span class="ps-x">✕</span> Wasted ad spend</li>
         </ul>
       </div>
-      <div class="ps-arrow" aria-hidden="true">→</div>
-      <div class="ps-card solution">
-        <div class="ps-icon">🚀</div>
-        <h3>Our Solution</h3>
-        <ul>
-          <li>Strategic digital plans</li>
-          <li>Targeted social campaigns</li>
-          <li>Creative content production</li>
-          <li>Data-driven ad management</li>
+      <div class="ps-divider" aria-hidden="true">
+        <div class="ps-arrow-line"></div>
+        <div class="ps-arrow-icon">→</div>
+      </div>
+      <div class="ps-right reveal">
+        <span class="tag tag-blue">Our Answer</span>
+        <h2>We build systems that make your brand impossible to ignore.</h2>
+        <ul class="ps-list">
+          <li><span class="ps-check">✓</span> Strategic digital plans</li>
+          <li><span class="ps-check">✓</span> Targeted social campaigns</li>
+          <li><span class="ps-check">✓</span> Creative content production</li>
+          <li><span class="ps-check">✓</span> Data-driven ad management</li>
         </ul>
       </div>
     </div>
@@ -92,269 +160,244 @@
 </section>
 
 <!-- SERVICES -->
-<section class="services section" id="services">
+<section class="services-section" id="services">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">What We Do</span>
-      <h2>Services That Drive Results</h2>
-      <p>Every service is built around one goal — measurable growth for your brand.</p>
+    <div class="section-label reveal">
+      <span class="tag">What We Do</span>
+      <h2 class="section-title">Services built for <em>real growth</em></h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">📊</div>
+      <div class="svc-card reveal" data-delay="0">
+        <div class="svc-num">01</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 20l6-8 5 5 4-6 5 9" stroke="#2196F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="2" width="24" height="24" rx="4" stroke="rgba(33,150,243,0.3)" stroke-width="1.5"/></svg></div>
         <h3>Digital Strategy</h3>
-        <p>Custom roadmaps aligned with your business goals, audience, and competitive landscape.</p>
+        <p>Custom roadmaps aligned with your goals, audience, and competitive landscape.</p>
+        <div class="svc-arrow">→</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">📱</div>
-        <h3>Social Media Marketing</h3>
-        <p>Targeted campaigns across Instagram, Facebook, LinkedIn, and more — built to engage and convert.</p>
+      <div class="svc-card reveal" data-delay="1">
+        <div class="svc-num">02</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="2" y="6" width="24" height="16" rx="3" stroke="#2196F3" stroke-width="1.5"/><circle cx="14" cy="14" r="4" stroke="#2196F3" stroke-width="1.5"/><path d="M2 10h4M22 10h4M2 18h4M22 18h4" stroke="rgba(33,150,243,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h3>Social Media</h3>
+        <p>Targeted campaigns across Instagram, Facebook, LinkedIn built to engage and convert.</p>
+        <div class="svc-arrow">→</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">✍️</div>
+      <div class="svc-card reveal" data-delay="2">
+        <div class="svc-num">03</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 8h16M6 13h10M6 18h12" stroke="#2196F3" stroke-width="2" stroke-linecap="round"/><rect x="2" y="2" width="24" height="24" rx="4" stroke="rgba(33,150,243,0.3)" stroke-width="1.5"/></svg></div>
         <h3>Content Creation</h3>
-        <p>Compelling copy, graphics, reels, and blogs that tell your brand story and drive action.</p>
+        <p>Compelling copy, graphics, reels, and blogs that tell your brand story.</p>
+        <div class="svc-arrow">→</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">🎯</div>
+      <div class="svc-card reveal" data-delay="3">
+        <div class="svc-num">04</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#2196F3" stroke-width="1.5"/><circle cx="14" cy="14" r="4" fill="#2196F3" fill-opacity="0.3" stroke="#2196F3" stroke-width="1.5"/><path d="M14 4v4M14 20v4M4 14h4M20 14h4" stroke="rgba(33,150,243,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <h3>Performance Ads</h3>
-        <p>Data-driven Google and Meta ad campaigns optimized for maximum ROI and lead generation.</p>
+        <p>Data-driven Google and Meta campaigns optimized for maximum ROI.</p>
+        <div class="svc-arrow">→</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">🔍</div>
+      <div class="svc-card reveal" data-delay="4">
+        <div class="svc-num">05</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="12" r="6" stroke="#2196F3" stroke-width="1.5"/><path d="M8 12l-4 4M20 12l4 4M14 18v6" stroke="rgba(33,150,243,0.5)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
         <h3>SEO & Visibility</h3>
-        <p>On-page, off-page, and technical SEO to rank higher and attract organic traffic consistently.</p>
+        <p>On-page, off-page, and technical SEO to rank higher and attract organic traffic.</p>
+        <div class="svc-arrow">→</div>
       </div>
-      <div class="service-card">
-        <div class="service-icon">📈</div>
+      <div class="svc-card reveal" data-delay="5">
+        <div class="svc-num">06</div>
+        <div class="svc-icon-wrap"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 22V14l5-4 5 3 5-6 5 4v11H4z" stroke="#2196F3" stroke-width="1.5" stroke-linejoin="round"/><rect x="2" y="2" width="24" height="24" rx="4" stroke="rgba(33,150,243,0.3)" stroke-width="1.5"/></svg></div>
         <h3>Analytics & Reporting</h3>
-        <p>Real-time dashboards and monthly reports so you always know what's working and why.</p>
+        <p>Real-time dashboards and monthly reports so you always know what's working.</p>
+        <div class="svc-arrow">→</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio section" id="portfolio">
+<!-- STATS BAND -->
+<div class="stats-band">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Our Work</span>
-      <h2>Results We're Proud Of</h2>
-      <p>Real campaigns. Real numbers. Real growth.</p>
+    <div class="stats-row">
+      <div class="stat-block reveal"><span class="stat-n" data-target="150">0</span><span class="stat-s">+</span><p>Campaigns</p></div>
+      <div class="stat-block reveal"><span class="stat-n" data-target="80">0</span><span class="stat-s">+</span><p>Clients</p></div>
+      <div class="stat-block reveal"><span class="stat-n" data-target="320">0</span><span class="stat-s">%</span><p>Avg Engagement Lift</p></div>
+      <div class="stat-block reveal"><span class="stat-n" data-target="5">0</span><span class="stat-s">x</span><p>Average ROAS</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section class="portfolio-section" id="portfolio">
+  <div class="container">
+    <div class="section-label reveal">
+      <span class="tag">Our Work</span>
+      <h2 class="section-title">Results we're <em>proud of</em></h2>
     </div>
     <div class="portfolio-grid">
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#1a1a2e,#16213e)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">Social Media</span>
-            <h3>Hyderabad Retail Brand</h3>
-            <p>320% increase in Instagram engagement in 90 days</p>
-          </div>
+      <div class="port-card port-card--large reveal">
+        <div class="port-bg" style="background:linear-gradient(135deg,#0d1b2a 0%,#1a3a5c 100%)"></div>
+        <div class="port-content">
+          <span class="port-tag">Social Media</span>
+          <h3>Hyderabad Retail Brand</h3>
+          <p>320% increase in Instagram engagement in 90 days</p>
+          <div class="port-stat">+320% <span>Engagement</span></div>
         </div>
-        <div class="portfolio-stat"><span>+320%</span> Engagement</div>
       </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#0f3460,#533483)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">Performance Ads</span>
-            <h3>EdTech Startup</h3>
-            <p>4.2x ROAS on Google Ads within first month</p>
-          </div>
+      <div class="port-card reveal">
+        <div class="port-bg" style="background:linear-gradient(135deg,#0f1923 0%,#1e3a5f 100%)"></div>
+        <div class="port-content">
+          <span class="port-tag">Performance Ads</span>
+          <h3>EdTech Startup</h3>
+          <p>4.2x ROAS on Google Ads in first month</p>
+          <div class="port-stat">4.2x <span>ROAS</span></div>
         </div>
-        <div class="portfolio-stat"><span>4.2x</span> ROAS</div>
       </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#1b4332,#081c15)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">SEO</span>
-            <h3>Local Services Business</h3>
-            <p>Page 1 rankings for 40+ keywords in 6 months</p>
-          </div>
+      <div class="port-card reveal">
+        <div class="port-bg" style="background:linear-gradient(135deg,#0a1628 0%,#0d3b2e 100%)"></div>
+        <div class="port-content">
+          <span class="port-tag">SEO</span>
+          <h3>Local Services</h3>
+          <p>Page 1 rankings for 40+ keywords in 6 months</p>
+          <div class="port-stat">40+ <span>Keywords</span></div>
         </div>
-        <div class="portfolio-stat"><span>40+</span> Page 1 Keywords</div>
       </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#3d0000,#1a0000)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">Brand Identity</span>
-            <h3>F&B Chain</h3>
-            <p>Complete rebrand driving 180% more foot traffic</p>
-          </div>
+      <div class="port-card reveal">
+        <div class="port-bg" style="background:linear-gradient(135deg,#1a0a2e 0%,#2d1b4e 100%)"></div>
+        <div class="port-content">
+          <span class="port-tag">Full Funnel</span>
+          <h3>Real Estate Developer</h3>
+          <p>₹2Cr+ in attributed revenue from digital</p>
+          <div class="port-stat">₹2Cr+ <span>Revenue</span></div>
         </div>
-        <div class="portfolio-stat"><span>+180%</span> Foot Traffic</div>
       </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#1c1c3a,#2d2d5e)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">Content</span>
-            <h3>Healthcare Clinic</h3>
-            <p>5x growth in website leads through content strategy</p>
-          </div>
+      <div class="port-card reveal">
+        <div class="port-bg" style="background:linear-gradient(135deg,#1a1200 0%,#3d2800 100%)"></div>
+        <div class="port-content">
+          <span class="port-tag">Brand Identity</span>
+          <h3>F&amp;B Chain</h3>
+          <p>Complete rebrand driving 180% more foot traffic</p>
+          <div class="port-stat">+180% <span>Foot Traffic</span></div>
         </div>
-        <div class="portfolio-stat"><span>5x</span> Lead Growth</div>
-      </div>
-      <div class="portfolio-card">
-        <div class="portfolio-img" style="background: linear-gradient(135deg,#0d2137,#1a3a5c)">
-          <div class="portfolio-overlay">
-            <span class="portfolio-tag">Full Funnel</span>
-            <h3>Real Estate Developer</h3>
-            <p>₹2Cr+ in attributed revenue from digital campaigns</p>
-          </div>
-        </div>
-        <div class="portfolio-stat"><span>₹2Cr+</span> Revenue</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- PROCESS -->
-<section class="process section" id="process">
+<section class="process-section" id="process">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">How We Work</span>
-      <h2>Our 5-Step Process</h2>
-      <p>A proven framework that turns business goals into digital wins.</p>
+    <div class="section-label reveal">
+      <span class="tag">How We Work</span>
+      <h2 class="section-title">Our 5-step <em>process</em></h2>
     </div>
-    <div class="process-steps">
-      <div class="process-step">
-        <div class="step-number">01</div>
-        <div class="step-content">
-          <h3>Understand Your Business</h3>
-          <p>We deep-dive into your brand, goals, competitors, and current digital presence to build a complete picture.</p>
-        </div>
+    <div class="process-track">
+      <div class="process-item reveal">
+        <div class="process-left"><span class="p-num">01</span></div>
+        <div class="process-line"><div class="p-dot"></div><div class="p-connector"></div></div>
+        <div class="process-right"><h3>Understand Your Business</h3><p>Deep-dive into your brand, goals, competitors, and current digital presence.</p></div>
       </div>
-      <div class="process-connector" aria-hidden="true"></div>
-      <div class="process-step">
-        <div class="step-number">02</div>
-        <div class="step-content">
-          <h3>Define Target Audience</h3>
-          <p>We identify and profile your ideal customers — demographics, behaviors, pain points, and where they spend time online.</p>
-        </div>
+      <div class="process-item reveal">
+        <div class="process-left"><span class="p-num">02</span></div>
+        <div class="process-line"><div class="p-dot"></div><div class="p-connector"></div></div>
+        <div class="process-right"><h3>Define Target Audience</h3><p>Profile your ideal customers — demographics, behaviors, pain points, and channels.</p></div>
       </div>
-      <div class="process-connector" aria-hidden="true"></div>
-      <div class="process-step">
-        <div class="step-number">03</div>
-        <div class="step-content">
-          <h3>Strategy Creation</h3>
-          <p>A tailored digital marketing plan with clear KPIs, channel mix, content calendar, and budget allocation.</p>
-        </div>
+      <div class="process-item reveal">
+        <div class="process-left"><span class="p-num">03</span></div>
+        <div class="process-line"><div class="p-dot"></div><div class="p-connector"></div></div>
+        <div class="process-right"><h3>Strategy Creation</h3><p>A tailored plan with clear KPIs, channel mix, content calendar, and budget allocation.</p></div>
       </div>
-      <div class="process-connector" aria-hidden="true"></div>
-      <div class="process-step">
-        <div class="step-number">04</div>
-        <div class="step-content">
-          <h3>Execution</h3>
-          <p>Our team launches campaigns, creates content, runs ads, and manages your digital presence with precision.</p>
-        </div>
+      <div class="process-item reveal">
+        <div class="process-left"><span class="p-num">04</span></div>
+        <div class="process-line"><div class="p-dot"></div><div class="p-connector"></div></div>
+        <div class="process-right"><h3>Execution</h3><p>Launch campaigns, create content, run ads, and manage your digital presence with precision.</p></div>
       </div>
-      <div class="process-connector" aria-hidden="true"></div>
-      <div class="process-step">
-        <div class="step-number">05</div>
-        <div class="step-content">
-          <h3>Measure & Improve</h3>
-          <p>We track every metric, report transparently, and continuously optimize for better results month over month.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RESULTS / STATS -->
-<section class="stats-section">
-  <div class="container">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-number" data-target="150">0</span><span class="stat-suffix">+</span>
-        <p>Campaigns Launched</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-target="80">0</span><span class="stat-suffix">+</span>
-        <p>Happy Clients</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-target="320">0</span><span class="stat-suffix">%</span>
-        <p>Avg. Engagement Lift</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number" data-target="5">0</span><span class="stat-suffix">x</span>
-        <p>Average ROAS</p>
+      <div class="process-item reveal">
+        <div class="process-left"><span class="p-num">05</span></div>
+        <div class="process-line"><div class="p-dot"></div></div>
+        <div class="process-right"><h3>Measure &amp; Improve</h3><p>Track every metric, report transparently, and continuously optimize month over month.</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section class="about section" id="about">
+<section class="about-section" id="about">
   <div class="container">
-    <div class="about-grid">
-      <div class="about-visual">
-        <div class="about-logo-display">
-          <svg class="vreach-logo vreach-logo--about" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" aria-hidden="true">
-            <rect width="320" height="100" rx="12" fill="#000000"/>
-            <path d="M25 18 L42 18 L85 82 L68 82 Z M68 82 L85 82 L98 62 L78 62 Z" fill="#2196F3"/>
-            <path d="M110 18 L132 18 L132 82 L110 82 L110 55 Q145 55 145 68 Q145 81 110 81 L110 92 Q170 92 170 70 Q170 55 110 55 Z M110 55 L125 55 L145 82 L135 82 Z" fill="white"/>
-            <text x="175" y="68" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-style="italic" font-weight="200" letter-spacing="0.5" fill="white">each...</text>
+    <div class="about-layout">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="about-logo-svg">
+            <defs>
+              <linearGradient id="vgrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#42a5f5"/>
+                <stop offset="100%" stop-color="#1565c0"/>
+              </linearGradient>
+            </defs>
+            <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad3)"/>
+            <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad3)"/>
+            <rect x="68" y="10" width="14" height="48" fill="white"/>
+            <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
+            <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
           </svg>
+          <div class="about-card-tag">Est. Hyderabad</div>
+          <div class="about-card-glow"></div>
         </div>
-        <div class="about-badge">Est. Hyderabad</div>
       </div>
-      <div class="about-content">
-        <span class="section-tag">About VReach</span>
-        <h2>Built on Strategy. Driven by Results.</h2>
-        <p>VReach was founded by <strong>Vamsi Reddy</strong> with a clear mission — to give Hyderabad's businesses the digital edge they deserve. We saw too many brands struggling with limited strategies, invisible online presence, and wasted ad spend.</p>
-        <p>So we built a firm that does things differently. Every client gets a dedicated strategy, transparent reporting, and a team that treats your growth like our own.</p>
-        <div class="about-values">
-          <div class="value-item"><span>🎯</span> Strategy-first thinking</div>
-          <div class="value-item"><span>📊</span> Data-driven decisions</div>
-          <div class="value-item"><span>🤝</span> Transparent partnerships</div>
-          <div class="value-item"><span>🚀</span> Growth-obsessed team</div>
+      <div class="about-text reveal">
+        <span class="tag">About VReach</span>
+        <h2 class="section-title">Built on strategy.<br><em>Driven by results.</em></h2>
+        <p>VReach was founded by <strong>Vamsi Reddy</strong> with a clear mission — to give Hyderabad's businesses the digital edge they deserve. Too many brands struggle with invisible online presence and wasted ad spend.</p>
+        <p>We do things differently. Every client gets a dedicated strategy, transparent reporting, and a team that treats your growth like our own.</p>
+        <div class="about-pills">
+          <span>Strategy-first</span>
+          <span>Data-driven</span>
+          <span>Transparent</span>
+          <span>Growth-obsessed</span>
         </div>
-        <a href="#contact" class="btn-primary">Work With Us</a>
+        <a href="#contact" class="btn-glow"><span>Work With Us</span><div class="btn-glow-bg"></div></a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- BLOG -->
-<section class="blog section" id="blog">
+<section class="blog-section" id="blog">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Insights</span>
-      <h2>From the VReach Blog</h2>
-      <p>Practical digital marketing tips, trends, and case studies from our team.</p>
+    <div class="section-label reveal">
+      <span class="tag">Insights</span>
+      <h2 class="section-title">From the <em>VReach Blog</em></h2>
     </div>
     <div class="blog-grid">
-      <article class="blog-card">
-        <div class="blog-img" style="background:linear-gradient(135deg,#0a0a1a,#1a1a3e)">
-          <span class="blog-category">Social Media</span>
+      <article class="blog-card reveal">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0a0f1e,#0d2137)">
+          <span class="blog-cat">Social Media</span>
         </div>
         <div class="blog-body">
-          <span class="blog-date">March 2026</span>
+          <time>March 2026</time>
           <h3>Why Instagram Reels Are Still Your Best Organic Growth Tool</h3>
-          <p>Short-form video continues to dominate. Here's how to use Reels to build reach without spending a rupee on ads.</p>
-          <a href="#blog" class="blog-read">Read More →</a>
+          <p>Short-form video dominates. Here's how to build reach without spending a rupee on ads.</p>
+          <a href="#blog" class="blog-link">Read More <span>→</span></a>
         </div>
       </article>
-      <article class="blog-card">
-        <div class="blog-img" style="background:linear-gradient(135deg,#0f1a2e,#1a2e4a)">
-          <span class="blog-category">Performance Ads</span>
+      <article class="blog-card reveal">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#0f1a2e,#1a2e4a)">
+          <span class="blog-cat">Performance Ads</span>
         </div>
         <div class="blog-body">
-          <span class="blog-date">February 2026</span>
+          <time>February 2026</time>
           <h3>5 Google Ads Mistakes Hyderabad Businesses Keep Making</h3>
-          <p>From broad match keywords to ignoring negative lists — we break down the most common (and costly) ad mistakes.</p>
-          <a href="#blog" class="blog-read">Read More →</a>
+          <p>From broad match to ignoring negatives — the most common and costly ad mistakes.</p>
+          <a href="#blog" class="blog-link">Read More <span>→</span></a>
         </div>
       </article>
-      <article class="blog-card">
-        <div class="blog-img" style="background:linear-gradient(135deg,#1a0a2e,#2e1a4a)">
-          <span class="blog-category">SEO</span>
+      <article class="blog-card reveal">
+        <div class="blog-thumb" style="background:linear-gradient(135deg,#1a0a2e,#2e1a4a)">
+          <span class="blog-cat">SEO</span>
         </div>
         <div class="blog-body">
-          <span class="blog-date">January 2026</span>
+          <time>January 2026</time>
           <h3>Local SEO in 2026: How to Dominate Hyderabad Search Results</h3>
-          <p>Google Business Profile, local citations, and hyperlocal content — the complete playbook for local visibility.</p>
-          <a href="#blog" class="blog-read">Read More →</a>
+          <p>Google Business Profile, local citations, and hyperlocal content — the full playbook.</p>
+          <a href="#blog" class="blog-link">Read More <span>→</span></a>
         </div>
       </article>
     </div>
@@ -362,76 +405,48 @@
 </section>
 
 <!-- CONTACT -->
-<section class="contact section" id="contact">
+<section class="contact-section" id="contact">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Get In Touch</span>
-      <h2>Let's Grow Your Brand</h2>
-      <p>Start with a free digital audit — no strings attached.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <div class="contact-item">
-          <span class="contact-icon">📍</span>
-          <div>
-            <strong>Location</strong>
-            <p>Hyderabad, Telangana, India</p>
-          </div>
+    <div class="contact-layout">
+      <div class="contact-left reveal">
+        <span class="tag">Get In Touch</span>
+        <h2 class="section-title">Let's grow<br><em>your brand.</em></h2>
+        <p>Start with a free digital audit — no strings attached. We'll show you exactly where your brand stands and how to improve it.</p>
+        <div class="contact-details">
+          <div class="cd-item"><span class="cd-icon">📍</span><div><strong>Location</strong><p>Hyderabad, Telangana, India</p></div></div>
+          <div class="cd-item"><span class="cd-icon">📧</span><div><strong>Email</strong><p><a href="mailto:hello@vreach.in">hello@vreach.in</a></p></div></div>
+          <div class="cd-item"><span class="cd-icon">📞</span><div><strong>Phone</strong><p><a href="tel:+919999999999">+91 99999 99999</a></p></div></div>
         </div>
-        <div class="contact-item">
-          <span class="contact-icon">📧</span>
-          <div>
-            <strong>Email</strong>
-            <p><a href="mailto:hello@vreach.in">hello@vreach.in</a></p>
-          </div>
-        </div>
-        <div class="contact-item">
-          <span class="contact-icon">📞</span>
-          <div>
-            <strong>Phone</strong>
-            <p><a href="tel:+919999999999">+91 99999 99999</a></p>
-          </div>
-        </div>
-        <div class="contact-social">
-          <a href="#" aria-label="Instagram" class="social-link">IG</a>
-          <a href="#" aria-label="LinkedIn" class="social-link">LI</a>
-          <a href="#" aria-label="Facebook" class="social-link">FB</a>
-          <a href="#" aria-label="Twitter/X" class="social-link">X</a>
+        <div class="contact-socials">
+          <a href="#" class="cs-link" aria-label="Instagram">IG</a>
+          <a href="#" class="cs-link" aria-label="LinkedIn">LI</a>
+          <a href="#" class="cs-link" aria-label="Facebook">FB</a>
+          <a href="#" class="cs-link" aria-label="X">X</a>
         </div>
       </div>
-      <form class="contact-form" id="contactForm" novalidate>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Vamsi Reddy" required />
+      <div class="contact-right reveal">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="cf-row">
+            <div class="cf-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your name" required/></div>
+            <div class="cf-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="you@company.com" required/></div>
           </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="you@company.com" required />
+          <div class="cf-group"><label for="business">Business</label><input type="text" id="business" name="business" placeholder="Company name"/></div>
+          <div class="cf-group">
+            <label for="service">Service</label>
+            <select id="service" name="service">
+              <option value="">Select a service...</option>
+              <option>Digital Strategy</option>
+              <option>Social Media Marketing</option>
+              <option>Performance Ads</option>
+              <option>SEO & Visibility</option>
+              <option>Content Creation</option>
+              <option>Full Package</option>
+            </select>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="business">Business Name</label>
-          <input type="text" id="business" name="business" placeholder="Your Company" />
-        </div>
-        <div class="form-group">
-          <label for="service">Service Interested In</label>
-          <select id="service" name="service">
-            <option value="">Select a service...</option>
-            <option>Digital Strategy</option>
-            <option>Social Media Marketing</option>
-            <option>Performance Ads</option>
-            <option>SEO & Visibility</option>
-            <option>Content Creation</option>
-            <option>Full Package</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="message">Tell Us About Your Goals</label>
-          <textarea id="message" name="message" rows="4" placeholder="What are you looking to achieve?"></textarea>
-        </div>
-        <button type="submit" class="btn-primary btn-full">Request Free Audit →</button>
-      </form>
+          <div class="cf-group"><label for="message">Message</label><textarea id="message" name="message" rows="4" placeholder="Tell us about your goals..."></textarea></div>
+          <button type="submit" class="btn-glow btn-full"><span>Request Free Audit →</span><div class="btn-glow-bg"></div></button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -439,46 +454,40 @@
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-top">
       <div class="footer-brand">
-        <a href="#home" class="footer-logo" aria-label="VReach Home">
-          <svg class="vreach-logo vreach-logo--footer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" aria-hidden="true">
-            <rect width="320" height="100" rx="12" fill="#000000"/>
-            <path d="M25 18 L42 18 L85 82 L68 82 Z M68 82 L85 82 L98 62 L78 62 Z" fill="#2196F3"/>
-            <path d="M110 18 L132 18 L132 82 L110 82 L110 55 Q145 55 145 68 Q145 81 110 81 L110 92 Q170 92 170 70 Q170 55 110 55 Z M110 55 L125 55 L145 82 L135 82 Z" fill="white"/>
-            <text x="175" y="68" font-family="'Helvetica Neue', Arial, sans-serif" font-size="26" font-style="italic" font-weight="200" letter-spacing="0.5" fill="white">each...</text>
+        <a href="#home" aria-label="VReach Home">
+          <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="footer-logo-svg">
+            <defs><linearGradient id="vgrad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#1565c0"/></linearGradient></defs>
+            <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad4)"/>
+            <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad4)"/>
+            <rect x="68" y="10" width="14" height="48" fill="white"/>
+            <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
+            <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
           </svg>
         </a>
         <p>Where Ideas Expand Your Reach.</p>
-        <p class="footer-founder">Founded by Vamsi Reddy · Hyderabad</p>
+        <p class="footer-sub">Founded by Vamsi Reddy · Hyderabad</p>
       </div>
-      <div class="footer-links">
-        <h4>Quick Links</h4>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#process">Process</a>
-        <a href="#blog">Blog</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+      <div class="footer-nav">
+        <h4>Pages</h4>
+        <a href="#home">Home</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a>
+        <a href="#process">Process</a><a href="#blog">Blog</a><a href="#about">About</a><a href="#contact">Contact</a>
       </div>
-      <div class="footer-links">
+      <div class="footer-nav">
         <h4>Services</h4>
-        <a href="#services">Digital Strategy</a>
-        <a href="#services">Social Media</a>
-        <a href="#services">Performance Ads</a>
-        <a href="#services">SEO</a>
-        <a href="#services">Content Creation</a>
-        <a href="#services">Analytics</a>
+        <a href="#services">Digital Strategy</a><a href="#services">Social Media</a>
+        <a href="#services">Performance Ads</a><a href="#services">SEO</a>
+        <a href="#services">Content Creation</a><a href="#services">Analytics</a>
       </div>
-      <div class="footer-cta">
-        <h4>Ready to Grow?</h4>
-        <p>Get your free digital audit today and see exactly where your brand stands.</p>
-        <a href="#contact" class="btn-audit">Free Audit</a>
+      <div class="footer-cta-block">
+        <h4>Ready to grow?</h4>
+        <p>Get your free digital audit and see where your brand stands.</p>
+        <a href="#contact" class="nav-cta"><span>Free Audit</span><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 VReach Digital. All rights reserved. | Hyderabad, India</p>
+      <p>© 2026 VReach Digital. All rights reserved. Hyderabad, India.</p>
     </div>
   </div>
 </footer>

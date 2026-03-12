@@ -1,6 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="10" fill="#000000"/>
-  <!-- V scaled to 64x64 from 320x100 viewBox, cropping "each..." -->
-  <path d="M5 11 L8 11 L17 50 L14 50 Z M14 50 L17 50 L20 38 L16 38 Z" fill="#2196F3"/>
-  <path d="M22 11 L26 11 L26 50 L22 50 L22 34 Q29 34 29 41 Q29 49 22 49 L22 53 Q34 53 34 43 Q34 34 22 34 Z M22 34 L25 34 L29 50 L27 50 Z" fill="white"/>
+  <rect width="64" height="64" rx="12" fill="#000"/>
+  <defs>
+    <linearGradient id="fg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#42a5f5"/>
+      <stop offset="100%" stop-color="#1565c0"/>
+    </linearGradient>
+  </defs>
+  <polygon points="6,12 14,12 30,50 22,50" fill="url(#fg)"/>
+  <polygon points="22,50 30,50 36,36 28,36" fill="url(#fg)"/>
+  <rect x="38" y="12" width="8" height="38" fill="white"/>
+  <path d="M46,12 Q62,12 62,24 Q62,34 50,36 L64,50 L56,50 L42,36 L46,36 L46,28 Q54,28 56,24 Q56,16 46,16 Z" fill="white"/>
 </svg>
