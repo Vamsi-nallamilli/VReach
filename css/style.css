@@ -293,6 +293,37 @@ body:hover .cursor-follower { opacity: 1; }
 
 .nav-logo { flex-shrink: 0; }
 
+/* ── Logo image sizes ── */
+.logo-img {
+  display: block;
+  height: 48px;      /* navbar: fixed height, width auto */
+  width: auto;
+  object-fit: contain;
+}
+
+.about-logo-img {
+  display: block;
+  width: 200px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.footer-logo-img {
+  display: block;
+  height: 72px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 16px;
+}
+
+.hero-logo-watermark {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -517,11 +548,15 @@ body:hover .cursor-follower { opacity: 1; }
 
 .hero-logo-bg {
   position: absolute;
-  right: 2%;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
+  width: 40%;
+  max-width: 460px;
+  opacity: 0.05;
   pointer-events: none;
   z-index: 1;
+  filter: blur(2px);
 }
 
 .hero-logo-watermark {
