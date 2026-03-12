@@ -1,48 +1,60 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" width="260" height="260">
-  <rect width="260" height="260" fill="#000"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 640" width="500" height="640">
+  <!-- Pure black, no rounded corners -->
+  <rect width="500" height="640" fill="#000000"/>
 
   <!--
-    EXACT LOGO RECREATION:
-    - Background: pure black
-    - R: solid WHITE, no gradient, no stem. 
-         Bowl is a thick donut-arc (C-shape open on left).
-         Leg kicks diagonally down-right from bottom of bowl.
-         The V's right stroke fills the left gap of the R.
-    - V: solid #2196F3 blue, drawn ON TOP of R.
-         Left stroke: tall, from top-left down to a sharp bottom point.
-         Right stroke: from bottom point, kicks up-right at ~45deg, shorter.
-    - "each...": white cursive, sits to the bottom-RIGHT of the R leg,
-         NOT centered below — offset right, same baseline as R leg bottom.
+    EXACT MATCH TO IMG1:
+    =====================
+    V:  Blue (#2196F3), tall thin angular shape.
+        Left stroke: starts top-left, goes diagonally down to a sharp bottom point.
+        Right stroke: from bottom point, goes up-right at ~45°, shorter than left.
+        V is positioned LEFT, its bottom point is around x=155, y=390.
+
+    R:  White, NO leg, NO stem.
+        Just a thick donut/ring arc — the top half of a large circle ring.
+        Open on the LEFT side (where V's right stroke sits).
+        The bowl starts at roughly the same height as V top, curves right and down.
+        Bottom of bowl opening aligns with V's bottom point area.
+        R is positioned to the RIGHT, overlapping V's right stroke.
+
+    "each...":
+        Small white cursive text.
+        Positioned at bottom-RIGHT of the R bowl opening.
+        Baseline aligns with the bottom of the R arc (~y=420).
+        NOT centered — offset to the right side.
   -->
 
-  <!-- R: thick arc bowl, open on left side, solid white -->
-  <!-- Outer arc path: starts top-center, sweeps right and down, ends bottom-center -->
+  <!-- R: thick arc ring, open on left, solid white, NO leg -->
+  <!-- 
+    Center of R circle: cx=295, cy=230
+    Outer radius: 155
+    Inner radius: 105
+    Arc spans from ~200° to ~360° (top, sweeping right and down to bottom)
+    Open gap on left side (160° to 200°)
+  -->
   <path d="
-    M 95,30
-    C 95,30 185,30 185,90
-    C 185,140 148,155 115,158
-    L 130,158
-    L 168,210
-    L 148,210
-    L 110,158
-    C 110,158 95,158 95,158
-    L 95,140
-    C 95,140 155,138 165,90
-    C 172,52 138,50 95,50
+    M 155, 195
+    C 155, 80  435, 80  435, 230
+    C 435, 375 155, 375 155, 375
+    L 155, 320
+    C 155, 320  375, 320  375, 230
+    C 375, 135 155, 135 155, 135
     Z
   " fill="#ffffff"/>
 
-  <!-- V: blue, on top, sharp angular strokes -->
-  <!-- Left stroke of V: top-left to bottom-point -->
-  <polygon points="18,30  38,30  95,168  75,168" fill="#2196F3"/>
-  <!-- Right stroke of V: bottom-point to upper-right -->
-  <polygon points="75,168  95,168  112,118  92,118" fill="#2196F3"/>
+  <!-- V: blue, tall, thin strokes, drawn ON TOP of R -->
+  <!-- Left stroke: top-left corner down to bottom point -->
+  <polygon points="55,95  90,95  165,390  130,390" fill="#2196F3"/>
+  <!-- Right stroke: bottom point up-right, shorter -->
+  <polygon points="130,390  165,390  195,300  160,300" fill="#2196F3"/>
 
-  <!-- "each..." — white cursive, bottom-right aligned with R leg end -->
+  <!-- "each..." — small white cursive, bottom-right of R opening -->
   <text
-    x="118" y="228"
+    x="168"
+    y="430"
     font-family="'Dancing Script','Brush Script MT',cursive"
-    font-size="42"
+    font-size="68"
     font-weight="600"
     fill="#ffffff">each...</text>
+
 </svg>

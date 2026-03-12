@@ -1,8 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="10" fill="#000"/>
-  <!-- R bowl only, solid white, no stem -->
-  <path d="M24,8 C24,8 46,8 46,22 C46,35 36,40 26,41 L32,41 L42,54 L36,54 L26,41 C26,41 24,41 24,41 L24,35 C24,35 38,34 40,22 C42,12 34,14 24,14 Z" fill="#fff"/>
-  <!-- V blue on top -->
-  <polygon points="4,8 10,8 24,44 18,44" fill="#2196F3"/>
-  <polygon points="18,44 24,44 30,28 24,28" fill="#2196F3"/>
+  <rect width="64" height="64" rx="8" fill="#000000"/>
+  <!-- R: thick arc, no leg, no stem, solid white -->
+  <path d="
+    M 20,25
+    C 20,10  54,10  54,29
+    C 54,48  20,48  20,48
+    L 20,42
+    C 20,42  46,42  46,29
+    C 46,17  20,17  20,17
+    Z
+  " fill="#ffffff"/>
+  <!-- V: blue on top -->
+  <polygon points="7,12  12,12  21,49  16,49" fill="#2196F3"/>
+  <polygon points="16,49  21,49  25,38  20,38" fill="#2196F3"/>
 </svg>
