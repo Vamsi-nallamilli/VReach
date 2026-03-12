@@ -336,15 +336,12 @@ strong { font-weight: 600; color: var(--text); }
 @keyframes lineUp { to { opacity: 1; transform: translateY(0); } }
 
 .gradient-text {
-  font-style: italic;
-  background: linear-gradient(135deg, #90caf9 0%, #2196F3 40%, #42a5f5 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  animation: gradientShift 4s ease infinite;
-}
-@keyframes gradientShift {
-  0%,100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+  font-style: normal;
+  background: linear-gradient(135deg, #ffffff 0%, #90caf9 50%, #42a5f5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(144,202,249,0.6));
 }
 
 .hero-desc {
