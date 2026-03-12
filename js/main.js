@@ -3,12 +3,14 @@
 /* ── Custom Cursor ── */
 const cursor = document.getElementById('cursor');
 const follower = document.getElementById('cursorFollower');
-let mx = 0, my = 0, fx = 0, fy = 0;
+let mx = -100, my = -100, fx = -100, fy = -100;
 
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
   cursor.style.left = mx + 'px';
   cursor.style.top = my + 'px';
+  cursor.classList.add('active');
+  follower.classList.add('active');
 });
 
 (function animFollower() {
