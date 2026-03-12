@@ -212,7 +212,9 @@ body:hover .cursor-follower { opacity: 1; }
 }
 
 .nav-logo { flex-shrink: 0; }
-.logo-svg { width: 140px; height: auto; }
+.logo-svg { width: 52px; height: auto; }
+.about-logo-svg { width: 160px; height: auto; }
+.footer-logo-svg { width: 64px; height: auto; margin-bottom: 16px; }
 
 .nav-links {
   display: flex;
@@ -905,8 +907,6 @@ body:hover .cursor-follower { opacity: 1; }
   overflow: hidden;
 }
 
-.about-logo-svg { width: 100%; max-width: 260px; height: auto; }
-
 .about-card-tag {
   background: rgba(33,150,243,0.1);
   border: 1px solid var(--border-blue);
@@ -1192,8 +1192,6 @@ body:hover .cursor-follower { opacity: 1; }
   gap: 48px;
   padding-bottom: 64px;
 }
-
-.footer-logo-svg { width: 160px; height: auto; margin-bottom: 16px; }
 
 .footer-brand > p {
   color: var(--text-dim);

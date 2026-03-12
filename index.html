@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -21,21 +21,21 @@
 <header class="navbar" id="navbar">
   <div class="nav-inner">
     <a href="#home" class="nav-logo" aria-label="VReach Home">
-      <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+      <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
         <defs>
-          <linearGradient id="vgrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#42a5f5"/>
-            <stop offset="100%" stop-color="#1565c0"/>
+          <linearGradient id="vg1" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4fc3f7"/>
+            <stop offset="100%" stop-color="#1976d2"/>
           </linearGradient>
         </defs>
-        <!-- V shape -->
-        <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad)"/>
-        <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad)"/>
-        <!-- R shape -->
-        <rect x="68" y="10" width="14" height="48" fill="white"/>
-        <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
-        <!-- each... -->
-        <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" font-weight="400" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
+        <!-- R (white, behind V) — large round bowl, leg kicks right -->
+        <path d="M30,6 L40,6 L40,86 L30,86 Z" fill="white"/>
+        <path d="M40,6 Q76,6 76,28 Q76,46 56,50 L80,86 L68,86 L44,50 L40,50 L40,38 Q60,38 64,28 Q64,14 40,14 Z" fill="white"/>
+        <!-- V (blue, on top) — tall thin strokes, overlaps R stem -->
+        <path d="M4,6 L14,6 L40,76 L30,76 Z" fill="url(#vg1)"/>
+        <path d="M30,76 L40,76 L50,50 L40,50 Z" fill="url(#vg1)"/>
+        <!-- each... — cursive, bottom-right, completing "Reach" -->
+        <text x="44" y="110" font-family="'Dancing Script','Brush Script MT',cursive" font-size="20" font-weight="600" fill="white" opacity="0.88">each...</text>
       </svg>
     </a>
     <nav class="nav-links" id="navLinks">
@@ -88,17 +88,11 @@
     </div>
   </div>
   <div class="hero-logo-bg" aria-hidden="true">
-    <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="vgrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#42a5f5" stop-opacity="0.15"/>
-          <stop offset="100%" stop-color="#1565c0" stop-opacity="0.05"/>
-        </linearGradient>
-      </defs>
-      <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad2)"/>
-      <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad2)"/>
-      <rect x="68" y="10" width="14" height="48" fill="rgba(255,255,255,0.04)"/>
-      <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="rgba(255,255,255,0.04)"/>
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30,6 L40,6 L40,86 L30,86 Z" fill="rgba(255,255,255,0.04)"/>
+      <path d="M40,6 Q76,6 76,28 Q76,46 56,50 L80,86 L68,86 L44,50 L40,50 L40,38 Q60,38 64,28 Q64,14 40,14 Z" fill="rgba(255,255,255,0.04)"/>
+      <path d="M4,6 L14,6 L40,76 L30,76 Z" fill="rgba(33,150,243,0.1)"/>
+      <path d="M30,76 L40,76 L50,50 L40,50 Z" fill="rgba(33,150,243,0.1)"/>
     </svg>
   </div>
   <div class="scroll-indicator" aria-hidden="true">
@@ -325,18 +319,18 @@
     <div class="about-layout">
       <div class="about-visual reveal">
         <div class="about-card">
-          <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="about-logo-svg">
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="about-logo-svg">
             <defs>
-              <linearGradient id="vgrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#42a5f5"/>
-                <stop offset="100%" stop-color="#1565c0"/>
+              <linearGradient id="vg3" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#4fc3f7"/>
+                <stop offset="100%" stop-color="#1976d2"/>
               </linearGradient>
             </defs>
-            <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad3)"/>
-            <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad3)"/>
-            <rect x="68" y="10" width="14" height="48" fill="white"/>
-            <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
-            <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
+            <path d="M30,6 L40,6 L40,86 L30,86 Z" fill="white"/>
+            <path d="M40,6 Q76,6 76,28 Q76,46 56,50 L80,86 L68,86 L44,50 L40,50 L40,38 Q60,38 64,28 Q64,14 40,14 Z" fill="white"/>
+            <path d="M4,6 L14,6 L40,76 L30,76 Z" fill="url(#vg3)"/>
+            <path d="M30,76 L40,76 L50,50 L40,50 Z" fill="url(#vg3)"/>
+            <text x="44" y="110" font-family="'Dancing Script','Brush Script MT',cursive" font-size="20" font-weight="600" fill="white" opacity="0.88">each...</text>
           </svg>
           <div class="about-card-tag">Est. Hyderabad</div>
           <div class="about-card-glow"></div>
@@ -457,13 +451,13 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="#home" aria-label="VReach Home">
-          <svg viewBox="0 0 260 72" xmlns="http://www.w3.org/2000/svg" class="footer-logo-svg">
-            <defs><linearGradient id="vgrad4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#42a5f5"/><stop offset="100%" stop-color="#1565c0"/></linearGradient></defs>
-            <polygon points="8,10 22,10 52,58 38,58" fill="url(#vgrad4)"/>
-            <polygon points="38,58 52,58 62,38 48,38" fill="url(#vgrad4)"/>
-            <rect x="68" y="10" width="14" height="48" fill="white"/>
-            <path d="M82,10 Q118,10 118,28 Q118,42 96,45 L120,58 L104,58 L80,45 L82,45 L82,36 Q100,36 104,28 Q104,18 82,18 Z" fill="white"/>
-            <text x="128" y="46" font-family="'Playfair Display',Georgia,serif" font-size="22" font-style="italic" fill="rgba(255,255,255,0.85)" letter-spacing="1">each...</text>
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" class="footer-logo-svg">
+            <defs><linearGradient id="vg4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#4fc3f7"/><stop offset="100%" stop-color="#1976d2"/></linearGradient></defs>
+            <path d="M30,6 L40,6 L40,86 L30,86 Z" fill="white"/>
+            <path d="M40,6 Q76,6 76,28 Q76,46 56,50 L80,86 L68,86 L44,50 L40,50 L40,38 Q60,38 64,28 Q64,14 40,14 Z" fill="white"/>
+            <path d="M4,6 L14,6 L40,76 L30,76 Z" fill="url(#vg4)"/>
+            <path d="M30,76 L40,76 L50,50 L40,50 Z" fill="url(#vg4)"/>
+            <text x="44" y="110" font-family="'Dancing Script','Brush Script MT',cursive" font-size="20" font-weight="600" fill="white" opacity="0.88">each...</text>
           </svg>
         </a>
         <p>Where Ideas Expand Your Reach.</p>
