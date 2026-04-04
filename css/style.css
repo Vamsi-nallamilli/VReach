@@ -276,32 +276,55 @@ strong { font-weight: 600; }
   50%      { transform: translateY(-14px); }
 }
 
-/* 3D Ball */
+/* 3D Ball — ultra realistic */
 .hicon-ball {
   border-radius: 50%; position: relative; overflow: hidden;
   box-shadow:
-    0 16px 48px rgba(0,0,0,0.5),
-    0 4px 12px rgba(0,0,0,0.4),
-    inset 0 -4px 12px rgba(0,0,0,0.35);
+    0 20px 60px rgba(0,0,0,0.6),
+    0 6px 16px rgba(0,0,0,0.5),
+    inset 0 -6px 16px rgba(0,0,0,0.4),
+    inset 0 2px 4px rgba(255,255,255,0.15);
   transition: transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 .hicon:hover .hicon-ball {
-  transform: scale(1.12) translateY(-4px);
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 6px 16px rgba(0,0,0,0.4), inset 0 -4px 12px rgba(0,0,0,0.35);
+  transform: scale(1.14) translateY(-6px) rotate(3deg);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.7),
+    0 8px 20px rgba(0,0,0,0.5),
+    inset 0 -6px 16px rgba(0,0,0,0.4),
+    inset 0 2px 4px rgba(255,255,255,0.15);
 }
 
-/* Specular shine */
-.hball-shine {
-  position: absolute; top: 8%; left: 14%; width: 38%; height: 28%;
+/* Top ambient light — wide soft highlight */
+.hball-top-light {
+  position: absolute; top: -10%; left: -10%; width: 120%; height: 55%;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.1) 60%, transparent 100%);
-  transform: rotate(-35deg); pointer-events: none; z-index: 10;
+  background: radial-gradient(ellipse at 40% 20%, rgba(255,255,255,0.22) 0%, transparent 70%);
+  pointer-events: none; z-index: 9;
 }
-/* Bottom reflection */
-.hball-reflect {
-  position: absolute; bottom: 10%; right: 12%; width: 24%; height: 14%;
+/* Primary specular — tight bright spot */
+.hball-shine {
+  position: absolute; top: 9%; left: 13%; width: 34%; height: 24%;
   border-radius: 50%;
-  background: rgba(255,255,255,0.15);
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.92) 0%,
+    rgba(255,255,255,0.45) 35%,
+    rgba(255,255,255,0.05) 70%,
+    transparent 100%);
+  transform: rotate(-30deg); pointer-events: none; z-index: 11;
+}
+/* Rim light — edge glow on bottom-right */
+.hball-rim {
+  position: absolute; bottom: 5%; right: 5%; width: 40%; height: 40%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+  pointer-events: none; z-index: 9;
+}
+/* Secondary reflection — small bottom-left */
+.hball-reflect {
+  position: absolute; bottom: 12%; left: 10%; width: 20%; height: 12%;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
   pointer-events: none; z-index: 10;
 }
 /* Logo SVG inside ball */
@@ -309,72 +332,91 @@ strong { font-weight: 600; }
   position: absolute; top: 50%; left: 50%;
   transform: translate(-50%,-50%);
   z-index: 5; pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.4));
+  border-radius: 10px;
 }
 
 /* Icon label */
 .hicon-label {
-  font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5);
-  text-transform: uppercase; letter-spacing: 0.1em;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  font-size: 0.65rem; font-weight: 700; color: rgba(255,255,255,0.55);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.6);
 }
 
-/* Individual icon sizes & positions (centered around orbit midpoint) */
+/* ── Icon sizes & positions ── */
 .hicon--ig {
-  width: 96px; height: 96px;
-  top: calc(50% - 200px); left: calc(50% - 48px);
+  top: calc(50% - 210px); left: calc(50% - 52px);
   animation-delay: 0s;
 }
-.hicon--ig .hicon-ball { width: 96px; height: 96px; }
-.hicon--ig .hball-logo { width: 60px; height: 60px; }
+.hicon--ig .hicon-ball { width: 100px; height: 100px; }
+.hicon--ig .hball-logo { width: 64px; height: 64px; }
 
 .hicon--fb {
-  width: 80px; height: 80px;
-  top: calc(50% - 110px); left: calc(50% + 140px);
+  top: calc(50% - 100px); left: calc(50% + 150px);
   animation-delay: -1.4s;
 }
-.hicon--fb .hicon-ball { width: 80px; height: 80px; }
-.hicon--fb .hball-logo { width: 50px; height: 50px; }
+.hicon--fb .hicon-ball { width: 84px; height: 84px; }
+.hicon--fb .hball-logo { width: 52px; height: 52px; }
 
 .hicon--yt {
-  width: 104px; height: 104px;
-  top: calc(50% + 60px); left: calc(50% + 120px);
+  top: calc(50% + 70px); left: calc(50% + 130px);
   animation-delay: -2.8s;
 }
-.hicon--yt .hicon-ball { width: 104px; height: 104px; }
-.hicon--yt .hball-logo { width: 64px; height: 64px; }
+.hicon--yt .hicon-ball { width: 108px; height: 108px; }
+.hicon--yt .hball-logo { width: 68px; height: 68px; }
 
-.hicon--li {
-  width: 76px; height: 76px;
-  top: calc(50% + 120px); left: calc(50% - 160px);
+.hicon--ads {
+  top: calc(50% + 130px); left: calc(50% - 170px);
   animation-delay: -4.2s;
 }
-.hicon--li .hicon-ball { width: 76px; height: 76px; }
-.hicon--li .hball-logo { width: 48px; height: 48px; }
+.hicon--ads .hicon-ball { width: 80px; height: 80px; }
+.hicon--ads .hball-logo { width: 50px; height: 50px; }
 
 .hicon--gl {
-  width: 88px; height: 88px;
-  top: calc(50% - 80px); left: calc(50% - 200px);
+  top: calc(50% - 90px); left: calc(50% - 210px);
   animation-delay: -2s;
 }
-.hicon--gl .hicon-ball { width: 88px; height: 88px; }
-.hicon--gl .hball-logo { width: 54px; height: 54px; }
+.hicon--gl .hicon-ball { width: 92px; height: 92px; }
+.hicon--gl .hball-logo { width: 58px; height: 58px; }
 
-.hicon--mt {
-  width: 72px; height: 72px;
-  top: calc(50% + 160px); left: calc(50% + 20px);
+.hicon--seo {
+  top: calc(50% + 170px); left: calc(50% + 30px);
   animation-delay: -5s;
 }
-.hicon--mt .hicon-ball { width: 72px; height: 72px; }
-.hicon--mt .hball-logo { width: 44px; height: 44px; }
+.hicon--seo .hicon-ball { width: 76px; height: 76px; }
+.hicon--seo .hball-logo { width: 48px; height: 48px; }
 
-/* Ball background colors for 3D depth */
-.hicon-ball--ig { background: radial-gradient(circle at 35% 30%, #ff9a3c 0%, #e1306c 45%, #833ab4 100%); }
-.hicon-ball--fb { background: radial-gradient(circle at 35% 30%, #4a9eff 0%, #1877F2 50%, #0d4fa8 100%); }
-.hicon-ball--yt { background: radial-gradient(circle at 35% 30%, #ff5252 0%, #FF0000 50%, #8b0000 100%); }
-.hicon-ball--li { background: radial-gradient(circle at 35% 30%, #4da6ff 0%, #0A66C2 50%, #064080 100%); }
-.hicon-ball--gl { background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f0f0f0 40%, #d0d0d0 100%); }
-.hicon-ball--mt { background: radial-gradient(circle at 35% 30%, #4a9eff 0%, #0866FF 50%, #0040aa 100%); }
+/* ── Ball 3D background gradients ── */
+.hicon-ball--ig {
+  background:
+    radial-gradient(circle at 35% 28%, #ffb347 0%, #e1306c 40%, #833ab4 75%, #4c1d95 100%);
+}
+.hicon-ball--fb {
+  background:
+    radial-gradient(circle at 35% 28%, #74b3ff 0%, #1877F2 45%, #0d4fa8 75%, #062d6e 100%);
+}
+.hicon-ball--yt {
+  background:
+    radial-gradient(circle at 35% 28%, #ff7070 0%, #FF0000 45%, #990000 75%, #4a0000 100%);
+}
+.hicon-ball--ads {
+  background:
+    radial-gradient(circle at 35% 28%, #ffe566 0%, #FBBC04 45%, #c98a00 75%, #7a5200 100%);
+}
+.hicon-ball--gl {
+  background:
+    radial-gradient(circle at 35% 28%, #ffffff 0%, #f0f4ff 40%, #d8e4ff 70%, #b0c4f0 100%);
+}
+.hicon-ball--seo {
+  background:
+    radial-gradient(circle at 35% 28%, #5599ff 0%, #0A66FF 45%, #0040cc 75%, #001a66 100%);
+}
+
+/* ── Form note ── */
+.form-note {
+  font-size: .78rem; color: rgba(255,255,255,.35);
+  text-align: center; margin-top: 12px; line-height: 1.5;
+}
 
 /* "Explore Services" — visible white outline on dark hero */
 .btn-hero-outline {

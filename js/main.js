@@ -244,25 +244,15 @@ document.querySelectorAll('.case-card, .insight-card').forEach(card => {
   });
 });
 
-/* ── Contact form ── */
-const OWNER = 'nallamillivamsireddy2001@gmail.com';
+/* ── Contact form — FormSubmit.co handles email delivery ── */
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', e => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type="submit"] span:first-child') || form.querySelector('button[type="submit"]');
-    const name = form.name.value.trim(), email = form.email.value.trim();
-    const business = form.business.value.trim(), service = form.service.value, message = form.message.value.trim();
-    const subject = encodeURIComponent(`Free Digital Audit — ${name}${business ? ' (' + business + ')' : ''}`);
-    const body = encodeURIComponent(`Free Digital Audit Request\n\nName: ${name}\nEmail: ${email}\nBusiness: ${business||'—'}\nService: ${service||'—'}\n\nMessage:\n${message||'—'}`);
-    window.location.href = `mailto:${OWNER}?subject=${subject}&body=${body}`;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const origText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<span>Opening mail app...</span>';
-    setTimeout(() => {
-      submitBtn.innerHTML = '<span>✓ Request sent!</span>';
-      form.reset();
-      setTimeout(() => { submitBtn.innerHTML = origText; }, 4000);
-    }, 1500);
+    const name = (form.name && form.name.value.trim()) || '';
+    const email = (form.email && form.email.value.trim()) || '';
+    if (!name || !email) { e.preventDefault(); return; }
+    const btn = document.getElementById('submitBtn');
+    const txt = document.getElementById('submitText');
+    if (btn && txt) { btn.disabled = true; txt.textContent = 'Sending...'; }
   });
 }
