@@ -147,8 +147,19 @@ strong { font-weight: 600; }
   display: flex; align-items: center; gap: 32px;
 }
 .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.nav-logo-img { height: 48px; width: auto; object-fit: contain; mix-blend-mode: screen; filter: brightness(1.4); transition: height .3s var(--ease); }
-.nav.scrolled .nav-logo-img { height: 38px; }
+.nav-logo-img {
+  height: 44px; width: auto; object-fit: contain;
+  /* On dark hero: screen blend removes black bg */
+  mix-blend-mode: screen;
+  filter: brightness(1.5) contrast(1.1);
+  transition: height .3s var(--ease), filter .3s, mix-blend-mode .3s;
+}
+.nav.scrolled .nav-logo-img {
+  height: 36px;
+  /* On white nav: multiply keeps logo colors, hides white bg */
+  mix-blend-mode: multiply;
+  filter: none;
+}
 .nav-logo-text {
   font-family: var(--font-head); font-size: 1.3rem; font-weight: 800;
   letter-spacing: -0.02em; color: #fff;
@@ -586,22 +597,32 @@ strong { font-weight: 600; }
 
 /* ── Process ── */
 .process { padding: 120px 0; background: var(--white); border-top: 1px solid var(--border); }
-.process-path { max-width: 680px; margin: 0 auto; }
-.process-step { display: grid; grid-template-columns: 56px 32px 1fr; align-items: start; }
+.process-path { max-width: 720px; margin: 0 auto; }
+.process-step {
+  display: grid;
+  grid-template-columns: 56px 40px 1fr;
+  align-items: start;
+  min-width: 0;
+}
 .ps-node {
   width: 44px; height: 44px; border-radius: 50%;
   background: var(--ice2); border: 2px solid var(--border-blue);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   transition: background .4s, border-color .4s, box-shadow .4s;
 }
 .ps-node span { font-family: var(--font-head); font-size: .75rem; font-weight: 800; color: var(--text-muted); transition: color .4s; }
 .process-step.in-view .ps-node { background: var(--blue); border-color: var(--blue); box-shadow: 0 0 20px rgba(10,102,255,.4); }
 .process-step.in-view .ps-node span { color: #fff; }
-.ps-connector { display: flex; flex-direction: column; align-items: center; padding-top: 44px; }
+.ps-connector { display: flex; flex-direction: column; align-items: center; padding-top: 44px; flex-shrink: 0; }
 .ps-connector::after { content: ''; width: 1.5px; flex: 1; min-height: 48px; background: linear-gradient(to bottom, var(--border-blue), transparent); margin: 4px 0; }
-.ps-content { padding: 8px 0 52px 20px; }
+.ps-content {
+  padding: 8px 0 52px 20px;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
 .ps-content h3 { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-.ps-content p { font-size: .9rem; color: var(--text-dim); line-height: 1.8; }
+.ps-content p { font-size: .9rem; color: var(--text-dim); line-height: 1.8; white-space: normal; }
 
 /* ── About ── */
 .about { padding: 120px 0; background: var(--ice); border-top: 1px solid var(--border); }
