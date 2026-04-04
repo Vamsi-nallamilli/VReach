@@ -845,3 +845,125 @@ strong { font-weight: 600; }
   .about-glass-card { padding: 40px 28px; }
   .contact-form { padding: 28px 24px; }
 }
+
+/* ── Social Media Icons — Contact Section ── */
+.social-links {
+  margin-top: 32px;
+}
+.social-label {
+  display: block; font-size: 0.72rem; font-weight: 600;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+.social-icons {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+
+.social-icon {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 16px; border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  font-size: 0.8rem; font-weight: 600; color: var(--text-dim);
+  cursor: none;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s, background 0.3s, color 0.3s;
+}
+.social-icon span {
+  font-family: var(--font-body);
+}
+.social-icon:hover {
+  transform: translateY(-3px);
+}
+
+/* Instagram — gradient brand color */
+.social-icon--instagram:hover {
+  background: rgba(225, 48, 108, 0.12);
+  border-color: rgba(225, 48, 108, 0.5);
+  color: #e1306c;
+  box-shadow: 0 8px 28px rgba(225, 48, 108, 0.2);
+}
+/* Facebook — blue */
+.social-icon--facebook:hover {
+  background: rgba(24, 119, 242, 0.12);
+  border-color: rgba(24, 119, 242, 0.5);
+  color: #1877f2;
+  box-shadow: 0 8px 28px rgba(24, 119, 242, 0.2);
+}
+/* LinkedIn — blue */
+.social-icon--linkedin:hover {
+  background: rgba(10, 102, 194, 0.12);
+  border-color: rgba(10, 102, 194, 0.5);
+  color: #0a66c2;
+  box-shadow: 0 8px 28px rgba(10, 102, 194, 0.2);
+}
+/* X / Twitter — white */
+.social-icon--x:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(255, 255, 255, 0.08);
+}
+/* YouTube — red */
+.social-icon--youtube:hover {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: rgba(255, 0, 0, 0.45);
+  color: #ff0000;
+  box-shadow: 0 8px 28px rgba(255, 0, 0, 0.18);
+}
+
+/* ── Social Icons — Footer (icon-only, compact) ── */
+.footer-socials {
+  display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap;
+}
+.fsoc {
+  width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; border: 1px solid var(--border);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-dim); cursor: none;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s, background 0.3s, color 0.3s;
+}
+.fsoc:hover { transform: translateY(-3px) scale(1.08); }
+
+.fsoc--instagram:hover {
+  background: rgba(225, 48, 108, 0.15);
+  border-color: rgba(225, 48, 108, 0.55);
+  color: #e1306c;
+  box-shadow: 0 6px 20px rgba(225, 48, 108, 0.25);
+}
+.fsoc--facebook:hover {
+  background: rgba(24, 119, 242, 0.15);
+  border-color: rgba(24, 119, 242, 0.55);
+  color: #1877f2;
+  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.25);
+}
+.fsoc--linkedin:hover {
+  background: rgba(10, 102, 194, 0.15);
+  border-color: rgba(10, 102, 194, 0.55);
+  color: #0a66c2;
+  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.25);
+}
+.fsoc--x:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.08);
+}
+.fsoc--youtube:hover {
+  background: rgba(255, 0, 0, 0.12);
+  border-color: rgba(255, 0, 0, 0.5);
+  color: #ff0000;
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.2);
+}
+.fsoc--whatsapp:hover {
+  background: rgba(37, 211, 102, 0.12);
+  border-color: rgba(37, 211, 102, 0.5);
+  color: #25d366;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.2);
+}
+
+/* Mobile: stack social icons in contact section */
+@media (max-width: 480px) {
+  .social-icons { gap: 8px; }
+  .social-icon { padding: 9px 12px; font-size: 0.75rem; }
+}
