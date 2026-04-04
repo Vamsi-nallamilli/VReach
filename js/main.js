@@ -1,7 +1,7 @@
 'use strict';
 
 /* ══════════════════════════════════════════════════════
-   SCROLL PROGRESS BAR
+   SCROLL PROGRESS
 ══════════════════════════════════════════════════════ */
 const progressBar = document.getElementById('scrollProgress');
 window.addEventListener('scroll', () => {
@@ -10,12 +10,11 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ══════════════════════════════════════════════════════
-   CUSTOM CURSOR — magnetic + trail
+   CUSTOM CURSOR
 ══════════════════════════════════════════════════════ */
 const cursor   = document.getElementById('cursor');
 const follower = document.getElementById('cursorFollower');
-const trail    = document.getElementById('cursorTrail');
-let mx = -200, my = -200, fx = -200, fy = -200, tx = -200, ty = -200;
+let mx = -200, my = -200, fx = -200, fy = -200;
 let cursorVisible = false;
 
 document.addEventListener('mousemove', e => {
@@ -25,31 +24,28 @@ document.addEventListener('mousemove', e => {
     cursorVisible = true;
     cursor.classList.add('active');
     follower.classList.add('active');
-    trail.classList.add('active');
   }
 });
 
 (function animCursor() {
-  fx += (mx - fx) * 0.1;  fy += (my - fy) * 0.1;
-  tx += (fx - tx) * 0.06; ty += (fy - ty) * 0.06;
+  fx += (mx - fx) * 0.1; fy += (my - fy) * 0.1;
   follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
-  trail.style.left    = tx + 'px'; trail.style.top    = ty + 'px';
   requestAnimationFrame(animCursor);
 })();
 
-document.querySelectorAll('a, button, .svc-card, .port-card, .blog-card').forEach(el => {
+document.querySelectorAll('a, button, .svc-card, .case-card, .why-card').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.style.width = '14px'; cursor.style.height = '14px';
-    cursor.style.background = 'rgba(33,150,243,0.5)';
+    cursor.style.background = 'rgba(0,212,170,0.5)';
     follower.style.width = '56px'; follower.style.height = '56px';
-    follower.style.borderColor = 'rgba(33,150,243,1)';
-    follower.style.background = 'rgba(33,150,243,0.06)';
+    follower.style.borderColor = 'rgba(0,212,170,1)';
+    follower.style.background = 'rgba(0,212,170,0.06)';
   });
   el.addEventListener('mouseleave', () => {
     cursor.style.width = '8px'; cursor.style.height = '8px';
-    cursor.style.background = '#2196F3';
+    cursor.style.background = '#00d4aa';
     follower.style.width = '36px'; follower.style.height = '36px';
-    follower.style.borderColor = 'rgba(33,150,243,0.6)';
+    follower.style.borderColor = 'rgba(0,212,170,0.5)';
     follower.style.background = 'transparent';
   });
 });
@@ -58,7 +54,7 @@ document.querySelectorAll('a, button, .svc-card, .port-card, .blog-card').forEac
    WEBGL AURORA HERO BACKGROUND
 ══════════════════════════════════════════════════════ */
 const canvas = document.getElementById('heroCanvas');
-const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+const gl = canvas ? (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) : null;
 
 if (gl) {
   const vsSource = `
@@ -87,26 +83,25 @@ if (gl) {
     void main() {
       vec2 uv = gl_FragCoord.xy / u_res;
       vec2 m  = u_mouse / u_res;
-      float t = u_time * 0.18;
+      float t = u_time * 0.15;
 
       vec2 q = vec2(fbm(uv + t*0.4), fbm(uv + vec2(1.7,9.2)));
       vec2 r = vec2(fbm(uv + 2.0*q + vec2(1.7,9.2) + t*0.3),
                     fbm(uv + 2.0*q + vec2(8.3,2.8) + t*0.25));
       float f = fbm(uv + 2.8*r);
 
-      /* mouse influence */
       float md = length(uv - m);
-      f += 0.12 * exp(-md * 3.0);
+      f += 0.1 * exp(-md * 3.5);
 
-      vec3 col = mix(vec3(0.01,0.01,0.06), vec3(0.04,0.12,0.35), clamp(f*f*4.0,0.0,1.0));
-      col = mix(col, vec3(0.05,0.22,0.6),  clamp(f*f*f*8.0,0.0,1.0));
-      col = mix(col, vec3(0.13,0.47,0.95), clamp(pow(f,4.0)*16.0,0.0,1.0));
+      /* Teal/cyan color palette */
+      vec3 col = mix(vec3(0.01,0.02,0.06), vec3(0.0,0.08,0.12), clamp(f*f*4.0,0.0,1.0));
+      col = mix(col, vec3(0.0,0.18,0.22),  clamp(f*f*f*8.0,0.0,1.0));
+      col = mix(col, vec3(0.0,0.52,0.42),  clamp(pow(f,4.0)*16.0,0.0,1.0));
 
-      /* subtle vignette */
       float vig = 1.0 - smoothstep(0.4, 1.2, length(uv - 0.5) * 1.4);
       col *= vig;
 
-      gl_FragColor = vec4(col * 0.85, 1.0);
+      gl_FragColor = vec4(col * 0.9, 1.0);
     }
   `;
 
@@ -148,54 +143,162 @@ if (gl) {
     requestAnimationFrame(renderGL);
   }
   requestAnimationFrame(renderGL);
-
-} else {
-  /* Fallback: canvas 2D particles if WebGL unavailable */
-  const ctx2 = canvas.getContext('2d');
-  let W2, H2, pts = [];
-  function resize2() { W2 = canvas.width = canvas.offsetWidth; H2 = canvas.height = canvas.offsetHeight; }
-  resize2(); window.addEventListener('resize', resize2);
-  for (let i = 0; i < 120; i++) pts.push({ x: Math.random()*W2, y: Math.random()*H2, vx:(Math.random()-.5)*.4, vy:(Math.random()-.5)*.4, r:Math.random()*1.5+.3, a:Math.random()*.5+.1, c:Math.random()>.5?'#2196F3':'#fff' });
-  (function loop2() {
-    ctx2.clearRect(0,0,W2,H2);
-    pts.forEach(p => {
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>W2||p.y<0||p.y>H2){p.x=Math.random()*W2;p.y=Math.random()*H2;}
-      ctx2.beginPath(); ctx2.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx2.fillStyle=p.c; ctx2.globalAlpha=p.a; ctx2.fill();
-    });
-    ctx2.globalAlpha=1; requestAnimationFrame(loop2);
-  })();
 }
 
 /* ══════════════════════════════════════════════════════
-   HERO PARALLAX + SCROLL-BASED TRANSFORMS
+   3D NETWORK SPHERE — Canvas 2D (no external deps)
+   Renders a glowing node network sphere on the right
+══════════════════════════════════════════════════════ */
+(function initSphere() {
+  const sc = document.getElementById('sphereCanvas');
+  if (!sc) return;
+  const ctx = sc.getContext('2d');
+  let W, H, mouseX = 0, mouseY = 0;
+  let rotX = 0, rotY = 0, targetRotX = 0, targetRotY = 0;
+
+  function resize() {
+    const wrap = sc.parentElement;
+    W = sc.width  = wrap.offsetWidth;
+    H = sc.height = wrap.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth  - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  /* Generate sphere nodes */
+  const NODE_COUNT = 120;
+  const RADIUS = 0.38; /* fraction of min(W,H) */
+  const nodes = [];
+  for (let i = 0; i < NODE_COUNT; i++) {
+    const phi   = Math.acos(1 - 2 * (i + 0.5) / NODE_COUNT);
+    const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+    nodes.push({
+      ox: Math.sin(phi) * Math.cos(theta),
+      oy: Math.sin(phi) * Math.sin(theta),
+      oz: Math.cos(phi),
+      pulse: Math.random() * Math.PI * 2,
+      size: Math.random() * 1.5 + 0.8
+    });
+  }
+
+  /* Precompute edges (connect nearby nodes) */
+  const edges = [];
+  const EDGE_DIST = 0.55;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].ox - nodes[j].ox;
+      const dy = nodes[i].oy - nodes[j].oy;
+      const dz = nodes[i].oz - nodes[j].oz;
+      if (Math.sqrt(dx*dx + dy*dy + dz*dz) < EDGE_DIST) {
+        edges.push([i, j]);
+      }
+    }
+  }
+
+  function rotatePoint(x, y, z, rx, ry) {
+    /* Rotate around Y */
+    const cosY = Math.cos(ry), sinY = Math.sin(ry);
+    const x1 = x * cosY + z * sinY;
+    const z1 = -x * sinY + z * cosY;
+    /* Rotate around X */
+    const cosX = Math.cos(rx), sinX = Math.sin(rx);
+    const y2 = y * cosX - z1 * sinX;
+    const z2 = y * sinX + z1 * cosX;
+    return { x: x1, y: y2, z: z2 };
+  }
+
+  let t = 0;
+  function draw() {
+    t += 0.005;
+    ctx.clearRect(0, 0, W, H);
+
+    /* Smooth rotation toward mouse */
+    targetRotY = mouseX * 0.4 + t * 0.3;
+    targetRotX = mouseY * 0.25;
+    rotX += (targetRotX - rotX) * 0.04;
+    rotY += (targetRotY - rotY) * 0.04;
+
+    const R = Math.min(W, H) * RADIUS;
+    const cx = W * 0.5, cy = H * 0.5;
+
+    /* Project all nodes */
+    const projected = nodes.map((n, idx) => {
+      const p = rotatePoint(n.ox, n.oy, n.oz, rotX, rotY);
+      const scale = 1 + p.z * 0.3;
+      const px = cx + p.x * R * scale;
+      const py = cy + p.y * R * scale;
+      const alpha = (p.z + 1) * 0.5;
+      const pulse = 0.7 + 0.3 * Math.sin(t * 2 + n.pulse);
+      return { px, py, z: p.z, alpha, pulse, size: n.size };
+    });
+
+    /* Draw edges */
+    edges.forEach(([i, j]) => {
+      const a = projected[i], b = projected[j];
+      const avgAlpha = (a.alpha + b.alpha) * 0.5;
+      if (avgAlpha < 0.15) return;
+      ctx.beginPath();
+      ctx.moveTo(a.px, a.py);
+      ctx.lineTo(b.px, b.py);
+      const grad = ctx.createLinearGradient(a.px, a.py, b.px, b.py);
+      grad.addColorStop(0, `rgba(0,212,170,${avgAlpha * 0.25})`);
+      grad.addColorStop(0.5, `rgba(0,184,217,${avgAlpha * 0.35})`);
+      grad.addColorStop(1, `rgba(0,212,170,${avgAlpha * 0.25})`);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 0.6;
+      ctx.stroke();
+    });
+
+    /* Draw nodes */
+    projected.forEach(p => {
+      if (p.alpha < 0.1) return;
+      const r = p.size * p.pulse * (0.8 + p.z * 0.4);
+      /* Glow */
+      const grd = ctx.createRadialGradient(p.px, p.py, 0, p.px, p.py, r * 4);
+      grd.addColorStop(0, `rgba(0,212,170,${p.alpha * 0.5})`);
+      grd.addColorStop(1, 'rgba(0,212,170,0)');
+      ctx.beginPath();
+      ctx.arc(p.px, p.py, r * 4, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+      /* Core dot */
+      ctx.beginPath();
+      ctx.arc(p.px, p.py, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${p.z > 0 ? '77,255,216' : '0,184,217'},${p.alpha * 0.9})`;
+      ctx.fill();
+    });
+
+    /* Outer glow ring */
+    const ringGrd = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.15);
+    ringGrd.addColorStop(0, 'rgba(0,212,170,0)');
+    ringGrd.addColorStop(0.5, `rgba(0,212,170,${0.06 + 0.02 * Math.sin(t)})`);
+    ringGrd.addColorStop(1, 'rgba(0,212,170,0)');
+    ctx.beginPath();
+    ctx.arc(cx, cy, R, 0, Math.PI * 2);
+    ctx.strokeStyle = ringGrd;
+    ctx.lineWidth = R * 0.3;
+    ctx.stroke();
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ══════════════════════════════════════════════════════
+   HERO PARALLAX
 ══════════════════════════════════════════════════════ */
 const heroInner = document.querySelector('.hero-inner');
-const heroBg    = document.querySelector('.hero-logo-bg');
-const heroOrbs  = document.querySelector('.hero-orbs');
+const hero3d    = document.querySelector('.hero-3d-wrap');
 
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
-  if (heroInner) heroInner.style.transform = `translateY(${y * 0.2}px)`;
-  if (heroBg)    heroBg.style.transform    = `translateY(calc(-50% + ${y * 0.3}px))`;
-  if (heroOrbs)  heroOrbs.style.transform  = `translateY(${y * 0.12}px)`;
+  if (heroInner) heroInner.style.transform = `translateY(${y * 0.18}px)`;
+  if (hero3d)    hero3d.style.transform    = `translateY(calc(-50% + ${y * 0.1}px))`;
 }, { passive: true });
-
-/* ══════════════════════════════════════════════════════
-   SPLIT TEXT — char-by-char animation on hero headline
-══════════════════════════════════════════════════════ */
-document.querySelectorAll('.split-text').forEach(el => {
-  const text = el.textContent;
-  el.textContent = '';
-  text.split('').forEach((ch, i) => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.textContent = ch === ' ' ? '\u00A0' : ch;
-    span.style.animationDelay = (0.3 + i * 0.04) + 's';
-    el.appendChild(span);
-  });
-});
 
 /* ══════════════════════════════════════════════════════
    NAVBAR
@@ -246,13 +349,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 /* ══════════════════════════════════════════════════════
-   REVEAL ON SCROLL — directional stagger
+   REVEAL ON SCROLL
 ══════════════════════════════════════════════════════ */
 document.querySelectorAll('.reveal').forEach(el => {
   if (!el.dataset.dir) {
-    if      (el.closest('.ps-left'))       el.dataset.dir = 'left';
-    else if (el.closest('.ps-right'))      el.dataset.dir = 'right';
-    else if (el.closest('.about-visual'))  el.dataset.dir = 'left';
+    if      (el.closest('.about-visual'))  el.dataset.dir = 'left';
     else if (el.closest('.about-text'))    el.dataset.dir = 'right';
     else if (el.closest('.contact-left'))  el.dataset.dir = 'left';
     else if (el.closest('.contact-right')) el.dataset.dir = 'right';
@@ -272,7 +373,7 @@ const revealObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
 /* ══════════════════════════════════════════════════════
-   COUNTER ANIMATION — easeOutExpo
+   COUNTER ANIMATION
 ══════════════════════════════════════════════════════ */
 function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 const counterObs = new IntersectionObserver(entries => {
@@ -293,7 +394,7 @@ function animCount(el) {
 }
 
 /* ══════════════════════════════════════════════════════
-   3D TILT — cards with spotlight glow
+   3D TILT — service, case, why cards
 ══════════════════════════════════════════════════════ */
 function addTilt(selector, intensity) {
   document.querySelectorAll(selector).forEach(card => {
@@ -301,9 +402,8 @@ function addTilt(selector, intensity) {
       const rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width  - 0.5;
       const y = (e.clientY - rect.top)  / rect.height - 0.5;
-      card.style.transform = `perspective(800px) rotateY(${x*intensity}deg) rotateX(${-y*intensity}deg) translateY(-8px) scale(1.02)`;
+      card.style.transform = `perspective(900px) rotateY(${x*intensity}deg) rotateX(${-y*intensity}deg) translateY(-6px) scale(1.01)`;
       card.style.transition = 'transform 0.08s ease';
-      /* spotlight for svc-cards */
       const mx = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1);
       const my = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1);
       card.style.setProperty('--mx', mx + '%');
@@ -315,12 +415,12 @@ function addTilt(selector, intensity) {
     });
   });
 }
-addTilt('.svc-card', 8);
-addTilt('.port-card', 5);
-addTilt('.blog-card', 5);
+addTilt('.svc-card', 7);
+addTilt('.case-card', 5);
+addTilt('.why-card', 6);
 
 /* ══════════════════════════════════════════════════════
-   PROCESS — highlight active step on scroll
+   PROCESS — highlight active step
 ══════════════════════════════════════════════════════ */
 const processObs = new IntersectionObserver(entries => {
   entries.forEach(e => e.target.classList.toggle('in-view', e.isIntersecting));
@@ -328,44 +428,7 @@ const processObs = new IntersectionObserver(entries => {
 document.querySelectorAll('.process-item').forEach(el => processObs.observe(el));
 
 /* ══════════════════════════════════════════════════════
-   SCROLL-BASED SECTION TINT (subtle bg shift)
-══════════════════════════════════════════════════════ */
-const sections = document.querySelectorAll('section');
-const sectionObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('section-active');
-    else e.target.classList.remove('section-active');
-  });
-}, { threshold: 0.3 });
-sections.forEach(s => sectionObs.observe(s));
-
-/* ══════════════════════════════════════════════════════
-   MARQUEE — pause on hover (handled in CSS)
-   PS LIST — stagger on reveal
-══════════════════════════════════════════════════════ */
-const psObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('li').forEach((li, i) => {
-        li.style.transitionDelay = (i * 0.08) + 's';
-        li.style.opacity = '1';
-        li.style.transform = 'translateX(0)';
-      });
-      psObs.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
-document.querySelectorAll('.ps-list').forEach(list => {
-  list.querySelectorAll('li').forEach(li => {
-    li.style.opacity = '0';
-    li.style.transform = 'translateX(-20px)';
-    li.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-  });
-  psObs.observe(list);
-});
-
-/* ══════════════════════════════════════════════════════
-   CONTACT FORM — mailto to Vamsi
+   CONTACT FORM — mailto
 ══════════════════════════════════════════════════════ */
 const OWNER_EMAIL = 'nallamillivamsireddy2001@gmail.com';
 const form = document.getElementById('contactForm');
@@ -382,10 +445,10 @@ if (form) {
     const message  = form.message.value.trim();
 
     const subject = encodeURIComponent(
-      `Free Audit Request — ${name}${business ? ' (' + business + ')' : ''}`
+      `Strategy Call Request — ${name}${business ? ' (' + business + ')' : ''}`
     );
     const body = encodeURIComponent(
-      `New Free Audit Request from VReach Website\n\n` +
+      `New Strategy Call Request from VReach Website\n\n` +
       `Name:     ${name}\n` +
       `Email:    ${email}\n` +
       `Business: ${business || '—'}\n` +
