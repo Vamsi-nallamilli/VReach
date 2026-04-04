@@ -36,16 +36,16 @@ document.addEventListener('mousemove', e => {
 document.querySelectorAll('a, button, .svc-card, .case-card, .why-card').forEach(el => {
   el.addEventListener('mouseenter', () => {
     cursor.style.width = '14px'; cursor.style.height = '14px';
-    cursor.style.background = 'rgba(0,212,170,0.5)';
+    cursor.style.background = 'rgba(245,197,24,0.5)';
     follower.style.width = '56px'; follower.style.height = '56px';
-    follower.style.borderColor = 'rgba(0,212,170,1)';
-    follower.style.background = 'rgba(0,212,170,0.06)';
+    follower.style.borderColor = 'rgba(245,197,24,1)';
+    follower.style.background = 'rgba(245,197,24,0.06)';
   });
   el.addEventListener('mouseleave', () => {
     cursor.style.width = '8px'; cursor.style.height = '8px';
-    cursor.style.background = '#00d4aa';
+    cursor.style.background = '#f5c518';
     follower.style.width = '36px'; follower.style.height = '36px';
-    follower.style.borderColor = 'rgba(0,212,170,0.5)';
+    follower.style.borderColor = 'rgba(245,197,24,0.5)';
     follower.style.background = 'transparent';
   });
 });
@@ -93,10 +93,10 @@ if (gl) {
       float md = length(uv - m);
       f += 0.1 * exp(-md * 3.5);
 
-      /* Teal/cyan color palette */
-      vec3 col = mix(vec3(0.01,0.02,0.06), vec3(0.0,0.08,0.12), clamp(f*f*4.0,0.0,1.0));
-      col = mix(col, vec3(0.0,0.18,0.22),  clamp(f*f*f*8.0,0.0,1.0));
-      col = mix(col, vec3(0.0,0.52,0.42),  clamp(pow(f,4.0)*16.0,0.0,1.0));
+      /* Gold/amber color palette */
+      vec3 col = mix(vec3(0.02,0.01,0.0), vec3(0.12,0.08,0.0), clamp(f*f*4.0,0.0,1.0));
+      col = mix(col, vec3(0.28,0.18,0.0),  clamp(f*f*f*8.0,0.0,1.0));
+      col = mix(col, vec3(0.55,0.38,0.02),  clamp(pow(f,4.0)*16.0,0.0,1.0));
 
       float vig = 1.0 - smoothstep(0.4, 1.2, length(uv - 0.5) * 1.4);
       col *= vig;
@@ -245,9 +245,9 @@ if (gl) {
       ctx.moveTo(a.px, a.py);
       ctx.lineTo(b.px, b.py);
       const grad = ctx.createLinearGradient(a.px, a.py, b.px, b.py);
-      grad.addColorStop(0, `rgba(0,212,170,${avgAlpha * 0.25})`);
-      grad.addColorStop(0.5, `rgba(0,184,217,${avgAlpha * 0.35})`);
-      grad.addColorStop(1, `rgba(0,212,170,${avgAlpha * 0.25})`);
+      grad.addColorStop(0, `rgba(245,197,24,${avgAlpha * 0.25})`);
+      grad.addColorStop(0.5, `rgba(255,224,102,${avgAlpha * 0.35})`);
+      grad.addColorStop(1, `rgba(245,197,24,${avgAlpha * 0.25})`);
       ctx.strokeStyle = grad;
       ctx.lineWidth = 0.6;
       ctx.stroke();
@@ -259,8 +259,8 @@ if (gl) {
       const r = p.size * p.pulse * (0.8 + p.z * 0.4);
       /* Glow */
       const grd = ctx.createRadialGradient(p.px, p.py, 0, p.px, p.py, r * 4);
-      grd.addColorStop(0, `rgba(0,212,170,${p.alpha * 0.5})`);
-      grd.addColorStop(1, 'rgba(0,212,170,0)');
+      grd.addColorStop(0, `rgba(245,197,24,${p.alpha * 0.5})`);
+      grd.addColorStop(1, 'rgba(245,197,24,0)');
       ctx.beginPath();
       ctx.arc(p.px, p.py, r * 4, 0, Math.PI * 2);
       ctx.fillStyle = grd;
@@ -268,15 +268,15 @@ if (gl) {
       /* Core dot */
       ctx.beginPath();
       ctx.arc(p.px, p.py, r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${p.z > 0 ? '77,255,216' : '0,184,217'},${p.alpha * 0.9})`;
+      ctx.fillStyle = `rgba(${p.z > 0 ? '255,232,122' : '245,197,24'},${p.alpha * 0.9})`;
       ctx.fill();
     });
 
     /* Outer glow ring */
     const ringGrd = ctx.createRadialGradient(cx, cy, R * 0.85, cx, cy, R * 1.15);
-    ringGrd.addColorStop(0, 'rgba(0,212,170,0)');
-    ringGrd.addColorStop(0.5, `rgba(0,212,170,${0.06 + 0.02 * Math.sin(t)})`);
-    ringGrd.addColorStop(1, 'rgba(0,212,170,0)');
+    ringGrd.addColorStop(0, 'rgba(245,197,24,0)');
+    ringGrd.addColorStop(0.5, `rgba(245,197,24,${0.06 + 0.02 * Math.sin(t)})`);
+    ringGrd.addColorStop(1, 'rgba(245,197,24,0)');
     ctx.beginPath();
     ctx.arc(cx, cy, R, 0, Math.PI * 2);
     ctx.strokeStyle = ringGrd;
