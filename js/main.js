@@ -120,22 +120,105 @@ function initParticles(canvasId) {
 initParticles('resultsCanvas');
 initParticles('contactCanvas');
 
-/* ── Hero floating icons parallax ── */
+/* ── Hero floating icons parallax + 3D mouse tilt ── */
 const heroOrbit = document.querySelector('.hero-icons-orbit');
+let mouseX = 0, mouseY = 0;
+
 document.addEventListener('mousemove', e => {
   if (!heroOrbit) return;
   const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-  const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
-  heroOrbit.style.transform = `translate(${dx * 18}px, ${dy * 12}px)`;
+  mouseX = (e.clientX - cx) / cx;
+  mouseY = (e.clientY - cy) / cy;
+  heroOrbit.style.transform = `perspective(800px) rotateY(${mouseX * 12}deg) rotateX(${-mouseY * 8}deg) translate(${mouseX * 20}px, ${mouseY * 14}px)`;
 });
 
-/* ── Hero scroll parallax ── */
+/* ── Hero scroll parallax with depth ── */
 const heroContent = document.querySelector('.hero-content');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
-  if (heroContent) heroContent.style.transform = `translateY(${y * 0.12}px)`;
-  if (heroOrbit) heroOrbit.style.transform = `translateY(${y * 0.06}px)`;
+  if (heroContent) {
+    heroContent.style.transform = `translateY(${y * 0.12}px)`;
+    heroContent.style.opacity = Math.max(0, 1 - y / 600);
+  }
+  if (heroOrbit) {
+    heroOrbit.style.transform = `perspective(800px) rotateY(${mouseX * 12}deg) rotateX(${-mouseY * 8}deg) translateY(${y * 0.07}px) scale(${Math.max(0.85, 1 - y / 2000)})`;
+  }
 }, { passive: true });
+
+/* ── Icon staggered 3D entrance on load ── */
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hicon').forEach((icon, i) => {
+    setTimeout(() => icon.classList.add('icon-visible'), 400 + i * 150);
+  });
+});
+
+/* ── Section 3D scroll entrance ── */
+const s3dObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('s3d-visible'); s3dObs.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.section-3d').forEach(s => s3dObs.observe(s));
+
+/* ── Scroll-driven section micro-tilt ── */
+function updateSectionTilt() {
+  const vh = window.innerHeight;
+  document.querySelectorAll('.section-3d.s3d-visible').forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+    const tiltX = Math.max(-3, Math.min(3, progress * 4));
+    sec.style.transform = `perspective(1200px) rotateX(${tiltX}deg)`;
+  });
+}
+window.addEventListener('scroll', updateSectionTilt, { passive: true });
+
+/* ── Case card 3D tilt ── */
+document.querySelectorAll('.case-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(700px) rotateY(${x * 14}deg) rotateX(${-y * 10}deg) translateZ(16px) translateY(-6px)`;
+    card.style.transition = 'transform 0.08s ease';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = ''; card.style.transition = 'transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+  });
+});
+
+/* ── Insight card 3D tilt ── */
+document.querySelectorAll('.insight-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(600px) rotateY(${x * 10}deg) rotateX(${-y * 8}deg) translateZ(12px) translateY(-6px)`;
+    card.style.transition = 'transform 0.08s ease';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = ''; card.style.transition = 'transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+  });
+});
+
+/* ── About card mouse parallax ── */
+const aboutCard = document.querySelector('.about-card');
+if (aboutCard) {
+  aboutCard.addEventListener('mousemove', e => {
+    const r = aboutCard.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    aboutCard.style.transform = `perspective(800px) rotateY(${x * 16}deg) rotateX(${-y * 12}deg) translateZ(20px)`;
+    aboutCard.style.transition = 'transform 0.1s ease';
+    aboutCard.style.animation = 'none';
+  });
+  aboutCard.addEventListener('mouseleave', () => {
+    aboutCard.style.transform = '';
+    aboutCard.style.transition = 'transform 0.8s cubic-bezier(0.16,1,0.3,1)';
+    setTimeout(() => { aboutCard.style.animation = ''; }, 800);
+  });
+}
+
+
 
 /* ── Navbar ── */
 const nav = document.getElementById('nav');
