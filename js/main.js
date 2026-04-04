@@ -121,25 +121,20 @@ initParticles('resultsCanvas');
 initParticles('contactCanvas');
 
 /* ── Hero floating icons parallax ── */
-const heroIcons = document.querySelectorAll('.hicon');
+const heroOrbit = document.querySelector('.hero-icons-orbit');
 document.addEventListener('mousemove', e => {
+  if (!heroOrbit) return;
   const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
   const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
-  heroIcons.forEach(icon => {
-    const depth = parseFloat(icon.dataset.depth || 0.3);
-    icon.style.transform = `translate(${dx * depth * 28}px, ${dy * depth * 18}px)`;
-  });
+  heroOrbit.style.transform = `translate(${dx * 18}px, ${dy * 12}px)`;
 });
 
 /* ── Hero scroll parallax ── */
 const heroContent = document.querySelector('.hero-content');
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
-  if (heroContent) heroContent.style.transform = `translateY(${y * 0.15}px)`;
-  heroIcons.forEach(icon => {
-    const depth = parseFloat(icon.dataset.depth || 0.3);
-    icon.style.transform += ` translateY(${y * depth * 0.08}px)`;
-  });
+  if (heroContent) heroContent.style.transform = `translateY(${y * 0.12}px)`;
+  if (heroOrbit) heroOrbit.style.transform = `translateY(${y * 0.06}px)`;
 }, { passive: true });
 
 /* ── Navbar ── */
