@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    VREACH — Premium White/Blue Digital Agency
    Inspired by Exelentex.com composition quality
 ============================================================ */
@@ -333,88 +333,6 @@ strong { font-weight: 600; }
 }
 .hp-item span { font-size: 0.7rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
 .hp-div { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
-
-/* Explore Services — visible white outline on dark hero */
-.btn-hero-outline {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: rgba(255,255,255,0.9); font-weight: 600; font-size: 0.92rem;
-  padding: 14px 24px; border-radius: var(--r);
-  border: 1.5px solid rgba(255,255,255,0.35);
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
-  transition: color .3s, border-color .3s, background .3s, transform .3s var(--ease);
-  cursor: none;
-}
-.btn-hero-outline:hover {
-  color: #fff; border-color: rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.12); transform: translateY(-2px);
-}
-
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.45);
-  letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;
-  opacity: 0; animation: fadeUp .8s var(--ease) .2s forwards;
-}
-.hero-dot {
-  width: 6px; height: 6px; background: var(--blue-mid); border-radius: 50%;
-  animation: dotPulse 2s ease infinite; flex-shrink: 0;
-}
-@keyframes dotPulse {
-  0%,100% { box-shadow: 0 0 0 0 rgba(58,160,255,.7); }
-  50% { box-shadow: 0 0 0 7px rgba(58,160,255,0); }
-}
-.hero-h1 {
-  font-family: var(--font-head);
-  font-size: clamp(2.6rem, 4.2vw, 4.8rem);
-  font-weight: 800; line-height: 1.0; letter-spacing: -0.03em;
-  color: #fff; margin-bottom: 24px;
-  display: flex; flex-direction: column; gap: 2px;
-}
-.hero-line { display: block; overflow: hidden; }
-.hero-h1 .hero-line:nth-child(1) { animation: lineUp .9s var(--ease) .3s both; }
-.hero-h1 .hero-line:nth-child(2) { animation: lineUp .9s var(--ease) .45s both; }
-.hero-h1 .hero-line:nth-child(3) { animation: lineUp .9s var(--ease) .6s both; }
-@keyframes lineUp { from { opacity:0; transform:translateY(100%); } to { opacity:1; transform:translateY(0); } }
-.hero-h1 em {
-  font-style: normal;
-  background: linear-gradient(120deg, #7EC8FF 0%, #3AA0FF 50%, #0A66FF 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(58,160,255,0.5));
-}
-.hero-sub {
-  font-size: 1.05rem; color: rgba(255,255,255,0.7); line-height: 1.7;
-  margin-bottom: 10px; max-width: 460px;
-  opacity: 0; animation: fadeUp .8s var(--ease) .75s forwards;
-}
-.hero-body {
-  font-size: 0.88rem; color: rgba(255,255,255,0.4); line-height: 1.85;
-  margin-bottom: 36px; max-width: 440px;
-  opacity: 0; animation: fadeUp .8s var(--ease) .88s forwards;
-}
-.hero-ctas {
-  display: flex; gap: 14px; flex-wrap: wrap;
-  opacity: 0; animation: fadeUp .8s var(--ease) 1s forwards;
-}
-@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-
-.hero-scroll {
-  position: absolute; bottom: 36px; left: 80px; z-index: 2;
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  opacity: 0; animation: fadeUp .8s var(--ease) 1.3s forwards;
-}
-.hero-scroll-line {
-  width: 1px; height: 44px;
-  background: linear-gradient(to bottom, rgba(58,160,255,.7), transparent);
-  animation: scrollLine 2s ease infinite;
-}
-@keyframes scrollLine {
-  0%   { transform:scaleY(0); transform-origin:top; }
-  50%  { transform:scaleY(1); transform-origin:top; }
-  51%  { transform:scaleY(1); transform-origin:bottom; }
-  100% { transform:scaleY(0); transform-origin:bottom; }
-}
-.hero-scroll span { font-size:.65rem; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.3); writing-mode:vertical-rl; }
 
 /* ── Trust Strip ── */
 .trust-strip {

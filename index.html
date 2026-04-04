@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
@@ -47,7 +47,7 @@
 <section class="hero" id="home">
   <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
 
-  <!-- LEFT: Text -->
+  <!-- LEFT: Text content -->
   <div class="hero-content">
     <div class="hero-eyebrow">
       <span class="hero-dot"></span>
@@ -73,52 +73,69 @@
     </div>
   </div>
 
-  <!-- RIGHT: Unified 3D scene — canvas with icons overlaid -->
-  <div class="hero-scene" aria-hidden="true">
-    <canvas id="sceneCanvas" class="scene-canvas"></canvas>
-    <!-- 3D Social icons positioned over the canvas -->
-    <div class="scene-icons">
+  <!-- RIGHT: 3D icon cluster — pure CSS positioned, no canvas -->
+  <div class="hero-right" aria-hidden="true">
+    <div class="icon-cluster" id="iconCluster">
 
-      <div class="si si--ig" style="--sx:62%;--sy:12%">
-        <div class="si-ball si-ball--ig"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><defs><radialGradient id="ig2" cx="30%" cy="100%" r="130%"><stop offset="0%" stop-color="#ffd600"/><stop offset="25%" stop-color="#ff6b00"/><stop offset="55%" stop-color="#e1306c"/><stop offset="100%" stop-color="#833ab4"/></radialGradient></defs><rect width="48" height="48" rx="12" fill="url(#ig2)"/><rect x="13" y="13" width="22" height="22" rx="6" stroke="white" stroke-width="2.2" fill="none"/><circle cx="24" cy="24" r="6.5" stroke="white" stroke-width="2.2" fill="none"/><circle cx="34.5" cy="13.5" r="2" fill="white"/></svg>
+      <!-- Decorative rings -->
+      <div class="ic-ring ic-ring--1"></div>
+      <div class="ic-ring ic-ring--2"></div>
+      <div class="ic-ring ic-ring--3"></div>
+      <!-- Central glow -->
+      <div class="ic-glow"></div>
+
+      <!-- Instagram — top center, largest -->
+      <div class="ic ic--ig">
+        <div class="ic-ball ic-ball--ig">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><defs><radialGradient id="igG" cx="30%" cy="100%" r="130%"><stop offset="0%" stop-color="#ffd600"/><stop offset="25%" stop-color="#ff6b00"/><stop offset="55%" stop-color="#e1306c"/><stop offset="100%" stop-color="#833ab4"/></radialGradient></defs><rect width="48" height="48" rx="12" fill="url(#igG)"/><rect x="13" y="13" width="22" height="22" rx="6" stroke="white" stroke-width="2.2" fill="none"/><circle cx="24" cy="24" r="6.5" stroke="white" stroke-width="2.2" fill="none"/><circle cx="34.5" cy="13.5" r="2" fill="white"/></svg>
         </div>
-        <span>Instagram</span>
+        <span class="ic-label">Instagram</span>
       </div>
 
-      <div class="si si--fb" style="--sx:88%;--sy:28%">
-        <div class="si-ball si-ball--fb"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#1877F2"/><path d="M32 8h-5a9 9 0 00-9 9v5h-5v7h5v14h7V29h5.5l1-7H25v-5a2 2 0 012-2h5V8z" fill="white"/></svg>
+      <!-- Facebook — right -->
+      <div class="ic ic--fb">
+        <div class="ic-ball ic-ball--fb">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#1877F2"/><path d="M32 8h-5a9 9 0 00-9 9v5h-5v7h5v14h7V29h5.5l1-7H25v-5a2 2 0 012-2h5V8z" fill="white"/></svg>
         </div>
-        <span>Facebook</span>
+        <span class="ic-label">Facebook</span>
       </div>
 
-      <div class="si si--yt" style="--sx:78%;--sy:58%">
-        <div class="si-ball si-ball--yt"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FF0000"/><path d="M38 18s-.4-2.6-1.5-3.7c-1.4-1.5-3-.5-3-.5C29.5 13.5 24 13.5 24 13.5s-5.5 0-9.5.3c0 0-1.6-1-3 .5C10.4 15.4 10 18 10 18S9.5 21 9.5 24v2.8c0 3 .5 6 .5 6s.4 2.6 1.5 3.7c1.4 1.5 3.3 1.4 4.1 1.6C18 38.4 24 38.4 24 38.4s5.5 0 9.5-.4c0 0 1.6 1 3-.5 1.1-1.1 1.5-3.7 1.5-3.7s.5-3 .5-6V24c0-3-.5-6-.5-6z" fill="#CC0000"/><path d="M20 30V18l12 6-12 6z" fill="white"/></svg>
+      <!-- YouTube — bottom right, largest -->
+      <div class="ic ic--yt">
+        <div class="ic-ball ic-ball--yt">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FF0000"/><path d="M38 18s-.4-2.6-1.5-3.7c-1.4-1.5-3-.5-3-.5C29.5 13.5 24 13.5 24 13.5s-5.5 0-9.5.3c0 0-1.6-1-3 .5C10.4 15.4 10 18 10 18S9.5 21 9.5 24v2.8c0 3 .5 6 .5 6s.4 2.6 1.5 3.7c1.4 1.5 3.3 1.4 4.1 1.6C18 38.4 24 38.4 24 38.4s5.5 0 9.5-.4c0 0 1.6 1 3-.5 1.1-1.1 1.5-3.7 1.5-3.7s.5-3 .5-6V24c0-3-.5-6-.5-6z" fill="#CC0000"/><path d="M20 30V18l12 6-12 6z" fill="white"/></svg>
         </div>
-        <span>YouTube</span>
+        <span class="ic-label">YouTube</span>
       </div>
 
-      <div class="si si--gl" style="--sx:52%;--sy:72%">
-        <div class="si-ball si-ball--gl"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="white"/><path d="M43.6 24.5c0-1.4-.1-2.7-.4-3.9H24v7.4h11c-.5 2.6-2 4.8-4.2 6.3v5.2h6.8c4-3.7 6-9.1 6-15z" fill="#4285F4"/><path d="M24 44c5.4 0 9.9-1.8 13.2-4.8l-6.8-5.2c-1.8 1.2-4 2-6.4 2-4.9 0-9.1-3.3-10.6-7.8H6.4v5.4C9.7 40.1 16.4 44 24 44z" fill="#34A853"/><path d="M13.4 28.2c-.4-1.2-.6-2.4-.6-3.7s.2-2.5.6-3.7v-5.4H6.4A19.9 19.9 0 004 24.5c0 3.2.8 6.3 2.4 9l7-5.3z" fill="#FBBC05"/><path d="M24 10.5c2.8 0 5.3 1 7.2 2.8l5.4-5.4C33.9 4.8 29.4 3 24 3 16.4 3 9.7 6.9 6.4 13l7 5.4c1.5-4.5 5.7-7.9 10.6-7.9z" fill="#EA4335"/></svg>
+      <!-- Google — bottom center -->
+      <div class="ic ic--gl">
+        <div class="ic-ball ic-ball--gl">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="white"/><path d="M43.6 24.5c0-1.4-.1-2.7-.4-3.9H24v7.4h11c-.5 2.6-2 4.8-4.2 6.3v5.2h6.8c4-3.7 6-9.1 6-15z" fill="#4285F4"/><path d="M24 44c5.4 0 9.9-1.8 13.2-4.8l-6.8-5.2c-1.8 1.2-4 2-6.4 2-4.9 0-9.1-3.3-10.6-7.8H6.4v5.4C9.7 40.1 16.4 44 24 44z" fill="#34A853"/><path d="M13.4 28.2c-.4-1.2-.6-2.4-.6-3.7s.2-2.5.6-3.7v-5.4H6.4A19.9 19.9 0 004 24.5c0 3.2.8 6.3 2.4 9l7-5.3z" fill="#FBBC05"/><path d="M24 10.5c2.8 0 5.3 1 7.2 2.8l5.4-5.4C33.9 4.8 29.4 3 24 3 16.4 3 9.7 6.9 6.4 13l7 5.4c1.5-4.5 5.7-7.9 10.6-7.9z" fill="#EA4335"/></svg>
         </div>
-        <span>Google</span>
+        <span class="ic-label">Google</span>
       </div>
 
-      <div class="si si--ads" style="--sx:30%;--sy:60%">
-        <div class="si-ball si-ball--ads"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FBBC04"/><path d="M10 32L18 18l8 14H10z" fill="#4285F4"/><path d="M26 32L34 18l8 14H26z" fill="#34A853"/><circle cx="34" cy="18" r="5" fill="#EA4335"/></svg>
+      <!-- Google Ads — left -->
+      <div class="ic ic--ads">
+        <div class="ic-ball ic-ball--ads">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#FBBC04"/><path d="M10 32L18 18l8 14H10z" fill="#4285F4"/><path d="M26 32L34 18l8 14H26z" fill="#34A853"/><circle cx="34" cy="18" r="5" fill="#EA4335"/></svg>
         </div>
-        <span>Google Ads</span>
+        <span class="ic-label">Google Ads</span>
       </div>
 
-      <div class="si si--seo" style="--sx:20%;--sy:30%">
-        <div class="si-ball si-ball--seo"><div class="si-shine"></div><div class="si-reflect"></div>
-          <svg class="si-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#0A66FF"/><circle cx="21" cy="21" r="9" stroke="white" stroke-width="3" fill="none"/><line x1="27.5" y1="27.5" x2="37" y2="37" stroke="white" stroke-width="3.5" stroke-linecap="round"/><path d="M21 25v-8M17 21l4-4 4 4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <!-- SEO — top left -->
+      <div class="ic ic--seo">
+        <div class="ic-ball ic-ball--seo">
+          <div class="ic-shine"></div><div class="ic-rim"></div><div class="ic-reflect"></div>
+          <svg class="ic-logo" viewBox="0 0 48 48"><rect width="48" height="48" rx="10" fill="#0A66FF"/><circle cx="21" cy="21" r="9" stroke="white" stroke-width="3" fill="none"/><line x1="27.5" y1="27.5" x2="37" y2="37" stroke="white" stroke-width="3.5" stroke-linecap="round"/><path d="M21 25v-8M17 21l4-4 4 4" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
-        <span>SEO</span>
+        <span class="ic-label">SEO</span>
       </div>
 
     </div>
