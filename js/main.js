@@ -120,6 +120,142 @@ function initParticles(canvasId) {
 initParticles('resultsCanvas');
 initParticles('contactCanvas');
 
+/* ══════════════════════════════════════════════════════
+   HERO CENTER — Live Campaign Intelligence Network
+══════════════════════════════════════════════════════ */
+(function initNetwork() {
+  const canvas = document.getElementById('networkCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+  resize(); window.addEventListener('resize', resize);
+
+  const CHANNELS = [
+    { label: 'Instagram', color: '#e1306c', glow: 'rgba(225,48,108,0.5)' },
+    { label: 'Facebook',  color: '#1877F2', glow: 'rgba(24,119,242,0.5)' },
+    { label: 'Google',    color: '#4285F4', glow: 'rgba(66,133,244,0.5)' },
+    { label: 'YouTube',   color: '#FF0000', glow: 'rgba(255,0,0,0.5)'    },
+    { label: 'SEO',       color: '#0A66FF', glow: 'rgba(10,102,255,0.5)' },
+    { label: 'Ads',       color: '#FBBC04', glow: 'rgba(251,188,4,0.5)'  },
+  ];
+
+  const hub = { x: 0.5, y: 0.5, r: 18, pulse: 0 };
+  const nodes = CHANNELS.map((ch, i) => {
+    const angle = (i / CHANNELS.length) * Math.PI * 2 - Math.PI / 2;
+    const dist = 0.28 + (i % 2 === 0 ? 0 : 0.06);
+    return {
+      x: 0.5 + Math.cos(angle) * dist,
+      y: 0.5 + Math.sin(angle) * dist * 0.72,
+      vx: (Math.random() - 0.5) * 0.0003,
+      vy: (Math.random() - 0.5) * 0.0003,
+      r: 9 + (i % 3) * 2,
+      pulse: i * 1.05,
+      ...ch
+    };
+  });
+
+  const particles = Array.from({length: 35}, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: (Math.random() - 0.5) * 0.0004, vy: (Math.random() - 0.5) * 0.0004,
+    r: Math.random() * 1.4 + 0.4, a: Math.random() * 0.35 + 0.08,
+    color: CHANNELS[Math.floor(Math.random() * CHANNELS.length)].color
+  }));
+
+  const signals = nodes.map((n, i) => ({
+    nodeIdx: i, progress: i / nodes.length,
+    speed: 0.005 + Math.random() * 0.004, color: n.color, size: 3 + (i % 3)
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const hx = hub.x * W, hy = hub.y * H;
+
+    /* BG glow */
+    const bg = ctx.createRadialGradient(hx, hy, 0, hx, hy, W * 0.5);
+    bg.addColorStop(0, 'rgba(10,102,255,0.07)'); bg.addColorStop(1, 'transparent');
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    /* Edges hub→node */
+    nodes.forEach(n => {
+      const nx = n.x*W, ny = n.y*H;
+      const g = ctx.createLinearGradient(hx, hy, nx, ny);
+      g.addColorStop(0, 'rgba(10,102,255,0.45)');
+      g.addColorStop(1, n.glow.replace('0.5','0.25'));
+      ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(nx, ny);
+      ctx.strokeStyle = g; ctx.lineWidth = 1.2; ctx.stroke();
+    });
+
+    /* Cross edges */
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = (a.x-b.x)*W, dy = (a.y-b.y)*H, d = Math.sqrt(dx*dx+dy*dy);
+        if (d < 150) {
+          ctx.beginPath(); ctx.moveTo(a.x*W, a.y*H); ctx.lineTo(b.x*W, b.y*H);
+          ctx.strokeStyle = `rgba(58,160,255,${0.07*(1-d/150)})`; ctx.lineWidth = 0.5; ctx.stroke();
+        }
+      }
+    }
+
+    /* Signal packets */
+    signals.forEach(sig => {
+      sig.progress += sig.speed; if (sig.progress > 1) sig.progress = 0;
+      const n = nodes[sig.nodeIdx];
+      const px = hx + (n.x*W - hx) * sig.progress;
+      const py = hy + (n.y*H - hy) * sig.progress;
+      const grd = ctx.createRadialGradient(px, py, 0, px, py, sig.size*3);
+      grd.addColorStop(0, sig.color); grd.addColorStop(1, 'transparent');
+      ctx.beginPath(); ctx.arc(px, py, sig.size*3, 0, Math.PI*2); ctx.fillStyle = grd; ctx.fill();
+      ctx.beginPath(); ctx.arc(px, py, sig.size, 0, Math.PI*2); ctx.fillStyle = sig.color; ctx.fill();
+    });
+
+    /* Satellite nodes */
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < 0.12 || n.x > 0.88) n.vx *= -1;
+      if (n.y < 0.08 || n.y > 0.92) n.vy *= -1;
+      n.pulse += 0.04;
+      const nx = n.x*W, ny = n.y*H, pr = n.r + Math.sin(n.pulse) * 2.5;
+      const grd = ctx.createRadialGradient(nx, ny, pr*0.5, nx, ny, pr*3.5);
+      grd.addColorStop(0, n.glow); grd.addColorStop(1, 'transparent');
+      ctx.beginPath(); ctx.arc(nx, ny, pr*3.5, 0, Math.PI*2); ctx.fillStyle = grd; ctx.fill();
+      ctx.beginPath(); ctx.arc(nx, ny, pr, 0, Math.PI*2); ctx.fillStyle = n.color; ctx.fill();
+      ctx.beginPath(); ctx.arc(nx, ny, pr*0.35, 0, Math.PI*2); ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.fill();
+      ctx.font = `600 ${Math.round(pr*0.85)}px Inter,sans-serif`;
+      ctx.fillStyle = 'rgba(255,255,255,0.65)'; ctx.textAlign = 'center';
+      ctx.fillText(n.label, nx, ny + pr + 13);
+    });
+
+    /* Hub */
+    hub.pulse += 0.025;
+    const hp = 18 + Math.sin(hub.pulse) * 2.5;
+    [1,2,3].forEach(ring => {
+      ctx.beginPath(); ctx.arc(hx, hy, hp + ring*13 + Math.sin(hub.pulse - ring*0.5)*3, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(10,102,255,${0.22 - ring*0.06})`; ctx.lineWidth = 1; ctx.stroke();
+    });
+    const hgrd = ctx.createRadialGradient(hx, hy, 0, hx, hy, hp*2.5);
+    hgrd.addColorStop(0, 'rgba(10,102,255,0.55)'); hgrd.addColorStop(1, 'transparent');
+    ctx.beginPath(); ctx.arc(hx, hy, hp*2.5, 0, Math.PI*2); ctx.fillStyle = hgrd; ctx.fill();
+    ctx.beginPath(); ctx.arc(hx, hy, hp, 0, Math.PI*2); ctx.fillStyle = '#0A66FF'; ctx.fill();
+    ctx.font = `800 ${Math.round(hp*0.72)}px Syne,sans-serif`;
+    ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText('VR', hx, hy + hp*0.28);
+
+    /* Particles */
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+      if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+      ctx.beginPath(); ctx.arc(p.x*W, p.y*H, p.r, 0, Math.PI*2);
+      ctx.fillStyle = p.color; ctx.globalAlpha = p.a; ctx.fill(); ctx.globalAlpha = 1;
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+
 /* ── Hero floating icons parallax + 3D mouse tilt ── */
 const heroOrbit = document.querySelector('.hero-icons-orbit');
 let mouseX = 0, mouseY = 0;

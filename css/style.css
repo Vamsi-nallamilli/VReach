@@ -875,10 +875,7 @@ strong { font-weight: 600; }
   .hero { grid-template-columns: 1fr; }
   .hero-icons { display: none; }
   .hero-content { padding: 140px 40px 100px; max-width: 680px; }
-  .wwd-layout { grid-template-columns: 1fr; gap: 40px; }
-  .about-layout { grid-template-columns: 1fr; gap: 48px; }
-  .about-badge { position: relative; bottom: auto; right: auto; }
-  .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+
 }
 @media (max-width: 768px) {
   .nav-links {
