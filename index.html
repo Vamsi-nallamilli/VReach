@@ -92,6 +92,9 @@
     <div class="about-meta">
       <p class="tag">Est. Hyderabad, India</p>
       <p class="tag" style="margin-top:1rem">Strategy-First Agency</p>
+      <div class="logo-circle">
+        <img src="VReach_Logo.jpeg" alt="VReach Logo" class="logo-img">
+      </div>
     </div>
     <div>
       <p class="tag">About VReach</p>
@@ -207,6 +210,8 @@ h2{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;line-height:1.15;margin-bo
 .pstep p{font-size:13px;color:var(--d);line-height:1.7}
 .about-in{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start}
 .about-meta{padding-top:.5rem}
+.logo-circle{margin-top:2rem;width:220px;height:220px;border-radius:50%;border:1px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.logo-img{width:100%;height:100%;object-fit:cover;mix-blend-mode:screen}
 .body-p{font-size:14px;color:var(--d);line-height:1.8;margin-bottom:1.2rem}
 .icat{font-size:10px;letter-spacing:.2em;text-transform:uppercase}
 .idate{font-size:11px;color:rgba(255,255,255,.3);margin:.5rem 0 1rem}
@@ -258,6 +263,7 @@ window.acceptC=function(){localStorage.setItem('vr_ck','1');var b=document.getEl
 window.rejectC=function(){localStorage.setItem('vr_ck','0');var b=document.getElementById('cookie');b.style.opacity='0';setTimeout(function(){b.style.display='none'},400)};
 window.submitForm=function(e){e.preventDefault();var btn=e.target.querySelector('button');btn.textContent='Sent \u2713';btn.style.background='rgba(0,255,255,.2)';btn.style.color='#00ffff';setTimeout(function(){btn.textContent='Send Message';btn.style.background='';btn.style.color=''},3000)};
 </script>
+
 
 
 
