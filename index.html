@@ -234,8 +234,8 @@ form .btn-p{align-self:flex-start;border:none}
 .flinks{display:flex;gap:2rem}
 .flinks a{font-size:11px;color:var(--d);letter-spacing:.1em;transition:color .3s}
 .flinks a:hover{color:#fff}
-#chat{position:fixed;bottom:0;left:0;z-index:50;width:min(420px,100%);height:calc(100% - 80px);display:flex;flex-direction:column;justify-content:flex-end;padding:3rem;pointer-events:none;mix-blend-mode:color-dodge}
-#chat-msgs{display:flex;flex-direction:column-reverse;overflow:hidden;margin-bottom:1rem;height:100%;-webkit-mask-image:linear-gradient(to top,white 0%,white 75%,transparent 90%);mask-image:linear-gradient(to top,white 0%,white 75%,transparent 90%)}
+#chat{position:fixed;bottom:2rem;left:2rem;z-index:50;width:min(320px,90%);display:flex;flex-direction:column;pointer-events:none}
+#chat-msgs{display:flex;flex-direction:column;overflow:hidden;margin-bottom:.8rem}
 #chat-msgs p,#chat-msgs a{font-size:13px;line-height:1.6;margin:5px 0 5px 10px;white-space:pre-wrap;color:var(--d)}
 #chat-msgs p{color:rgba(244,244,244,.9)}
 .sug{font-weight:700;cursor:pointer;pointer-events:auto;width:fit-content;transition:all .4s cubic-bezier(.17,.4,.02,.99);transform:translateX(0)}
@@ -253,7 +253,7 @@ form .btn-p{align-self:flex-start;border:none}
 .cbtn button:hover{box-shadow:0 1px 8px rgba(255,255,255,.2)}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
-@media(max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}.about-in,.contact-in{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}#chat{mix-blend-mode:normal;padding:2rem}.sug{color:#eee!important}#cookie{bottom:0;left:0;right:0;width:100%;border-radius:12px 12px 0 0}}
+@media(max-width:900px){.grid3{grid-template-columns:repeat(2,1fr)}.about-in,.contact-in{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}#chat{left:1rem;bottom:1rem}.sug{color:#eee!important}#cookie{bottom:0;left:0;right:0;width:100%;border-radius:12px 12px 0 0}}
 @media(max-width:600px){.grid3{grid-template-columns:1fr}.inner{padding:0 1.5rem}.nav-links{display:none}.burger{display:block}#nav{padding:1.2rem 1.5rem}.stats{gap:1.5rem}.btns{flex-direction:column}.about-in{gap:2rem}.pstep{gap:1.5rem}}
 </style>
 <script>
@@ -316,3 +316,4 @@ window.acceptC=function(){localStorage.setItem('vr_ck','1');var b=document.getEl
 window.rejectC=function(){localStorage.setItem('vr_ck','0');var b=document.getElementById('cookie');b.style.opacity='0';setTimeout(function(){b.style.display='none'},400)};
 window.submitForm=function(e){e.preventDefault();var btn=e.target.querySelector('button');btn.textContent='Sent \u2713';btn.style.background='rgba(0,255,255,.2)';btn.style.color='#00ffff';setTimeout(function(){btn.textContent='Send Message';btn.style.background='';btn.style.color=''},3000)};
 </script>
+
