@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- 3B. NARRATIVE HOLOGRAPHIC SCREENS (Motion Video) ---
     // Create the massive floating glass cinema screens for storytelling
-    const screenGeo = new THREE.PlaneGeometry(35, 20); // 16:9 cinematic ratio
+    const screenGeo = new THREE.PlaneGeometry(50, 28); // Massively increased scale for better readability
     
     function createVideoHologram(videoPath, imageFallback, pos, rotY) {
         // First load the generated 2D fallback images so there's always an immediate visual layout
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             clearcoatRoughness: 0.1,
             metalness: 0.9,
             roughness: 0.2,
-            side: THREE.DoubleSide
+            side: THREE.FrontSide // Only viewable from front
         });
 
         // Create an invisible HTML5 Video element targeting the video path
@@ -163,15 +163,24 @@ document.addEventListener("DOMContentLoaded", () => {
         return screen;
     }
 
-    // Act 1: The Founder (Near Services)
-    const act1 = createVideoHologram('act1.mp4', 'act1.png', new THREE.Vector3(30, 20, -5), -Math.PI / 8);
-    // Act 2: The Team (Near Process/Arch curve)
-    const act2 = createVideoHologram('act2.mp4', 'act2.png', new THREE.Vector3(-45, 15, -25), Math.PI / 6);
-    // Act 3: Success (Deep space near the CTA)
-    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(20, 25, -90), -Math.PI / 10);
+    // Act 1: The Founder (Arrival) - Centered and close
+    const act1 = createVideoHologram('act1.mp4', 'act1.png', new THREE.Vector3(0, 15, -30), 0);
+    // Act 2: VReach Activation (Services/Process) - Pushed left to frame content
+    const act2 = createVideoHologram('act2.mp4', 'act2.png', new THREE.Vector3(-30, 20, -60), Math.PI / 6);
+    // Act 3: Success (Growth/Celebration) - Majestic central framing deep in space
+    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(0, 30, -120), 0);
 
+    // Initial opacity states to prevent overlapping clutter immediately
+    act2.material.opacity = 0;
+    act2.material.emissiveIntensity = 0;
+    act2.children[0].material.opacity = 0; // The glowing frame
+
+    act3.material.opacity = 0;
+    act3.material.emissiveIntensity = 0;
+    act3.children[0].material.opacity = 0;
 
     // --- 3C. SUCCESS PARTICLES (Dormant) ---
+
     const particleCount = 2000;
     const pGeom = new THREE.BufferGeometry();
     const pPos = new Float32Array(particleCount * 3);
@@ -341,21 +350,28 @@ document.addEventListener("DOMContentLoaded", () => {
     
     setTimeout(() => {
         // Stage 1: Arrival (Hero) - Tension, extreme close framing onto the Act 1 Founder
-        // Resetting default camera explicitly to stare straight at Act 1 hologram
-        camera.position.set(30, 20, 15);
+        camera.position.set(0, 15, 20);
         cameraTarget.copy(act1.position);
-        scene.fog.density = 0.006;
+        scene.fog.density = 0.007;
         fogColor.setHex(0x010203); // Brutally stark dark
 
-        // Stage 2: Activation (Services) - Team dashboard scale up
+        // Stage 2: Activation (Services) - Fade out Founder, Fade in Team Dashboard, Scale up lights
         ScrollTrigger.create({
             trigger: '#services',
             start: 'top bottom',
             end: 'bottom center',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: -45, y: 15, z: 5, ease: "sine.inOut" })
+                .to(camera.position, { x: -10, y: 15, z: -20, ease: "sine.inOut" })
                 .to(cameraTarget, { x: act2.position.x, y: act2.position.y, z: act2.position.z, ease: "sine.inOut" }, "<")
+                
+                // Cinematic Dissolve
+                .to(act1.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
+                .to(act1.children[0].material, { opacity: 0 }, "<") // Frame dissolve
+                
+                .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, "<")
+                .to(act2.children[0].material, { opacity: 0.5 }, "<")
+                
                 .to(rimLight, { intensity: 4.5, ease: "power1.in" }, "<")
                 .to(coreMat, { emissiveIntensity: 1.5 }, "<")
         });
@@ -367,15 +383,20 @@ document.addEventListener("DOMContentLoaded", () => {
             end: 'bottom center',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: -10, y: 10, z: -30, ease: "sine.inOut" })
-                .to(cameraTarget, { x: 0, y: 0, z: 0, ease: "sine.inOut" }, "<")
+                .to(camera.position, { x: 0, y: 10, z: -40, ease: "sine.inOut" })
+                .to(cameraTarget, { x: 0, y: 0, z: -50, ease: "sine.inOut" }, "<")
                 .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, "<") 
         });
 
-        // Stage 4: Growth (Results) - Massive soar, fog lifts, chart monoliths literally skyrocket
+        // Stage 4: Growth (Results) - Fade out Team, fog lifts, chart monoliths literally skyrocket
         const growTl = gsap.timeline();
-        growTl.to(camera.position, { x: 0, y: 50, z: -30, ease: "power2.inOut" })
-              .to(cameraTarget, { x: 0, y: 15, z: -60, ease: "power2.inOut" }, "<")
+        growTl.to(camera.position, { x: 0, y: 40, z: -70, ease: "power2.inOut" })
+              .to(cameraTarget, { x: 0, y: 25, z: -100, ease: "power2.inOut" }, "<")
+              
+              // Cinematic Dissolve
+              .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
+              .to(act2.children[0].material, { opacity: 0 }, "<")
+              
               .to(scene.fog, { density: 0.0015, ease: "power2.out" }, "<")
               .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, "<"); // Deep energetic blue
         
@@ -394,18 +415,22 @@ document.addEventListener("DOMContentLoaded", () => {
             animation: growTl
         });
 
-        // Stage 5: Celebration (Contact/Onboarding) - Emotional warmth, victory, Act 3 Success Focus
+        // Stage 5: Celebration (Contact/Onboarding) - Fade in Success Focus, warm lighting
         ScrollTrigger.create({
             trigger: '#contact',
             start: 'top bottom',
             end: 'bottom bottom',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: 20, y: 25, z: -70, ease: "power2.inOut" })
+                .to(camera.position, { x: 0, y: 30, z: -80, ease: "power2.inOut" })
                 .to(cameraTarget, { x: act3.position.x, y: act3.position.y, z: act3.position.z, ease: "power2.inOut" }, "<")
+                
+                // Final Cinematic Reveal
+                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.5, ease: "power2.inOut" }, "<")
+                .to(act3.children[0].material, { opacity: 0.5 }, "<")
+                
                 .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, "<") // Golden/Cyan victorious warmth
                 .to(ambientLight, { intensity: 3.5 }, "<")
-                .to(act3.material, { emissiveIntensity: 1.5 }, "<") // Pulse the success hologram heavily
         });
 
     }, 800);
