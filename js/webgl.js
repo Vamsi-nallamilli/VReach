@@ -335,45 +335,80 @@ document.addEventListener("DOMContentLoaded", () => {
         chips.push(chip);
     });
 
-    // --- 5. ELEGANT CAMERA CHOREOGRAPHY ---
+    // --- 5. EMOTIONAL NARRATIVE CHOREOGRAPHY (5-Stage Journey) ---
+    // Make sure we have proper references for GSAP
+    const fogColor = scene.fog.color;
+    
     setTimeout(() => {
-        const masterTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: '#main-content',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1.5
-            }
+        // Stage 1: Arrival (Hero) - Tension, extreme close framing onto the Act 1 Founder
+        // Resetting default camera explicitly to stare straight at Act 1 hologram
+        camera.position.set(30, 20, 15);
+        cameraTarget.copy(act1.position);
+        scene.fog.density = 0.006;
+        fogColor.setHex(0x010203); // Brutally stark dark
+
+        // Stage 2: Activation (Services) - Team dashboard scale up
+        ScrollTrigger.create({
+            trigger: '#services',
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1.5,
+            animation: gsap.timeline()
+                .to(camera.position, { x: -45, y: 15, z: 5, ease: "sine.inOut" })
+                .to(cameraTarget, { x: act2.position.x, y: act2.position.y, z: act2.position.z, ease: "sine.inOut" }, "<")
+                .to(rimLight, { intensity: 4.5, ease: "power1.in" }, "<")
+                .to(coreMat, { emissiveIntensity: 1.5 }, "<")
         });
 
-        // 1. SERVICES: Lateral drift to watch the channels orbit the Arch
-        masterTl.to(camera.position, { x: 25, y: 15, z: 20, ease: "sine.inOut" }, 0)
-                .to(cameraTarget, { x: 5, y: 5, z: -30, ease: "sine.inOut" }, 0);
-        
-        // 2. RESULTS: Pan toward Strategic Nodes as they execute growth
-        masterTl.to(camera.position, { x: 5, y: 20, z: 10, ease: "sine.inOut" }, 1)
-                .to(cameraTarget, { x: 25, y: 20, z: -40, ease: "sine.inOut" }, 1);
+        // Stage 3: Coordination (Process) - Dive into the soaring Arch channel traffic
+        ScrollTrigger.create({
+            trigger: '#process',
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1.5,
+            animation: gsap.timeline()
+                .to(camera.position, { x: -10, y: 10, z: -30, ease: "sine.inOut" })
+                .to(cameraTarget, { x: 0, y: 0, z: 0, ease: "sine.inOut" }, "<")
+                .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, "<") 
+        });
+
+        // Stage 4: Growth (Results) - Massive soar, fog lifts, chart monoliths literally skyrocket
+        const growTl = gsap.timeline();
+        growTl.to(camera.position, { x: 0, y: 50, z: -30, ease: "power2.inOut" })
+              .to(cameraTarget, { x: 0, y: 15, z: -60, ease: "power2.inOut" }, "<")
+              .to(scene.fog, { density: 0.0015, ease: "power2.out" }, "<")
+              .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, "<"); // Deep energetic blue
         
         nodes.forEach(node => {
-            // Elegant vertical unfold mapping directly to results copy
-            masterTl.to(node.scale, { y: node.userData.targetHeight, ease: "power2.out" }, 1.1);
-            masterTl.to(node.position, { y: (node.userData.targetHeight / 2) - 10, ease: "power2.out" }, 1.1);
-            masterTl.to(node.material, { emissiveIntensity: 0.5 }, 1.1);
+            // Unfold the specific KPI pillars violently upwards
+            growTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, "<0.2")
+                  .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, "<")
+                  .to(node.material, { emissiveIntensity: 0.8 }, "<");
         });
 
-        // 3. PROCESS: Glide perfectly inside the Arch curves tracing a payload down!
-        masterTl.to(camera.position, { x: -25, y: 12, z: -10, ease: "sine.inOut" }, 2)
-                .to(cameraTarget, { x: 0, y: 0, z: -0, ease: "sine.inOut" }, 2);
+        ScrollTrigger.create({
+            trigger: '#results',
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1.5,
+            animation: growTl
+        });
 
-        // 4. ABOUT: Calmly elevate to a high focal angle. Authoritative, not chaotic.
-        masterTl.to(camera.position, { x: 0, y: 70, z: -40, ease: "power2.inOut" }, 3)
-                .to(cameraTarget, { x: 0, y: 10, z: -60, ease: "power2.inOut" }, 3);
-        
-        // 5. CTA: Center squarely into a pristine space
-        masterTl.to(camera.position, { x: 0, y: 15, z: -80, ease: "power2.inOut" }, 4)
-                .to(cameraTarget, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 4);
-                
-    }, 500);
+        // Stage 5: Celebration (Contact/Onboarding) - Emotional warmth, victory, Act 3 Success Focus
+        ScrollTrigger.create({
+            trigger: '#contact',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: 1.5,
+            animation: gsap.timeline()
+                .to(camera.position, { x: 20, y: 25, z: -70, ease: "power2.inOut" })
+                .to(cameraTarget, { x: act3.position.x, y: act3.position.y, z: act3.position.z, ease: "power2.inOut" }, "<")
+                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, "<") // Golden/Cyan victorious warmth
+                .to(ambientLight, { intensity: 3.5 }, "<")
+                .to(act3.material, { emissiveIntensity: 1.5 }, "<") // Pulse the success hologram heavily
+        });
+
+    }, 800);
 
     let mouseX = 0; let mouseY = 0;
     const windowHalfX = window.innerWidth / 2;
