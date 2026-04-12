@@ -299,11 +299,11 @@
     </div>
   </section>
 
-  <!-- The Congratulations Trigger Popup -->
+  <!-- The Trigger Popup -->
   <div id="congrats-toast" class="gl-panel">
     <button class="close-toast">&times;</button>
     <p class="toast-txt">Ready to finalize your project?</p>
-    <button id="toast-congrats-btn" class="btn-primary pulse-btn">Congratulations</button>
+    <button id="toast-congrats-btn" class="btn-primary pulse-btn">Deal Agreement</button>
   </div>
 
   <!-- Explicit Deal Agreement Section -->
@@ -312,7 +312,7 @@
       <p class="tagline">Finalize</p>
       <h2 class="cta-glow">Secure your digital growth.</h2>
       <p class="sub mx-auto">Confirm your finalized details to securely generate and download your official agency agreement.</p>
-      <button id="congrats-btn" class="btn-primary pulse-btn" style="margin-top:2rem;">Congratulations</button>
+      <button id="congrats-btn" class="btn-primary pulse-btn" style="margin-top:2rem;">Deal Agreement</button>
     </div>
   </section>
 
@@ -386,11 +386,13 @@
        </div>
      </form>
      
-     <div id="success-state" style="display:none;">
-       <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
-       <h3>Agreement Generated Successfully</h3>
-       <p>Your agreement has been downloaded to your device and a copy has been sent to our team.</p>
-       <button class="btn-outline mt-3" onclick="document.getElementById('close-modal-btn').click()">Close</button>
+     <div id="success-state" style="display:none; text-align: center; padding: 4rem 1rem;">
+       <h1 class="cta-glow" style="font-size: clamp(3rem, 6vw, 4.5rem); margin-bottom: 1.5rem; letter-spacing: -0.02em;">Congratulations</h1>
+       <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 2rem;">Your digital growth journey starts now.</h3>
+       <p style="font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 3rem; line-height: 1.6;">
+         Your official agreement has been securely generated, downloaded to your device, and a copy has been dispatched to our team.
+       </p>
+       <button class="btn-primary pulse-btn close-modal" onclick="document.getElementById('close-modal-btn').click()">Return to Site</button>
      </div>
   </div>
 </div>
