@@ -126,7 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
             clearcoatRoughness: 0.1,
             metalness: 0.9,
             roughness: 0.2,
-            depthWrite: false, // Fix WebGL sorting and transparent gliching
+            depthWrite: false,
+            depthTest: false, // Prevent monolith depth from occluding screens
             side: THREE.FrontSide
         });
 
@@ -153,11 +154,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const screen = new THREE.Mesh(screenGeo, mat);
         screen.position.copy(pos);
         screen.rotation.y = rotY;
-        
+        screen.renderOrder = 10; // Always render above monoliths/buildings
+
         // Add a subtle structural frame around the hologram
         const frameGeo = new THREE.EdgesGeometry(screenGeo);
         const frameMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.5 });
         const frame = new THREE.LineSegments(frameGeo, frameMat);
+        frame.renderOrder = 11;
         screen.add(frame);
         
         world.add(screen);
