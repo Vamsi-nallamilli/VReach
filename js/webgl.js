@@ -370,54 +370,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // STEP 1: Enter SERVICES (Fade out Act 1, Fade in Act 2)
-        // Act 1 fades out first (0-1), then Act 2 fades in (1-2) so they don't compete
+        // STEP 1: ~0-25% scroll — Act 1 fades out, Act 2 fades in
         masterTl.to(camera.position, { x: 0, y: 15, z: -40, ease: "sine.inOut" }, 0)
                 .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, 0)
                 .to(act1.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 0)
                 .to(act1.children[0].material, { opacity: 0 }, 0)
                 .to(rimLight, { intensity: 4.5, ease: "power1.in" }, 0)
                 .to(coreMat, { emissiveIntensity: 1.5 }, 0)
-                // Act 2 fades in after act1 is gone
-                .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, 1)
-                .to(act2.children[0].material, { opacity: 0.5 }, 1);
+                .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, 0.5)
+                .to(act2.children[0].material, { opacity: 0.5 }, 0.5);
 
-        // STEP 2: Enter RESULTS (Nodes Growth & Fog lifts)
-        masterTl.to(camera.position, { x: 0, y: 30, z: -70, ease: "power2.inOut" }, 2)
-                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "power2.inOut" }, 2)
-                .to(scene.fog, { density: 0.0015, ease: "power2.out" }, 2)
-                .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, 2);
-        
+        // STEP 2: ~25-50% scroll — Results nodes grow, fog lifts
+        masterTl.to(camera.position, { x: 0, y: 30, z: -70, ease: "power2.inOut" }, 1)
+                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "power2.inOut" }, 1)
+                .to(scene.fog, { density: 0.0015, ease: "power2.out" }, 1)
+                .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, 1);
+
         nodes.forEach((node, i) => {
-            masterTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, 2 + (i * 0.1))
-                    .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, 2 + (i * 0.1))
-                    .to(node.material, { emissiveIntensity: 0.8 }, 2 + (i * 0.1));
+            masterTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, 1 + (i * 0.05))
+                    .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, 1 + (i * 0.05))
+                    .to(node.material, { emissiveIntensity: 0.8 }, 1 + (i * 0.05));
         });
 
-        // STEP 3: Enter PROCESS (Arch diving, fade out Act 2, begin Act 3 Reveal)
-        masterTl.to(camera.position, { x: 0, y: 10, z: -90, ease: "sine.inOut" }, 3)
-                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "sine.inOut" }, 3)
-                
-                // Act 2 gently fades out
-                .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 3)
-                .to(act2.children[0].material, { opacity: 0 }, 3)
-                
-                .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, 3)
-                
-                // Act 3 fades in after act2 is gone
-                .to(act3.material, { opacity: 0.75, emissiveIntensity: 1.0, ease: "power2.inOut" }, 4)
-                .to(act3.children[0].material, { opacity: 0.4 }, 4);
+        // STEP 3: ~50-65% scroll — Act 2 fades out, Act 3 fades in
+        masterTl.to(camera.position, { x: 0, y: 10, z: -90, ease: "sine.inOut" }, 1.5)
+                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "sine.inOut" }, 1.5)
+                .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 1.5)
+                .to(act2.children[0].material, { opacity: 0 }, 1.5)
+                .to(archMat, { opacity: 0.9, ease: "power1.in" }, 1.5)
+                .to(act3.material, { opacity: 0.85, emissiveIntensity: 1.0, ease: "power2.inOut" }, 1.8)
+                .to(act3.children[0].material, { opacity: 0.5 }, 1.8);
 
-        // STEP 4: Enter ABOUT / INSIGHTS / CONTACT (Final Plunge to Success)
-        masterTl.to(camera.position, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 5)
-                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, 5)
-                
-                // Act 3 reaches peak brightness during Contact area
-                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.8, ease: "power2.out" }, 5)
-                .to(act3.children[0].material, { opacity: 0.7 }, 5)
-                
-                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 5)
-                .to(ambientLight, { intensity: 3.5 }, 5);
+        // STEP 4: ~65-100% scroll — Act 3 peaks, final plunge
+        masterTl.to(camera.position, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 2.2)
+                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, 2.2)
+                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.8, ease: "power2.out" }, 2.2)
+                .to(act3.children[0].material, { opacity: 0.7 }, 2.2)
+                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 2.2)
+                .to(ambientLight, { intensity: 3.5 }, 2.2);
 
     }, 800);
 
