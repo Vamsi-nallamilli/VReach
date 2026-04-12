@@ -126,7 +126,8 @@ document.addEventListener("DOMContentLoaded", () => {
             clearcoatRoughness: 0.1,
             metalness: 0.9,
             roughness: 0.2,
-            side: THREE.FrontSide // Only viewable from front
+            depthWrite: false, // Fix WebGL sorting and transparent gliching
+            side: THREE.FrontSide
         });
 
         // Create an invisible HTML5 Video element targeting the video path
@@ -163,12 +164,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return screen;
     }
 
-    // Act 1: The Founder (Arrival) - Centered and close
-    const act1 = createVideoHologram('act1.mp4', 'act1.png', new THREE.Vector3(0, 15, -30), 0);
-    // Act 2: VReach Activation (Services/Process) - Pushed left to frame content
-    const act2 = createVideoHologram('act2.mp4', 'act2.png', new THREE.Vector3(-30, 20, -60), Math.PI / 6);
-    // Act 3: Success (Growth/Celebration) - Majestic central framing deep in space
-    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(0, 30, -120), 0);
+    // To fix all framing issues, all 3 acts are now perfectly aligned on the center Z-axis, pointing directly at the user.
+    // Dimensions heavily calibrated for perfect cinematic fit. Image disruption fixed via depthWrite: false.
+    const act1 = createVideoHologram('act1.mp4', 'act1.png', new THREE.Vector3(0, 15, -40), 0);
+    const act2 = createVideoHologram('act2.mp4', 'act2.png', new THREE.Vector3(0, 15, -100), 0);
+    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(0, 15, -160), 0);
 
     // Initial opacity states to prevent overlapping clutter immediately
     act2.material.opacity = 0;
@@ -349,25 +349,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const fogColor = scene.fog.color;
     
     setTimeout(() => {
-        // Stage 1: Arrival (Hero) - Tension, extreme close framing onto the Act 1 Founder
+        // Stage 1: Arrival (Hero)
         camera.position.set(0, 15, 20);
         cameraTarget.copy(act1.position);
         scene.fog.density = 0.007;
-        fogColor.setHex(0x010203); // Brutally stark dark
+        fogColor.setHex(0x010203);
 
-        // Stage 2: Activation (Services) - Fade out Founder, Fade in Team Dashboard, Scale up lights
+        // Stage 2: Activation (Services)
         ScrollTrigger.create({
             trigger: '#services',
             start: 'top bottom',
             end: 'bottom center',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: -10, y: 15, z: -20, ease: "sine.inOut" })
-                .to(cameraTarget, { x: act2.position.x, y: act2.position.y, z: act2.position.z, ease: "sine.inOut" }, "<")
+                // Move straight forward towards Act 2
+                .to(camera.position, { x: 0, y: 15, z: -40, ease: "sine.inOut" })
+                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, "<")
                 
-                // Cinematic Dissolve
+                // Cinematic Dissolve completely prevents visual overlap
                 .to(act1.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
-                .to(act1.children[0].material, { opacity: 0 }, "<") // Frame dissolve
+                .to(act1.children[0].material, { opacity: 0 }, "<")
                 
                 .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, "<")
                 .to(act2.children[0].material, { opacity: 0.5 }, "<")
@@ -376,32 +377,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 .to(coreMat, { emissiveIntensity: 1.5 }, "<")
         });
 
-        // Stage 3: Coordination (Process) - Dive into the soaring Arch channel traffic
+        // Stage 3: Coordination (Process)
         ScrollTrigger.create({
             trigger: '#process',
             start: 'top bottom',
             end: 'bottom center',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: 0, y: 10, z: -40, ease: "sine.inOut" })
-                .to(cameraTarget, { x: 0, y: 0, z: -50, ease: "sine.inOut" }, "<")
+                .to(camera.position, { x: 0, y: 10, z: -60, ease: "sine.inOut" })
+                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, "<")
                 .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, "<") 
         });
 
-        // Stage 4: Growth (Results) - Fade out Team, fog lifts, chart monoliths literally skyrocket
+        // Stage 4: Growth (Results)
         const growTl = gsap.timeline();
-        growTl.to(camera.position, { x: 0, y: 40, z: -70, ease: "power2.inOut" })
-              .to(cameraTarget, { x: 0, y: 25, z: -100, ease: "power2.inOut" }, "<")
+        growTl.to(camera.position, { x: 0, y: 30, z: -80, ease: "power2.inOut" })
+              .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, "<")
               
-              // Cinematic Dissolve
+              // Fade out Act 2
               .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
               .to(act2.children[0].material, { opacity: 0 }, "<")
               
               .to(scene.fog, { density: 0.0015, ease: "power2.out" }, "<")
-              .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, "<"); // Deep energetic blue
+              .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, "<");
         
         nodes.forEach(node => {
-            // Unfold the specific KPI pillars violently upwards
             growTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, "<0.2")
                   .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, "<")
                   .to(node.material, { emissiveIntensity: 0.8 }, "<");
@@ -415,21 +415,22 @@ document.addEventListener("DOMContentLoaded", () => {
             animation: growTl
         });
 
-        // Stage 5: Celebration (Contact/Onboarding) - Fade in Success Focus, warm lighting
+        // Stage 5: Celebration (Contact/Onboarding)
         ScrollTrigger.create({
             trigger: '#contact',
             start: 'top bottom',
             end: 'bottom bottom',
             scrub: 1.5,
             animation: gsap.timeline()
-                .to(camera.position, { x: 0, y: 30, z: -80, ease: "power2.inOut" })
-                .to(cameraTarget, { x: act3.position.x, y: act3.position.y, z: act3.position.z, ease: "power2.inOut" }, "<")
+                // Plunge forward exactly onto Act 3
+                .to(camera.position, { x: 0, y: 15, z: -100, ease: "power2.inOut" })
+                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, "<")
                 
-                // Final Cinematic Reveal
+                // Final Reveal
                 .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.5, ease: "power2.inOut" }, "<")
                 .to(act3.children[0].material, { opacity: 0.5 }, "<")
                 
-                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, "<") // Golden/Cyan victorious warmth
+                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, "<")
                 .to(ambientLight, { intensity: 3.5 }, "<")
         });
 
