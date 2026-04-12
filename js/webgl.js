@@ -5,17 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- SETUP SCENE ---
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020306, 0.004); // Deep, elegant atmospheric fade
+    scene.fog = new THREE.FogExp2(0x020306, 0.0035);
 
     // --- CAMERA ---
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1500);
-    camera.position.set(0, 10, 45); // Hero framing
+    camera.position.set(0, 10, 50);
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.1; // Smooth cinematic lighting
+    renderer.toneMappingExposure = 1.1;
 
     const cameraTarget = new THREE.Vector3(0, 0, 0);
 
@@ -23,12 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const ambientLight = new THREE.AmbientLight(0x060912, 1.5);
     scene.add(ambientLight);
 
-    // Precision structural rim light
     const rimLight = new THREE.DirectionalLight(0x00e5ff, 2.5);
     rimLight.position.set(40, 60, 20);
     scene.add(rimLight);
 
-    // Deep volumetric fill light
     const fillLight = new THREE.DirectionalLight(0x0a153a, 3.0);
     fillLight.position.set(-60, 20, -50);
     scene.add(fillLight);
@@ -40,75 +38,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const engineGroup = new THREE.Group();
     world.add(engineGroup);
 
-    // Core pulsing geometric node, elegant rather than loud
     const coreMat = new THREE.MeshPhysicalMaterial({ 
-        color: 0x050a12, 
-        emissive: 0x00f0ff,
-        emissiveIntensity: 0.8,
-        metalness: 0.9,
-        roughness: 0.1,
-        transparent: true,
-        opacity: 0.95
+        color: 0x050a12, emissive: 0x00d0ff, emissiveIntensity: 0.8,
+        metalness: 0.9, roughness: 0.1, transparent: true, opacity: 0.95
     });
     
-    // A sophisticated twin-pyramid (Octahedron)
     const coreGeom = new THREE.OctahedronGeometry(6, 0);
     const signalCore = new THREE.Mesh(coreGeom, coreMat);
     engineGroup.add(signalCore);
 
-    // Outer framing casing for the engine
     const casingMat = new THREE.MeshStandardMaterial({
-        color: 0x010204, metalness: 1.0, roughness: 0.2, wireframe: true
+        color: 0x010204, metalness: 1.0, roughness: 0.3, wireframe: true
     });
-    const signalCasing = new THREE.Mesh(new THREE.OctahedronGeometry(8, 0), casingMat);
+    const signalCasing = new THREE.Mesh(new THREE.OctahedronGeometry(8.5, 0), casingMat);
     engineGroup.add(signalCasing);
 
-
-    // --- 2. DATA INFRASTRUCTURE (Abstract Grid) ---
-    // Instead of hundreds of buildings, we use distinct, massive structural glass monoliths
+    // --- 2. DATA INFRASTRUCTURE (Monoliths) ---
     const monolithGeom = new THREE.BoxGeometry(1, 1, 1);
-    
-    // High-end glass material for architecture
     const monolithMat = new THREE.MeshPhysicalMaterial({
-        color: 0x05070a,
-        metalness: 0.7,
-        roughness: 0.1,
-        envMapIntensity: 1.0,
-        clearcoat: 1.0,
-        clearcoatRoughness: 0.1,
-        transparent: true,
-        opacity: 0.85
+        color: 0x05070a, metalness: 0.7, roughness: 0.1,
+        clearcoat: 1.0, clearcoatRoughness: 0.1, transparent: true, opacity: 0.85
     });
 
-    const monolithCount = 80; // Sparse and deliberate
+    const monolithCount = 70;
     const monoliths = new THREE.InstancedMesh(monolithGeom, monolithMat, monolithCount);
-    
     const dummy = new THREE.Object3D();
     const range = 250;
     
     for(let i=0; i < monolithCount; i++) {
-        // Place along systematic axes rather than random scatter to imply severe engineered infrastructure
         let posX = (Math.random() - 0.5) * range;
         let posZ = (Math.random() - 0.5) * range;
         
-        // Ensure core area is perfectly clear
-        if (Math.abs(posX) < 25 && Math.abs(posZ) < 25) {
-            posX += 30 * Math.sign(posX);
-            posZ += 30 * Math.sign(posZ);
+        if (Math.abs(posX) < 30 && Math.abs(posZ) < 30) {
+            posX += 35 * Math.sign(posX); posZ += 35 * Math.sign(posZ);
         }
 
-        // Tall, ultra-sleek vertical forms (Datacenters/Authority)
         const height = 40 + Math.random() * 80;
         const thickness = 2 + Math.random() * 3;
         const width = 4 + Math.random() * 8;
 
         dummy.position.set(posX, height/2 - 20, posZ);
-        // Align them strictly along axes for architectural formality
-        if (Math.random() > 0.5) {
-            dummy.scale.set(width, height, thickness);
-        } else {
-            dummy.scale.set(thickness, height, width);
-        }
+        if (Math.random() > 0.5) dummy.scale.set(width, height, thickness);
+        else dummy.scale.set(thickness, height, width);
         
         dummy.updateMatrix();
         monoliths.setMatrixAt(i, dummy.matrix);
@@ -116,65 +87,137 @@ document.addEventListener("DOMContentLoaded", () => {
     world.add(monoliths);
 
 
-    // --- 3. DYNAMIC STRATEGIC NODES (KPI Expansion) ---
+    // --- 3. DYNAMIC STRATEGIC NODES (Results Section) ---
     const nodes = [];
     const nodeMat = new THREE.MeshStandardMaterial({
-        color: 0x020406,
-        emissive: 0x00f0ff,
-        emissiveIntensity: 0.05, // Quiet state
-        metalness: 1.0,
-        roughness: 0.4
+        color: 0x020406, emissive: 0x00f0ff, emissiveIntensity: 0.05,
+        metalness: 1.0, roughness: 0.4
     });
 
-    // 3 prominent massive flat data-slabs mapping to "Results" section
-    const nodePositions = [ {x: 30, z: -30}, {x: 45, z: -40}, {x: 20, z: -55} ];
-    
+    const nodePositions = [ {x: 25, z: -25}, {x: 45, z: -35}, {x: 15, z: -55} ];
     nodePositions.forEach(pos => {
-        const h = 50 + Math.random() * 20;
         const b = new THREE.Mesh(monolithGeom, nodeMat.clone());
         b.position.set(pos.x, -10, pos.z);
-        b.scale.set(8, 0.1, 4); // Flattened initially
-        b.userData = { targetHeight: h };
+        b.scale.set(8, 0.1, 4);
+        b.userData = { targetHeight: 50 + Math.random() * 20 };
         world.add(b);
-        nodes.push(b);
+        nodes.push(b); // Pushed exclusively for GSAP triggering later
     });
 
 
-    // --- 4. DATA PATHWAYS (Signal Routing) ---
-    // Extremely subtle, organic curves rather than busy traffic 
-    const pathsGroup = new THREE.Group();
-    world.add(pathsGroup);
+    // --- 4. THE SIGNATURE 3D MOTION ARCH ---
+    
+    // Create the sweeping orbital curve that funnels into the core
+    const archCurve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(100, 40, -180),   // High and deep right
+        new THREE.Vector3(40, 20, -100),    // Sweeping in
+        new THREE.Vector3(-30, 5, -40),     // Banking left around the core
+        new THREE.Vector3(-15, 0, -10),     // Tightening orbit
+        new THREE.Vector3(0, 0, 0)          // Striking the core
+    ]);
 
-    function createSignalLine(pts, colorHex) {
-        const curve = new THREE.CatmullRomCurve3(pts);
-        const tubeGeo = new THREE.TubeGeometry(curve, 100, 0.2, 8, false);
-        const tubeMat = new THREE.MeshBasicMaterial({ 
-            color: colorHex, 
-            transparent: true, 
-            opacity: 0.6,
-            blending: THREE.AdditiveBlending 
-        });
-        return new THREE.Mesh(tubeGeo, tubeMat);
+    // Visually draw the Arch Guide (Elegant glowing rail)
+    const archGeo = new THREE.TubeGeometry(archCurve, 150, 0.1, 6, false);
+    const archMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.3, blending: THREE.AdditiveBlending });
+    const archMesh = new THREE.Mesh(archGeo, archMat);
+    world.add(archMesh);
+
+    // Secondary auxiliary rail for dimensional structure
+    const archCurve2 = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(-120, 60, -150),   
+        new THREE.Vector3(-60, 30, -80),     
+        new THREE.Vector3(20, 10, -30),     
+        new THREE.Vector3(10, 0, -10),      
+        new THREE.Vector3(0, 0, 0)         
+    ]);
+    const archMesh2 = new THREE.Mesh(new THREE.TubeGeometry(archCurve2, 100, 0.05, 5, false), archMat);
+    world.add(archMesh2);
+
+    // Advanced Texture Generator for Premium Monochrome Glass Chips
+    function createPremiumIcon(label, type) {
+        const c = document.createElement('canvas');
+        c.width = 256; c.height = 256;
+        const ctx = c.getContext('2d');
+        
+        ctx.clearRect(0, 0, 256, 256);
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.shadowColor = 'rgba(0, 240, 255, 1)';
+        ctx.shadowBlur = 15;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = 'bold 110px Inter, sans-serif';
+
+        if(type === 'txt') {
+            ctx.fillText(label, 128, 128);
+        } else if (type === 'yt') {
+            // Drawn play button
+            ctx.beginPath(); ctx.moveTo(90, 80); ctx.lineTo(180, 128); ctx.lineTo(90, 176); ctx.closePath(); ctx.fill();
+        } else if (type === 'seo') {
+            // Magnifier
+            ctx.lineWidth = 14; ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+            ctx.beginPath(); ctx.arc(110, 110, 45, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(140, 140); ctx.lineTo(190, 190); ctx.stroke();
+        } else if (type === 'ads') {
+            // Target
+            ctx.lineWidth = 12; ctx.strokeStyle = 'rgba(255,255,255,0.9)';
+            ctx.beginPath(); ctx.arc(128, 128, 40, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.arc(128, 128, 10, 0, Math.PI * 2); ctx.fill();
+        }
+
+        // Sublabel
+        ctx.shadowBlur = 0;
+        ctx.font = '600 24px Inter, sans-serif';
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.8)';
+        ctx.letterSpacing = '2px';
+        ctx.fillText(label.toUpperCase(), 128, 220);
+
+        return new THREE.CanvasTexture(c);
     }
 
-    // Elegant curving traces from origin to deep space
-    pathsGroup.add(createSignalLine([
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(-15, -5, -20),
-        new THREE.Vector3(10, 5, -50),
-        new THREE.Vector3(-20, -10, -100)
-    ], 0x00f0ff));
+    const channels = [
+        { name: "Google", render: "G", type: 'txt', curve: archCurve },
+        { name: "Meta", render: "∞", type: 'txt', curve: archCurve2 },
+        { name: "Video", render: "", type: 'yt', curve: archCurve },
+        { name: "Facebook", render: "f", type: 'txt', curve: archCurve2 },
+        { name: "Search", render: "", type: 'seo', curve: archCurve },
+        { name: "Instagram", render: "ig", type: 'txt', curve: archCurve2 },
+        { name: "Ads", render: "", type: 'ads', curve: archCurve },
+        { name: "Content", render: "C", type: 'txt', curve: archCurve2 },
+        { name: "Analytics", render: "DATA", type: 'txt', curve: archCurve },
+        { name: "Strategy", render: "★", type: 'txt', curve: archCurve2 }
+    ];
 
-    pathsGroup.add(createSignalLine([
-        new THREE.Vector3(0, 0, 0),
-        new THREE.Vector3(20, 10, -10),
-        new THREE.Vector3(40, -5, -40),
-        new THREE.Vector3(60, 15, -80)
-    ], 0x0066ff));
+    const chipGeo = new THREE.PlaneGeometry(6, 6);
+    const chips = [];
 
+    channels.forEach((channel, i) => {
+        const mat = new THREE.MeshPhysicalMaterial({
+            map: createPremiumIcon(channel.render || channel.name, channel.type),
+            transparent: true,
+            opacity: 0.9,
+            roughness: 0.1,
+            metalness: 0.8,
+            clearcoat: 1.0,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false,
+            side: THREE.DoubleSide
+        });
+
+        const chip = new THREE.Mesh(chipGeo, mat);
+        
+        // Distribution of tracking logic
+        chip.userData = {
+            curve: channel.curve,
+            progress: i * 0.1,       // Staggered entry
+            speed: 0.0015,          // Slow, deliberate authoritative speed
+            spinOffset: Math.random() * Math.PI
+        };
+
+        world.add(chip);
+        chips.push(chip);
+    });
 
     // --- 5. ELEGANT CAMERA CHOREOGRAPHY ---
-    // Replaced jarring cinematic sweeps with authoritative, calm glides
     setTimeout(() => {
         const masterTl = gsap.timeline({
             scrollTrigger: {
@@ -185,42 +228,41 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // 1. SERVICES (Zoning Focus): Subtle lateral drift through the columns
-        masterTl.to(camera.position, { x: 25, y: 15, z: 15, ease: "sine.inOut" }, 0)
-                .to(cameraTarget, { x: 10, y: 5, z: -20, ease: "sine.inOut" }, 0);
+        // 1. SERVICES: Lateral drift to watch the channels orbit the Arch
+        masterTl.to(camera.position, { x: 25, y: 15, z: 20, ease: "sine.inOut" }, 0)
+                .to(cameraTarget, { x: 5, y: 5, z: -30, ease: "sine.inOut" }, 0);
         
-        // 2. RESULTS (Growth Expansion): Pan toward Strategic Nodes as they execute growth
-        masterTl.to(camera.position, { x: 10, y: 20, z: -10, ease: "sine.inOut" }, 1)
-                .to(cameraTarget, { x: 30, y: 20, z: -40, ease: "sine.inOut" }, 1);
+        // 2. RESULTS: Pan toward Strategic Nodes as they execute growth
+        masterTl.to(camera.position, { x: 5, y: 20, z: 10, ease: "sine.inOut" }, 1)
+                .to(cameraTarget, { x: 25, y: 20, z: -40, ease: "sine.inOut" }, 1);
         
         nodes.forEach(node => {
             // Elegant vertical unfold mapping directly to results copy
             masterTl.to(node.scale, { y: node.userData.targetHeight, ease: "power2.out" }, 1.1);
             masterTl.to(node.position, { y: (node.userData.targetHeight / 2) - 10, ease: "power2.out" }, 1.1);
-            masterTl.to(node.material, { emissiveIntensity: 0.6 }, 1.1);
+            masterTl.to(node.material, { emissiveIntensity: 0.5 }, 1.1);
         });
 
-        // 3. PROCESS (Data Path Tracing): Glide closely alongside the primary signal line
-        masterTl.to(camera.position, { x: -10, y: 15, z: -40, ease: "sine.inOut" }, 2)
-                .to(cameraTarget, { x: -20, y: -5, z: -80, ease: "sine.inOut" }, 2);
+        // 3. PROCESS: Glide perfectly inside the Arch curves tracing a payload down!
+        masterTl.to(camera.position, { x: -25, y: 12, z: -10, ease: "sine.inOut" }, 2)
+                .to(cameraTarget, { x: 0, y: 0, z: -0, ease: "sine.inOut" }, 2);
 
-        // 4. ABOUT (Strategic Perspective): Calmly elevate to a high focal angle. Authoritative, not chaotic.
+        // 4. ABOUT: Calmly elevate to a high focal angle. Authoritative, not chaotic.
         masterTl.to(camera.position, { x: 0, y: 70, z: -40, ease: "power2.inOut" }, 3)
                 .to(cameraTarget, { x: 0, y: 10, z: -60, ease: "power2.inOut" }, 3);
         
-        // 5. CTA (Executive Node Entry): Center squarely into a pristine space
-        masterTl.to(camera.position, { x: 0, y: 25, z: -80, ease: "power2.inOut" }, 4)
-                .to(cameraTarget, { x: 0, y: 25, z: -120, ease: "power2.inOut" }, 4);
+        // 5. CTA: Center squarely into a pristine space
+        masterTl.to(camera.position, { x: 0, y: 15, z: -80, ease: "power2.inOut" }, 4)
+                .to(cameraTarget, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 4);
                 
     }, 500);
 
-    // Subtle sophisticated mouse drift
     let mouseX = 0; let mouseY = 0;
     const windowHalfX = window.innerWidth / 2;
     const windowHalfY = window.innerHeight / 2;
 
     document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX - windowHalfX) * 0.015; // heavily dampened
+        mouseX = (event.clientX - windowHalfX) * 0.015;
         mouseY = (event.clientY - windowHalfY) * 0.015;
     });
 
@@ -231,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const delta = clock.getDelta();
         const time = clock.getElapsedTime();
 
-        // 1. Engine Core Animation (Elegant rotation & breathing)
+        // 1. Engine Core Animation
         signalCore.rotation.y += 0.2 * delta;
         signalCore.rotation.z += 0.1 * delta;
         
@@ -241,7 +283,36 @@ document.addEventListener("DOMContentLoaded", () => {
         signalCasing.rotation.y -= 0.1 * delta;
         signalCasing.rotation.x -= 0.1 * delta;
 
-        // 2. Camera targeting with elegant smoothing
+        // 2. Animate the Motion Arch Chips
+        chips.forEach(chip => {
+            // Advance along curve
+            chip.userData.progress += chip.userData.speed;
+            if(chip.userData.progress >= 1) {
+                // Instantly teleport back to start of arch perfectly
+                chip.userData.progress = 0;
+            }
+
+            const pt = chip.userData.curve.getPointAt(chip.userData.progress);
+            chip.position.copy(pt);
+
+            // Make the icon face the camera slightly but retain orbit tilt
+            chip.lookAt(camera.position);
+
+            // Give them a slight gentle float relative to the track
+            chip.position.y += Math.sin(time * 2 + chip.userData.spinOffset) * 1.5;
+
+            // Fade violently into the core (opacity pulse based on progress)
+            // They fade IN at progress 0, stay opaque, fade OUT at 0.9 as they hit core
+            if (chip.userData.progress < 0.1) {
+                chip.material.opacity = (chip.userData.progress / 0.1) * 0.9;
+            } else if (chip.userData.progress > 0.9) {
+                chip.material.opacity = ((1.0 - chip.userData.progress) / 0.1) * 0.9;
+            } else {
+                chip.material.opacity = 0.9;
+            }
+        });
+
+        // 3. Camera Smoothing
         const finalTarget = new THREE.Vector3().copy(cameraTarget);
         finalTarget.x += mouseX;
         finalTarget.y -= mouseY;
@@ -254,7 +325,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tick();
 
-    // RESIZE FIX
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
