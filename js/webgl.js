@@ -386,20 +386,30 @@ document.addEventListener("DOMContentLoaded", () => {
                     .to(node.material, { emissiveIntensity: 0.8 }, 1 + (i * 0.1));
         });
 
-        // STEP 3: Enter PROCESS (Arch diving, fade out Act 2)
+        // STEP 3: Enter PROCESS (Arch diving, fade out Act 2, begin Act 3 Reveal)
         masterTl.to(camera.position, { x: 0, y: 10, z: -90, ease: "sine.inOut" }, 2)
                 .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "sine.inOut" }, 2)
+                
+                // Act 2 gently fades out
                 .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 2)
                 .to(act2.children[0].material, { opacity: 0 }, 2)
+                
+                // Act 3 begins glowing prominently in the distance so the background is never blank
+                .to(act3.material, { opacity: 0.75, emissiveIntensity: 1.0, ease: "power2.inOut" }, 2.2)
+                .to(act3.children[0].material, { opacity: 0.4 }, 2.2)
+                
                 .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, 2);
 
-        // STEP 4: Enter ABOUT / CONTACT (Fade in Act 3 Celebration)
+        // STEP 4: Enter ABOUT / INSIGHTS / CONTACT (Final Plunge to Success)
         masterTl.to(camera.position, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 3)
                 .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, 3)
-                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.5, ease: "power2.inOut" }, 3.5)
-                .to(act3.children[0].material, { opacity: 0.5 }, 3.5)
-                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 3.5)
-                .to(ambientLight, { intensity: 3.5 }, 3.5);
+                
+                // Act 3 reaches peak brightness during Contact area
+                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.8, ease: "power2.out" }, 3)
+                .to(act3.children[0].material, { opacity: 0.7 }, 3)
+                
+                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 3)
+                .to(ambientLight, { intensity: 3.5 }, 3);
 
     }, 800);
 
