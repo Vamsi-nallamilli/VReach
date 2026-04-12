@@ -156,11 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
         screen.rotation.y = rotY;
         screen.renderOrder = 10; // Always render above monoliths/buildings
 
-        // Add a subtle structural frame around the hologram
-        const frameGeo = new THREE.EdgesGeometry(screenGeo);
-        const frameMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.5 });
-        const frame = new THREE.LineSegments(frameGeo, frameMat);
+        // Subtle corner-only frame — no full border outline
+        const frameMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.2 });
+        const frame = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.PlaneGeometry(50.4, 28.4)), frameMat);
         frame.renderOrder = 11;
+        frame.visible = false;
         screen.add(frame);
         
         world.add(screen);
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Dimensions heavily calibrated for perfect cinematic fit. Image disruption fixed via depthWrite: false.
     const act1 = createVideoHologram('act1.mp4', 'act1.png', new THREE.Vector3(0, 15, -40), 0);
     const act2 = createVideoHologram('act2.mp4', 'act2.png', new THREE.Vector3(0, 15, -100), 0);
-    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(0, 15, -160), 0);
+    const act3 = createVideoHologram('act3.mp4', 'act3.png', new THREE.Vector3(0, 15, -130), 0);
 
     // Initial opacity states to prevent overlapping clutter immediately
     act2.material.opacity = 0;
@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // STEP 3: ~50-65% scroll — Act 2 fades out, Act 3 fades in
         masterTl.to(camera.position, { x: 0, y: 10, z: -90, ease: "sine.inOut" }, 1.5)
-                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "sine.inOut" }, 1.5)
+                .to(cameraTarget, { x: 0, y: 15, z: -130, ease: "sine.inOut" }, 1.5)
                 .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 1.5)
                 .to(act2.children[0].material, { opacity: 0 }, 1.5)
                 .to(archMat, { opacity: 0.9, ease: "power1.in" }, 1.5)
@@ -402,8 +402,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 .to(act3.children[0].material, { opacity: 0.5 }, 1.8);
 
         // STEP 4: ~65-100% scroll — Act 3 peaks, final plunge
-        masterTl.to(camera.position, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 2.2)
-                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, 2.2)
+        masterTl.to(camera.position, { x: 0, y: 15, z: -110, ease: "power2.inOut" }, 2.2)
+                .to(cameraTarget, { x: 0, y: 15, z: -130, ease: "power2.inOut" }, 2.2)
                 .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.8, ease: "power2.out" }, 2.2)
                 .to(act3.children[0].material, { opacity: 0.7 }, 2.2)
                 .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 2.2)
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const holoHover = Math.sin(time) * 0.5;
         act1.position.y = 20 + holoHover;
         act2.position.y = 15 - holoHover;
-        act3.position.y = 25 + holoHover;
+        act3.position.y = 18 + holoHover;
 
         // 2C. Success Particle Animation Loop
         if(isSuccessTriggered) {
