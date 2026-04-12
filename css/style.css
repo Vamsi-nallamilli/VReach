@@ -914,6 +914,19 @@ form ::placeholder {
   color: var(--text-main);
 }
 
+/* Success Celebration State UI */
+.success-glow-wave {
+  animation: successRipple 3s ease-out infinite;
+  box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+  border-color: rgba(0, 240, 255, 0.8) !important;
+}
+
+@keyframes successRipple {
+  0% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1); }
+  50% { box-shadow: 0 0 60px rgba(0, 240, 255, 0.6), inset 0 0 40px rgba(0, 240, 255, 0.3); }
+  100% { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 10px rgba(0, 240, 255, 0.1); }
+}
+
 .modal-header {
   margin-bottom: 3rem;
   text-align: center;

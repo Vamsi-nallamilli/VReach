@@ -29,12 +29,18 @@ document.addEventListener("DOMContentLoaded", () => {
             // 1. Generate PDF (returns base64 string AND triggers download)
             const pdfBase64 = await generateAgreementDocument(data);
             
-            // 2. Send via EmailJS
+            // 2. Send via FormSubmit or equivalent
             await sendEmail(data, pdfBase64);
 
-            // 3. Show Success State
+            // 3. Show Success State with Glowing UI payload
             onboardingForm.style.display = 'none';
             successState.style.display = 'block';
+            document.querySelector('.modal-content').classList.add('success-glow-wave');
+
+            // 4. Trigger WebGL Particle Payoff Animation
+            if (typeof window.triggerSuccessParticles === 'function') {
+                window.triggerSuccessParticles();
+            }
 
         } catch(error) {
             console.error("Workflow failed:", error);
