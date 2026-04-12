@@ -123,73 +123,86 @@ document.addEventListener("DOMContentLoaded", () => {
 
         let nextY = 184 + (splitScope.length * 7);
 
+        // Versioning and Timestamps
+        const exactTime = new Date().toLocaleTimeString('en-US');
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(...darkColor);
+        doc.text(`Agreement Version: 1.0`, 14, nextY + 10);
+        doc.text(`Digital Timestamp: ${today} at ${exactTime}`, 14, nextY + 18);
+
         // Legal / Confirmation statement
         doc.setFont("helvetica", "italic");
         doc.setFontSize(10);
         doc.setTextColor(...slateColor);
-        doc.text("By submitting this form, the client confirmed the accuracy of these details.", 14, nextY + 10);
+        doc.text("Signature: By submitting this form digitally, the client confirmed the accuracy of these details.", 14, nextY + 28);
+        doc.text("Status: Verified & Submitted.", 14, nextY + 34);
 
         // POSITIVE CLOSING MESSAGE
-        // "Congratulations on taking the next step with VReach..."
         doc.setDrawColor(240, 240, 240);
         doc.setFillColor(250, 250, 250);
-        doc.roundedRect(14, nextY + 25, 182, 40, 3, 3, 'FD'); // box
+        doc.roundedRect(14, nextY + 45, 182, 40, 3, 3, 'FD'); // box
         
         doc.setFont("helvetica", "bold");
         doc.setFontSize(12);
         doc.setTextColor(0, 150, 160); // Darker cyan for text
-        doc.text("Welcome aboard.", 20, nextY + 35);
+        doc.text("Welcome aboard.", 20, nextY + 55);
 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.setTextColor(...darkColor);
         const closingMsg = doc.splitTextToSize("Congratulations on taking the next step with VReach. We're excited to support your business growth and expand your digital reach with clarity, creativity, and measurable results.", 170);
-        doc.text(closingMsg, 20, nextY + 45);
+        doc.text(closingMsg, 20, nextY + 65);
 
         // TRIGGER CLIENT DOWNLOAD
+        // Trigger Client Download
         const fileName = `${data.business_name.replace(/\s+/g, '_')}_VReach_Agreement.pdf`;
         doc.save(fileName);
 
-        // Get Base64 for Email attachment
-        // return base64 string omitting the data URL prefix
-        const pdfDataUri = doc.output('datauristring');
-        return pdfDataUri; // Includes 'data:application/pdf;filename=generated.pdf;base64,'
+        // Get Blob for Email attachment instead of Base64
+        const pdfBlob = doc.output('blob');
+        return { blob: pdfBlob, fileName: fileName };
     }
 
-    async function sendEmail(data, pdfBase64) {
-        // Implementation parameters for EmailJS
-        const SERVICE_ID = 'YOUR_SERVICE_ID'; // user must replace
-        const TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // user must replace
-        
-        const templateParams = {
-            to_email: 'vreach666@gmail.com',         // Destination required by requirements
-            client_email: data.email,                // CC to client
-            client_name: data.client_name,
-            business_name: data.business_name,
-            service: data.service,
-            quotation: data.quotation,
-            currency: data.currency,
-            // Attaching the PDF via base64
-            // EmailJS requires templates to be configured to accept an 'attachment' parameter
-            attachment: pdfBase64,
-            reply_to: data.email
-        };
+    async function sendEmail(data, pdfData) {
+        // Using FormSubmit.co - Zero accounts, zero API keys required.
+        // It converts the submission directly into an email to this address.
+        const targetEmail = "vreach666@gmail.com"; 
 
-        // Note: For live testing without an active EmailJS account provided by the user,
-        // we simulate network delay so the UX behaves realistically.
-        // If 'YOUR_SERVICE_ID' is unchanged, we bypass the actual API call to avoid browser errors
-        // while clearly maintaining the fully production-ready code structure.
+        const formData = new FormData();
         
-        if(SERVICE_ID === 'YOUR_SERVICE_ID') {
-            console.warn("EmailJS not configured. Simulating email send. Please add your Service ID.");
-            return new Promise(resolve => setTimeout(resolve, 1500));
-        }
+        // FormSubmit Configuration
+        // Note: It will ask you to confirm this email address the very first time a submission happens.
+        formData.append("_subject", `New Deal Agreement: ${data.business_name}`);
+        formData.append("_replyto", data.email);
+        formData.append("_captcha", "false"); // Disable the visual captcha for a seamless UX
+        formData.append("_template", "table"); // Makes the email look clean
+        
+        // Append all the data fields for the email body
+        formData.append("Client Name", data.client_name);
+        formData.append("Business Name", data.business_name);
+        formData.append("Email", data.email);
+        formData.append("Phone", data.phone);
+        formData.append("Service", data.service);
+        formData.append("Quotation", `${data.currency} ${data.quotation}`);
+        
+        // Append the generated PDF as an actual file attachment
+        formData.append("Agreement_PDF", pdfData.blob, pdfData.fileName);
 
         try {
-            await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
-            console.log("Email sent successfully!");
+            const response = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+                method: "POST",
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const result = await response.json();
+            console.log("Agreement dispatched successfully:", result);
         } catch (error) {
-            console.error("EmailJS Error:", error);
+            console.error("FormSubmit Error:", error);
             throw error;
         }
     }
