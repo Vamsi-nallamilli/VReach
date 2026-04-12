@@ -1,154 +1,180 @@
-// webgl.js - 3D Digital City Narrative Engine
+// webgl.js - The Marketing City of Momentum
+
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.querySelector('#webgl-canvas');
     if (!canvas) return;
 
     // --- SETUP SCENE ---
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x020202, 0.0035); // City smog/depth
+    scene.fog = new THREE.FogExp2(0x020205, 0.003); // Deep night atmosphere
 
     // --- CAMERA ---
-    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 2000);
-    // Initial camera position (Hero)
-    camera.position.set(0, 15, 60);
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 3000);
+    // Initial camera position (Hero: Signal Birth)
+    camera.position.set(0, 10, 80);
 
     const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
 
-    // A target object for the camera to look at during the GSAP flight
-    const cameraTarget = new THREE.Vector3(0, 0, 0);
+    const cameraTarget = new THREE.Vector3(0, 0, 0); // Focus on Signal Engine
 
     // --- LIGHTING ---
-    const ambientLight = new THREE.AmbientLight(0x0a1520, 1.5);
+    const ambientLight = new THREE.AmbientLight(0x050c18, 1);
     scene.add(ambientLight);
 
-    // Main highlight mapping out the city edges
-    const dirLight = new THREE.DirectionalLight(0x00f0ff, 2);
-    dirLight.position.set(100, 50, 100);
+    // Cyan grid edge highlights
+    const dirLight = new THREE.DirectionalLight(0x00f0ff, 2.5);
+    dirLight.position.set(100, 80, 100);
     scene.add(dirLight);
 
-    const accentLight = new THREE.DirectionalLight(0xff0040, 1);
-    accentLight.position.set(-100, 30, -50);
+    // Warm deep blue counter light
+    const accentLight = new THREE.DirectionalLight(0x0040ff, 2);
+    accentLight.position.set(-100, 40, -100);
     scene.add(accentLight);
 
-    // --- 1. SIGNAL ENGINE (Central Core) ---
-    const engineGroup = new THREE.Group();
-    scene.add(engineGroup);
+    const world = new THREE.Group();
+    scene.add(world);
 
-    // The intelligence core
+    // --- 1. SIGNAL ENGINE (Core Activation) ---
+    const engineGroup = new THREE.Group();
+    world.add(engineGroup);
+
     const coreMat = new THREE.MeshStandardMaterial({ 
         color: 0x00ffff, 
         emissive: 0x00f0ff, 
-        emissiveIntensity: 0.8,
+        emissiveIntensity: 1,
         wireframe: true 
     });
-    const coreGeom = new THREE.IcosahedronGeometry(8, 2);
+    const coreGeom = new THREE.IcosahedronGeometry(12, 3);
     const signalCore = new THREE.Mesh(coreGeom, coreMat);
     engineGroup.add(signalCore);
 
-    // Surrounding orbital rings representing reach & channels
     const rings = [];
-    const ringMat = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0x00ffff, emissiveIntensity: 0.3 });
-    for(let i=0; i<3; i++) {
-        const ringGeom = new THREE.TorusGeometry(15 + (i * 6), 0.3, 16, 100);
+    const ringMat = new THREE.MeshStandardMaterial({ color: 0x111111, emissive: 0x00d0ff, emissiveIntensity: 0.5 });
+    for(let i=0; i<4; i++) {
+        const ringGeom = new THREE.TorusGeometry(20 + (i * 8), 0.4, 16, 100);
         const ring = new THREE.Mesh(ringGeom, ringMat);
         ring.rotation.x = Math.random() * Math.PI;
         ring.rotation.y = Math.random() * Math.PI;
         engineGroup.add(ring);
-        rings.push({ mesh: ring, speedX: (Math.random()-0.5)*0.02, speedY: (Math.random()-0.5)*0.02 });
+        rings.push({ mesh: ring, speedX: (Math.random()-0.5)*0.015, speedY: (Math.random()-0.5)*0.015 });
     }
 
-    // --- 2. DIGITAL CITY GRID (Services / World) ---
-    // InstancedMesh for extreme performance rendering 2000 buildings
-    const citySize = 50;
-    const buildingGeometry = new THREE.BoxGeometry(1, 1, 1);
-    const buildingMaterial = new THREE.MeshStandardMaterial({ 
-        color: 0x050510,
-        roughness: 0.2,
+    // --- 2. THE CITY GRID (Marketing Districts) ---
+    const buildingGeo = new THREE.BoxGeometry(1, 1, 1);
+    const districtMat = new THREE.MeshStandardMaterial({ 
+        color: 0x050608,
+        roughness: 0.3,
         metalness: 0.8
     });
 
-    // Make the material react sharply to edge light
-    const totalBuildings = citySize * citySize;
-    const cityGrid = new THREE.InstancedMesh(buildingGeometry, buildingMaterial, totalBuildings);
-    
-    const dummy = new THREE.Object3D();
-    const cityWidth = 600;
-    let bIndex = 0;
-    
-    // Track high KPI towers to attach glowing antennas to them
-    const kpiTowers = [];
-
-    for(let x = 0; x < citySize; x++) {
-        for(let z = 0; z < citySize; z++) {
-            // Leave a hole in the center for the Signal Engine
-            const posX = (x - citySize/2) * (cityWidth / citySize);
-            const posZ = (z - citySize/2) * (cityWidth / citySize);
+    // Helper to generate district clusters
+    function createDistrict(count, radius, centerX, centerZ, heightMultiplier, densityMultiplier) {
+        const instancedMesh = new THREE.InstancedMesh(buildingGeo, districtMat, count);
+        const dummy = new THREE.Object3D();
+        
+        let index = 0;
+        for(let i = 0; i < count; i++) {
+            // Polar coordinates for circular clamping
+            const r = Math.sqrt(Math.random()) * radius;
+            const theta = Math.random() * 2 * Math.PI;
             
-            if (Math.abs(posX) < 40 && Math.abs(posZ) < 40) {
-                // Skip center grid spaces
-                bIndex++;
-                continue; 
-            }
-
-            // Height based on perlin-like noise, with pockets of high rises
-            let height = Math.random() * 20 + 5;
+            // Faux Grid snapping based on density
+            const posX = centerX + Math.round((r * Math.cos(theta)) / densityMultiplier) * densityMultiplier;
+            const posZ = centerZ + Math.round((r * Math.sin(theta)) / densityMultiplier) * densityMultiplier;
             
-            // Create "Districts" (clusters of tall buildings)
-            if(Math.sin(posX * 0.05) * Math.cos(posZ * 0.05) > 0.6) {
-                height += Math.random() * 60 + 30; // Tall KPI Towers
-                if (Math.random() > 0.8) {
-                    kpiTowers.push(new THREE.Vector3(posX, height, posZ));
-                }
-            }
+            // Skip inner core collision area
+            if (Math.abs(posX) < 40 && Math.abs(posZ) < 40) continue;
 
-            dummy.position.set(posX, height/2 - 10, posZ);
-            dummy.scale.set(7, height, 7);
+            const height = (Math.random() * 15 + 5) * heightMultiplier;
+            
+            dummy.position.set(posX, height/2 - 15, posZ);
+            dummy.scale.set(densityMultiplier * 0.8, height, densityMultiplier * 0.8);
             dummy.updateMatrix();
-            cityGrid.setMatrixAt(bIndex, dummy.matrix);
-            bIndex++;
+            instancedMesh.setMatrixAt(index, dummy.matrix);
+            index++;
         }
+        instancedMesh.count = index; // shrink to actual placed count
+        world.add(instancedMesh);
     }
-    scene.add(cityGrid);
 
-    // --- 3. TRAFFIC & LIGHT ROUTES ---
-    // Glowing points moving along streets
-    const trafficGeo = new THREE.BufferGeometry();
-    const tCount = 800;
-    const tPos = new Float32Array(tCount * 3);
-    const tSpeeds = new Float32Array(tCount);
-    const tDirs = []; // 0=nx, 1=px, 2=nz, 3=pz
-    
-    for(let i=0; i < tCount; i++) {
-        tPos[i*3] = (Math.random() - 0.5) * cityWidth; // X
-        tPos[i*3+1] = -8; // Fixed slightly above ground
-        tPos[i*3+2] = (Math.random() - 0.5) * cityWidth; // Z
-        tSpeeds[i] = Math.random() * 0.5 + 0.2;
-        tDirs.push(Math.floor(Math.random() * 4));
-    }
-    trafficGeo.setAttribute('position', new THREE.BufferAttribute(tPos, 3));
-    const trafficMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 1.5, blending: THREE.AdditiveBlending, transparent: true });
-    const trafficMesh = new THREE.Points(trafficGeo, trafficMat);
-    scene.add(trafficMesh);
+    // - Awareness District (Mid-rises, dense)
+    createDistrict(400, 150, -80, -80, 1.5, 8);
+    // - Intelligence District (Wide observational bases)
+    createDistrict(200, 150, 80, -80, 0.8, 15);
+    // - Acquisition District (Heavy grid traffic network)
+    createDistrict(500, 150, -80, 80, 1.2, 10);
+    // - Intent District (SEO Towers - Very tall, sparse)
+    createDistrict(150, 150, 80, 80, 3.5, 12);
+    // - General background skyline sprawl
+    createDistrict(1200, 400, 0, 0, 1.0, 12);
 
-    // KPI Tower Antennas (Glowing reds/cyans on top of heights)
-    const antennaGeo = new THREE.BufferGeometry();
-    const aPos = new Float32Array(kpiTowers.length * 3);
-    kpiTowers.forEach((pos, i) => {
-        aPos[i*3] = pos.x;
-        aPos[i*3+1] = pos.y - 10;
-        aPos[i*3+2] = pos.z;
+
+    // --- 3. KPI TOWERS (Dynamic Results Growth) ---
+    const kpiTowers = [];
+    const kpiMat = new THREE.MeshStandardMaterial({
+        color: 0x050608,
+        emissive: 0x00f0ff,
+        emissiveIntensity: 0.1, // Idle state
+        roughness: 0.1,
+        metalness: 0.9
     });
-    antennaGeo.setAttribute('position', new THREE.BufferAttribute(aPos, 3));
-    const antennaMat = new THREE.PointsMaterial({ color: 0xff0040, size: 2.5, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8 });
-    const antennas = new THREE.Points(antennaGeo, antennaMat);
-    scene.add(antennas);
+    
+    // Create 4 distinct massive towers for the Results section
+    const kpiPositions = [
+        {x: 60, z: 90}, {x: 80, z: 70}, {x: 100, z: 100}, {x: 70, z: 120}
+    ];
 
+    kpiPositions.forEach(pos => {
+        const h = 80 + Math.random() * 40;
+        const b = new THREE.Mesh(buildingGeo, kpiMat.clone());
+        b.position.set(pos.x, -15, pos.z);
+        b.scale.set(10, 0.1, 10); // Start flat! They grow via GSAP
+        // Save target height for GSAP
+        b.userData = { targetHeight: h };
+        world.add(b);
+        kpiTowers.push(b);
+    });
 
-    // --- 4. CAMERA FLIGHT CHOREOGRAPHY ---
-    // Setup GSAP Timeline linked to the main document scroll
-    // Delay creation slightly to ensure DOM dimensions are calculated
+    // --- 4. CAMPAIGN ROUTE & CONVERSION HUB ---
+    // The Conversion Hub (Executive Terminals) at the end of the route
+    const hubGroup = new THREE.Group();
+    hubGroup.position.set(0, -10, 250);
+    world.add(hubGroup);
+
+    const hubRingGeo = new THREE.RingGeometry(25, 30, 64);
+    const hubRingMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, side: THREE.DoubleSide, transparent: true, opacity: 0.3 });
+    const hubRing = new THREE.Mesh(hubRingGeo, hubRingMat);
+    hubRing.rotation.x = -Math.PI / 2;
+    hubGroup.add(hubRing);
+
+    // The Route Spline connecting Engine -> Districts -> Hub
+    const curve = new THREE.CatmullRomCurve3([
+        new THREE.Vector3(0, 0, 0),        // Engine
+        new THREE.Vector3(-40, -5, 40),    // Acquisition
+        new THREE.Vector3(40, -5, 80),     // Intent
+        new THREE.Vector3(-20, -5, 150),   // Route segment
+        new THREE.Vector3(0, -5, 250)      // Conversion Hub
+    ]);
+
+    const routeGeo = new THREE.TubeGeometry(curve, 100, 1, 8, false);
+    const routeMat = new THREE.MeshBasicMaterial({ color: 0x00ffff, wireframe: true, transparent: true, opacity: 0.15 });
+    const routeMesh = new THREE.Mesh(routeGeo, routeMat);
+    world.add(routeMesh);
+
+    // Pointers traveling the route
+    const trafficPoints = new THREE.Group();
+    world.add(trafficPoints);
+    for(let i=0; i<5; i++) {
+        const m = new THREE.Mesh(new THREE.SphereGeometry(1.5, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
+        m.userData = { progress: i * 0.2, speed: 0.002 };
+        trafficPoints.add(m);
+    }
+
+    // --- 5. CAMERA FLIGHT CHOREOGRAPHY (GSAP) ---
     setTimeout(() => {
         const masterTl = gsap.timeline({
             scrollTrigger: {
@@ -159,36 +185,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Current start: 
-        // Camera (0, 15, 60), Target (0, 0, 0) -> Looking at Signal Engine
+        // 1. SERVICES: Lateral glide over the districts, revealing the sprawl
+        masterTl.to(camera.position, { x: 50, y: 35, z: -20, ease: "power1.inOut" }, 0)
+                .to(cameraTarget, { x: 40, y: 0, z: 40, ease: "power1.inOut" }, 0);
         
-        // As we scroll through "Services", dive slightly down into the city grid
-        masterTl.to(camera.position, { x: 40, y: 25, z: -40, ease: "power1.inOut" }, 0)
-                .to(cameraTarget, { x: 30, y: 15, z: -80, ease: "power1.inOut" }, 0);
+        // 2. RESULTS: Push dramatic tracking towards the Intent District KPI Towers
+        masterTl.to(camera.position, { x: 30, y: 20, z: 40, ease: "power2.inOut" }, 1)
+                .to(cameraTarget, { x: 80, y: 40, z: 90, ease: "power2.inOut" }, 1);
         
-        // "Results" -> Fly up to observe the KPI Towers and illuminated grid
-        masterTl.to(camera.position, { x: -60, y: 80, z: -100, ease: "power2.inOut" }, 1)
-                .to(cameraTarget, { x: -20, y: 30, z: -150, ease: "power2.inOut" }, 1);
+        // As the camera looks at the towers, animate them growing (Visual City Growth!)
+        kpiTowers.forEach(tower => {
+            masterTl.to(tower.scale, { y: tower.userData.targetHeight, ease: "power3.out" }, 1.2);
+            masterTl.to(tower.position, { y: (tower.userData.targetHeight / 2) - 15, ease: "power3.out" }, 1.2);
+            masterTl.to(tower.material, { emissiveIntensity: 0.8 }, 1.2);
+        });
 
-        // "Process" & "About" -> The Command Deck (pull high up to look directly down at the network)
-        masterTl.to(camera.position, { x: 0, y: 250, z: -50, ease: "power2.inOut" }, 2)
-                .to(cameraTarget, { x: 0, y: 0, z: -120, ease: "power2.inOut" }, 2);
+        // 3. PROCESS: Track backward along the campaign route looking down
+        masterTl.to(camera.position, { x: -30, y: 50, z: 120, ease: "power1.inOut" }, 2)
+                .to(cameraTarget, { x: 0, y: -10, z: 180, ease: "power1.inOut" }, 2);
+
+        // 4. FOUNDER/ABOUT: Strategic Command Deck. Shoot violently up for isometric view
+        masterTl.to(camera.position, { x: 0, y: 280, z: 20, ease: "power3.inOut" }, 3)
+                .to(cameraTarget, { x: 0, y: 0, z: 0, ease: "power3.inOut" }, 3);
         
-        // "Contact" & "CTA" -> Final conversion hub, dropping deep into calm isolated area below engine
-        masterTl.to(camera.position, { x: 0, y: -25, z: 40, ease: "power3.inOut" }, 3)
-                .to(cameraTarget, { x: 0, y: 10, z: 0, ease: "power3.inOut" }, 3);
+        // 5. CTA: Dive rapidly straight down into the localized Conversion Hub ring
+        masterTl.to(camera.position, { x: 0, y: 15, z: 280, ease: "power3.inOut" }, 4)
+                .to(cameraTarget, { x: 0, y: -10, z: 250, ease: "power3.inOut" }, 4);
                 
     }, 500);
 
-    // Mouse Interaction (adds subtle drift over automated scroll path)
+    // Subtle drift layer (Mouse tracking without ruining the flight path)
     let mouseX = 0;
     let mouseY = 0;
     const windowHalfX = window.innerWidth / 2;
     const windowHalfY = window.innerHeight / 2;
 
     document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX - windowHalfX) * 0.02; // dampening
-        mouseY = (event.clientY - windowHalfY) * 0.02;
+        mouseX = (event.clientX - windowHalfX) * 0.03;
+        mouseY = (event.clientY - windowHalfY) * 0.03;
     });
 
     // --- ANIMATION LOOP ---
@@ -198,53 +232,29 @@ document.addEventListener("DOMContentLoaded", () => {
         const delta = clock.getDelta();
         const time = clock.getElapsedTime();
 
-        // 1. Animate Engine Core
-        signalCore.rotation.y += 0.5 * delta;
+        // Engine pulsing and rotation (Signal Birth)
+        signalCore.rotation.y += 0.4 * delta;
         signalCore.rotation.x += 0.2 * delta;
-        
-        // Engine pulse scaling (Data activation)
-        const pulse = 1 + Math.sin(time * 2) * 0.1;
+        const pulse = 1 + Math.sin(time * 2) * 0.08;
         signalCore.scale.set(pulse, pulse, pulse);
 
-        // Orbit rings
         rings.forEach(ring => {
             ring.mesh.rotation.x += ring.speedX;
             ring.mesh.rotation.y += ring.speedY;
         });
 
-        // 2. Animate Traffic Grid (Light Routes)
-        const positions = trafficGeo.attributes.position.array;
-        for(let i=0; i<tCount; i++) {
-            const dir = tDirs[i];
-            const speed = tSpeeds[i];
-            
-            if (dir === 0) positions[i*3] -= speed;     // -X
-            else if (dir === 1) positions[i*3] += speed; // +X
-            else if (dir === 2) positions[i*3+2] -= speed; // -Z
-            else if (dir === 3) positions[i*3+2] += speed; // +Z
-            
-            // Loop boundaries
-            const bounds = cityWidth / 2;
-            if(positions[i*3] > bounds) positions[i*3] = -bounds;
-            if(positions[i*3] < -bounds) positions[i*3] = bounds;
-            if(positions[i*3+2] > bounds) positions[i*3+2] = -bounds;
-            if(positions[i*3+2] < -bounds) positions[i*3+2] = bounds;
-            
-            // Randomly turn corners occasionally
-            if (Math.random() < 0.005) {
-                tDirs[i] = Math.floor(Math.random() * 4);
-                // Snapping to faux grid coordinates prevents pure diagonal scatter
-                // Keeps them moving along "streets" roughly
-                positions[i*3] = Math.round(positions[i*3]/10) * 10;
-                positions[i*3+2] = Math.round(positions[i*3+2]/10) * 10;
-            }
-        }
-        trafficGeo.attributes.position.needsUpdate = true;
+        // Traffic animating down the Campaign Route
+        trafficPoints.children.forEach(pt => {
+            pt.userData.progress += pt.userData.speed;
+            if(pt.userData.progress > 1) pt.userData.progress = 0;
+            const pX = curve.getPointAt(pt.userData.progress);
+            pt.position.copy(pX);
+        });
 
-        // 3. Antenna Blinking
-        antennas.material.opacity = 0.5 + Math.sin(time * 5) * 0.5;
+        // Hub Ring gentle spin
+        hubRing.rotation.z += 0.01;
 
-        // 4. Update Camera View (Merging GSAP flight target + Mouse sway layer)
+        // Compose Camera target mapping + subtle mouse hover
         const finalTarget = new THREE.Vector3().copy(cameraTarget);
         finalTarget.x += mouseX;
         finalTarget.y -= mouseY;
@@ -256,7 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     tick();
 
-    // RESIZE EVENT
+    // RESIZE FIX
     window.addEventListener('resize', () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
