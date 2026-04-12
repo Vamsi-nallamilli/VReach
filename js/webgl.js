@@ -355,84 +355,51 @@ document.addEventListener("DOMContentLoaded", () => {
         scene.fog.density = 0.007;
         fogColor.setHex(0x010203);
 
-        // Stage 2: Activation (Services)
-        ScrollTrigger.create({
-            trigger: '#services',
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: 1.5,
-            animation: gsap.timeline()
-                // Move straight forward towards Act 2
-                .to(camera.position, { x: 0, y: 15, z: -40, ease: "sine.inOut" })
-                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, "<")
-                
-                // Cinematic Dissolve completely prevents visual overlap
-                .to(act1.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
-                .to(act1.children[0].material, { opacity: 0 }, "<")
-                
-                .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, "<")
-                .to(act2.children[0].material, { opacity: 0.5 }, "<")
-                
-                .to(rimLight, { intensity: 4.5, ease: "power1.in" }, "<")
-                .to(coreMat, { emissiveIntensity: 1.5 }, "<")
+        const masterTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#main-content',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1.5
+            }
         });
 
-        // Stage 3: Coordination (Process)
-        ScrollTrigger.create({
-            trigger: '#process',
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: 1.5,
-            animation: gsap.timeline()
-                .to(camera.position, { x: 0, y: 10, z: -60, ease: "sine.inOut" })
-                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, "<")
-                .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, "<") 
-        });
+        // STEP 1: Enter SERVICES (Fade out Act 1, Fade in Act 2)
+        masterTl.to(camera.position, { x: 0, y: 15, z: -40, ease: "sine.inOut" }, 0)
+                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "sine.inOut" }, 0)
+                .to(act1.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 0)
+                .to(act1.children[0].material, { opacity: 0 }, 0)
+                .to(act2.material, { opacity: 0.85, emissiveIntensity: 0.8, ease: "power2.inOut" }, 0.2)
+                .to(act2.children[0].material, { opacity: 0.5 }, 0.2)
+                .to(rimLight, { intensity: 4.5, ease: "power1.in" }, 0)
+                .to(coreMat, { emissiveIntensity: 1.5 }, 0);
 
-        // Stage 4: Growth (Results)
-        const growTl = gsap.timeline();
-        growTl.to(camera.position, { x: 0, y: 30, z: -80, ease: "power2.inOut" })
-              .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, "<")
-              
-              // Fade out Act 2
-              .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, "<")
-              .to(act2.children[0].material, { opacity: 0 }, "<")
-              
-              .to(scene.fog, { density: 0.0015, ease: "power2.out" }, "<")
-              .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, "<");
+        // STEP 2: Enter RESULTS (Nodes Growth & Fog lifts)
+        masterTl.to(camera.position, { x: 0, y: 30, z: -70, ease: "power2.inOut" }, 1)
+                .to(cameraTarget, { x: 0, y: 15, z: -100, ease: "power2.inOut" }, 1)
+                .to(scene.fog, { density: 0.0015, ease: "power2.out" }, 1)
+                .to(fogColor, { r: 0.0, g: 0.05, b: 0.15, ease: "power1.in" }, 1);
         
-        nodes.forEach(node => {
-            growTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, "<0.2")
-                  .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, "<")
-                  .to(node.material, { emissiveIntensity: 0.8 }, "<");
+        nodes.forEach((node, i) => {
+            masterTl.to(node.scale, { y: node.userData.targetHeight * 2, ease: "power3.out" }, 1 + (i * 0.1))
+                    .to(node.position, { y: node.userData.targetHeight - 5, ease: "power3.out" }, 1 + (i * 0.1))
+                    .to(node.material, { emissiveIntensity: 0.8 }, 1 + (i * 0.1));
         });
 
-        ScrollTrigger.create({
-            trigger: '#results',
-            start: 'top bottom',
-            end: 'bottom center',
-            scrub: 1.5,
-            animation: growTl
-        });
+        // STEP 3: Enter PROCESS (Arch diving, fade out Act 2)
+        masterTl.to(camera.position, { x: 0, y: 10, z: -90, ease: "sine.inOut" }, 2)
+                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "sine.inOut" }, 2)
+                .to(act2.material, { opacity: 0, emissiveIntensity: 0, ease: "power2.inOut" }, 2)
+                .to(act2.children[0].material, { opacity: 0 }, 2)
+                .to(archMat, { opacity: 0.9, color: 0x00ffff, ease: "power1.in" }, 2);
 
-        // Stage 5: Celebration (Contact/Onboarding)
-        ScrollTrigger.create({
-            trigger: '#contact',
-            start: 'top bottom',
-            end: 'bottom bottom',
-            scrub: 1.5,
-            animation: gsap.timeline()
-                // Plunge forward exactly onto Act 3
-                .to(camera.position, { x: 0, y: 15, z: -100, ease: "power2.inOut" })
-                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, "<")
-                
-                // Final Reveal
-                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.5, ease: "power2.inOut" }, "<")
-                .to(act3.children[0].material, { opacity: 0.5 }, "<")
-                
-                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, "<")
-                .to(ambientLight, { intensity: 3.5 }, "<")
-        });
+        // STEP 4: Enter ABOUT / CONTACT (Fade in Act 3 Celebration)
+        masterTl.to(camera.position, { x: 0, y: 15, z: -120, ease: "power2.inOut" }, 3)
+                .to(cameraTarget, { x: 0, y: 15, z: -160, ease: "power2.inOut" }, 3)
+                .to(act3.material, { opacity: 0.95, emissiveIntensity: 1.5, ease: "power2.inOut" }, 3.5)
+                .to(act3.children[0].material, { opacity: 0.5 }, 3.5)
+                .to(fogColor, { r: 0.0, g: 0.25, b: 0.35, ease: "power1.in" }, 3.5)
+                .to(ambientLight, { intensity: 3.5 }, 3.5);
 
     }, 800);
 
