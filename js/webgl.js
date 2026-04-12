@@ -109,24 +109,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const screenGeo = new THREE.PlaneGeometry(35, 20); // 16:9 cinematic ratio
     
     function createVideoHologram(videoPath, imageFallback, pos, rotY) {
-        // Create an invisible HTML5 Video element
-        const video = document.createElement('video');
-        video.src = videoPath;
-        video.crossOrigin = 'anonymous';
-        video.playsInline = true;
-        video.loop = true;
-        video.muted = true; 
+        // First load the generated 2D fallback images so there's always an immediate visual layout
+        const texLoader = new THREE.TextureLoader();
+        const fallbackTex = texLoader.load(imageFallback);
+        fallbackTex.encoding = THREE.sRGBEncoding;
         
-        // Attempt to play, handle browser autoplay policies gracefully
-        video.play().catch((e) => console.warn("Waiting for interaction to play video:", e));
-
-        const tex = new THREE.VideoTexture(video);
-        tex.colorSpace = THREE.SRGBColorSpace;
-        
-        // Emissive material to look like a glowing screen in the dark
+        // Emissive material starting with the static fallback image
         const mat = new THREE.MeshPhysicalMaterial({
-            map: tex,
-            emissiveMap: tex,
+            map: fallbackTex,
+            emissiveMap: fallbackTex,
             emissive: 0xffffff,
             emissiveIntensity: 0.8,
             transparent: true,
@@ -137,6 +128,26 @@ document.addEventListener("DOMContentLoaded", () => {
             roughness: 0.2,
             side: THREE.DoubleSide
         });
+
+        // Create an invisible HTML5 Video element targeting the video path
+        const video = document.createElement('video');
+        video.src = videoPath;
+        video.crossOrigin = 'anonymous';
+        video.playsInline = true;
+        video.loop = true;
+        video.muted = true; 
+        
+        // If the video actually loads and plays successfully, smoothly swap the texture!
+        video.addEventListener('playing', () => {
+            const videoTex = new THREE.VideoTexture(video);
+            videoTex.encoding = THREE.sRGBEncoding;
+            mat.map = videoTex;
+            mat.emissiveMap = videoTex;
+            mat.needsUpdate = true;
+        });
+
+        // Attempt to play, handle browser autoplay/404 policies gracefully
+        video.play().catch((e) => console.warn(`Waiting for interaction or valid file for ${videoPath}`));
 
         const screen = new THREE.Mesh(screenGeo, mat);
         screen.position.copy(pos);
