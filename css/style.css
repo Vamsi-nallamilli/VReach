@@ -656,6 +656,28 @@ form ::placeholder {
   color: rgba(255,255,255,0.2);
 }
 
+/* Onboarding CTA section */
+.cta-panel {
+  min-height: 50vh !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-box {
+  padding: 5rem 2rem;
+  text-align: center;
+  border-width: 1px;
+}
+
+.text-center { text-align: center; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.cta-glow {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  text-shadow: 0 0 20px var(--cyan-dim);
+}
+
 /* Onboarding Trigger Toast / Popup */
 #congrats-toast {
   position: fixed;

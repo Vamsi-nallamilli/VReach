@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // --- Modal interactions
     const modal = document.getElementById('onboarding-modal');
     const congratsBtn = document.getElementById('congrats-btn');
+    const toastCongratsBtn = document.getElementById('toast-congrats-btn');
     const closeBtns = document.querySelectorAll('.close-modal');
 
     function openModal() {
@@ -140,6 +141,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (congratsBtn) {
         congratsBtn.addEventListener('click', openModal);
+    }
+    if (toastCongratsBtn) {
+        toastCongratsBtn.addEventListener('click', openModal);
     }
     
     closeBtns.forEach(btn => btn.addEventListener('click', (e) => {
